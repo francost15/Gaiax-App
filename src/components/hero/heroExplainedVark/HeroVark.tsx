@@ -42,7 +42,7 @@ export const HeroVark = () => {
             <Card key={style.name} className="transition-all duration-300 ease-in-out bg-white border-none shadow-none group ">
               <CardContent className="flex flex-col items-center h-full p-6 text-center">
                 <div className="p-3 mb-6 transition-all duration-300 bg-blue-100 rounded-full group-hover:bg-blue-200">
-                  <style.icon className="w-8 h-8 text-blue-600" />
+                  <style.icon className="w-8 h-8 text-primaryper" />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold text-gray-900 transition-colors duration-300 ">{style.name}</h3>
                 <p className="text-sm text-gray-600 transition-colors duration-300 ">{style.description}</p>

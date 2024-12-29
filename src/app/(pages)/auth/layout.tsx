@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Plataforma de aprendizaje adaptativo basada en IA",
 //   opwn grap sirve para que las redes sociales puedan mostrar la información de la página
   openGraph: {
-    title: 'Gaiax - Demo Gratis',
+    title: 'Gaiax - Auth',
     description: 'Plataforma de aprendizaje adaptativo basada en IA',
     type: 'website',
     locale: 'es_ES',

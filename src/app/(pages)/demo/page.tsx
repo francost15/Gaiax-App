@@ -1,10 +1,10 @@
-import { HeroFeatures, HeroHome, HeroVark, NavbarHome } from "@/components";
+import { HeroFeatures, HeroHome, HeroVark, NavbarDemo } from "@/components";
 
 export default function DemoPage() {
     
     return (
         <div>
-            <NavbarHome />
+            <NavbarDemo />
             <HeroHome />
             <HeroVark />
             <HeroFeatures />

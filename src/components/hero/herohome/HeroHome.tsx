@@ -10,7 +10,7 @@ export const HeroHome = () => {
             <span className="block ">
               Desata el potencial oculto de tu Empresa
             </span>
-            <span className="block mt-2 text-blue-600">
+            <span className="block mt-2 text-primaryper">
               con nuestra IA
             </span>
           </h1>
@@ -18,7 +18,7 @@ export const HeroHome = () => {
             Potencia el aprendizaje de tu equipo con capacitación adaptativa basada en IA y el modelo VARK.
           </p>
           <div className="flex items-center mt-10 gap-x-6">
-            <Button size="lg" className="transition-colors duration-300 bg-blue-600 hover:bg-blue-700">
+            <Button size="lg" className="transition-colors duration-300 bg-primaryper hover:bg-primary-hover text-white">
               Comenzar ahora
             </Button>
             <Button variant="outline" size="lg" className="transition-colors duration-300">

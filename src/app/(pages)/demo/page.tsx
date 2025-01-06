@@ -1,4 +1,4 @@
-import { HeroFeatures, HeroHome, HeroVark, NavbarDemo } from "@/components";
+import { HeroFeatures, HeroHome, HeroVark, NavbarDemo, UpButton } from "@/components";
 
 export default function DemoPage() {
     
@@ -8,6 +8,7 @@ export default function DemoPage() {
             <HeroHome />
             <HeroVark />
             <HeroFeatures />
+            <UpButton />
         </div>
     );
 }

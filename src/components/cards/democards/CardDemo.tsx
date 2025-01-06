@@ -22,8 +22,9 @@ export const CardDemo = () => {
             <input
               required
               title='Nombre de la empresa'
+              placeholder='Nombre de la empresa'
               type="text"
-              className="block w-full px-3 py-2 mt-1 transition-all duration-300 border border-gray-300 rounded-md shadow-sm focus:border-primaryper focus:outline-none focus:ring-1 focus:ring-primaryper"
+              className="block w-full px-3 py-2 mt-1 text-black transition-all duration-300 bg-white border border-gray-300 rounded-md shadow-sm focus:border-primaryper focus:outline-none focus:ring-1 focus:ring-primaryper"
             />
           </div>
           <div>
@@ -35,7 +36,8 @@ export const CardDemo = () => {
               required
               title='Correo electrónico'
               type="email"
-              className="block w-full px-3 py-2 mt-1 transition-all duration-300 border border-gray-300 rounded-md shadow-sm focus:border-primaryper focus:outline-none focus:ring-1 focus:ring-primaryper"
+              placeholder='correo@example.com'
+              className="block w-full px-3 py-2 mt-1 text-black transition-all duration-300 bg-white border border-gray-300 rounded-md shadow-sm focus:border-primaryper focus:outline-none focus:ring-1 focus:ring-primaryper"
             />
           </div>
           <div>
@@ -47,25 +49,28 @@ export const CardDemo = () => {
               required
               title='Teléfono'
               type="tel"
-              className="block w-full px-3 py-2 mt-1 transition-all duration-300 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              placeholder='(55) 1234 5678'
+              className="block w-full px-3 py-2 mt-1 text-black transition-all duration-300 bg-white border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-            <span className='text-red-600'>*</span>
               Número de empleados
+            <span className='text-red-600'>*</span>
             </label>
             <select
               required
               title='Número de empleados'
-              className="block w-full px-3 py-2 mt-1 transition-all duration-300 border border-gray-300 rounded-md shadow-sm focus:border-primaryper focus:outline-none focus:ring-1 focus:ring-primaryper">
+              className="block w-full px-3 py-2 mt-1 text-black transition-all duration-300 bg-white border border-gray-300 rounded-md shadow-sm focus:border-primaryper focus:outline-none focus:ring-1 focus:ring-primaryper">
               <option>1-10</option>
               <option>11-50</option>
               <option>51-200</option>
               <option>201+</option>
             </select>
           </div>
-          <Button className="w-full font-bold transition-colors duration-300 bg-primaryper hover:bg-primary-hover text-white">
+          <Button 
+          title='Obten tu demo personalizada'
+          className="w-full font-bold text-white transition-colors duration-300 bg-primaryper hover:bg-primary-hover">
             Obten tu demo personalizada
           </Button>
         </div>

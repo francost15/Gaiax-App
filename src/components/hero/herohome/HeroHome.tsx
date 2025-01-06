@@ -18,10 +18,14 @@ export const HeroHome = () => {
             Potencia el aprendizaje de tu equipo con capacitación adaptativa basada en IA y el modelo VARK.
           </p>
           <div className="flex items-center mt-10 gap-x-6">
-            <Button size="lg" className="transition-colors duration-300 bg-primaryper hover:bg-primary-hover text-white">
+            <Button
+            title='Comenzar ahora'
+            size="lg" className="text-white transition-colors duration-300 bg-primaryper hover:bg-primary-hover">
               Comenzar ahora
             </Button>
-            <Button variant="outline" size="lg" className="transition-colors duration-300">
+            <Button 
+            title='Conoce más sobre nuestra IA'
+            variant="outline" size="lg" className="transition-colors duration-300 hover:text-primaryper ">
               Conoce más
             </Button>
           </div>

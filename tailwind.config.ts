@@ -51,9 +51,9 @@ export default {
           "5": "hsl(var(--chart-5))",
         },
         // Colores personalizados
-        primaryper: "#6366F1",
-        "primary-hover": "#5558DD",
-        "primary-focus": "#6366F1",
+        primaryper: "#6366F1", // Asegúrate de que este color tenga suficiente contraste
+        "primary-hover": "#8082ec", // Asegúrate de que este color tenga suficiente contraste
+        "primary-focus": "#0407ab", // Asegúrate de que este color tenga suficiente contraste
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -1,9 +1,15 @@
 // interfaces/Empresa.ts
+
+import { RequirementCompany } from "./RequerimientoEmpresa_interface";
+import { User } from "./Usuario_interface";
+
 // Representa una empresa que utiliza la plataforma.
-export interface Empresa {
-  id: number; // Identificador único de la empresa.
-  nombre: string; // Nombre de la empresa.
-  direccion: string; // Dirección física de la empresa.
-  telefono: string; // Número de teléfono de contacto de la empresa.
-  membresiaId: number; // Referencia a la membresía asociada a la empresa.
+export interface Company {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
+  membershipId: string;
+  users: User[];
+  requirements: RequirementCompany[];
 }

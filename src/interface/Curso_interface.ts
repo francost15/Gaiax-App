@@ -1,8 +1,17 @@
 // interfaces/Curso.ts
 // Representa un curso compuesto por varias lecciones.
-export interface Curso {
-  id: number; // Identificador único del curso.
-  nombre: string; // Nombre del curso.
-  descripcion: string; // Descripción del curso.
-  categoria: string; // Categoría a la que pertenece el curso.
+
+import { Lesson } from "./Leccion_interface";
+import { UserProgress } from "./ProgresoUsuario_interface";
+
+// Course
+export interface Course {
+  id: string;
+  title: string;
+  description: string;
+  url?: string | null;
+  exp: number;
+  categoryId: string;
+  lessons: Lesson[];
+  UserProgress: UserProgress[];
 }

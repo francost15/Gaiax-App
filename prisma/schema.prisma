@@ -185,7 +185,7 @@ model UserLessonProgress {
   userProgressId String?
 }
 
-// progreso de usuario
+// progreso de usuario en un curso
 model UserProgress {
   id               String               @id @default(uuid())
   user             User                 @relation(fields: [userId], references: [id])

@@ -12,7 +12,7 @@ export default function LayoutClient({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   return (
-    <div className="text-gray-900 bg-gray-50 dark:bg-neutral-800 dark:text-gray-100 no-b">
+    <div className="text-gray-900 bg-gray-50 dark:bg-neutral-800 dark:text-gray-100">
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       <div>
         <NavbarApp isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />

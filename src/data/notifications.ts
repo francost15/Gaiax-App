@@ -1,6 +1,6 @@
-import { INotification } from "@/interface";
+import { Notificacion } from "@/interface";
 
-export const NOTIFICATIONS: INotification[] = [
+export const NOTIFICATIONS: Notificacion[] = [
   {
     id: 1,
     title: "¡Nueva lección disponible!",

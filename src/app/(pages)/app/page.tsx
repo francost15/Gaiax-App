@@ -1,6 +1,6 @@
 "use client";
 import { CoursesProgress, ProgressOverview, RecommendedCourses, WelcomeSection } from "@/components"
-import { STATS_DATA } from "@/data"
+
 
 
 const USER = {
@@ -17,8 +17,8 @@ const USER = {
 export default function Dashboard() {
   return (
     <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <WelcomeSection user={USER} />
-      <ProgressOverview user={USER} stats={STATS_DATA} />
+      <WelcomeSection  />
+      <ProgressOverview user={USER} />
       <CoursesProgress />
       <RecommendedCourses />
     </div>

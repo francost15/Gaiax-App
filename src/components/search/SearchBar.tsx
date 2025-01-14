@@ -1,11 +1,11 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { Search, X } from 'lucide-react'
+import { Search, } from 'lucide-react'
 import { useId } from 'react'
 import { RecommendedCourse } from '@/interface'
 import { RECOMMENDED_COURSES } from '@/data'
-import { Input, Button } from '@/components'
+import { Input,  } from '@/components'
 import { SearchResults } from './SearchResults'
 
 
@@ -50,11 +50,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  const clearSearch = useCallback(() => {
-    setSearchTerm('')
-    onSearch([])
-    setResults([])
-  }, [onSearch])
+
 
   return (
     <div ref={searchRef} className="relative w-96">
@@ -63,11 +59,13 @@ export function SearchBar({ onSearch }: SearchBarProps) {
           Buscar cursos
         </label>
         <Search
+        
           className="absolute w-4 h-4 text-gray-400 -translate-y-1/2 left-3 top-1/2"
           aria-hidden="true"
         />
         <Input
-          id={searchId}
+        aria-labelledby={searchId}
+        id={searchId}
           type="search"
           placeholder="Buscar cursos..."
           className="w-full py-2 pl-10 pr-10 bg-gray-100 border-gray-200 dark:bg-neutral-800 dark:border-neutral-700 focus:border-[#6366F1] dark:focus:border-[#7375F3] focus:ring-1 focus:ring-[#6366F1] dark:focus:ring-[#7375F3]"
@@ -78,17 +76,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
           aria-describedby={resultsId}
           role="searchbox"
         />
-        {searchTerm && (
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute hidden w-6 h-6 -translate-y-1/2 right-2 top-1/2 sm:flex"
-            onClick={clearSearch}
-            aria-label="Limpiar búsqueda"
-          >
-            <X className="w-4 h-4 text-gray-400" aria-hidden="true" />
-          </Button>
-        )}
+      
       </div>
       {isSearching && (
         <div

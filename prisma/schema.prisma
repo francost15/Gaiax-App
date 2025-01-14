@@ -1,0 +1,199 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// un enum de estilos de aprndizaje
+enum LearningStyle {
+  Visual
+  Auditivo
+  Kinestesico
+}
+
+// un enum de roles
+enum Role {
+  admin
+  user
+}
+
+// Modelo que representa una empresa que utiliza la plataforma para capacitar a sus empleados
+model Company {
+  id           String               @id @default(uuid())
+  name         String
+  address      String
+  phone        String
+  // membresia
+  membership   Membership           @relation(fields: [membershipId], references: [id])
+  membershipId String
+  users        User[]
+  requirements RequirementCompany[]
+}
+
+// Modelo que representa los tipos de membresias que se pueden adquirir
+model Membership {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  price       Float
+  // limite de usuarios
+  limitUsers  Int
+  companies   Company[]
+}
+
+// Modelo que representa a un usuario de la plataforma
+model User {
+  id                 String               @id @default(uuid())
+  name               String
+  lastname           String
+  direction          String?
+  phone              String
+  email              String               @unique
+  password           String
+  // rachas de dias
+  streaks            Int
+  // puntaje
+  exp                Int
+  isAdmin            Boolean              @default(false)
+  role               Role
+  // empresa
+  company            Company              @relation(fields: [companyId], references: [id])
+  companyId          String
+  // Estilo de aprendizaje
+  learningStyle      LearningStyle
+  // Logros
+  UserArchivement    UserArchivement[]
+  // Progreso
+  UserProgress       UserProgress[]
+  // Progreso de lecciones
+  UserLessonProgress UserLessonProgress[]
+}
+
+// Categoria
+model Category {
+  id           String               @id @default(uuid())
+  name         String
+  description  String
+  // contenido
+  contents     Content[]
+  // cursos
+  courses      Course[]
+  // requerimientos
+  requirements RequirementCompany[]
+}
+
+// Contenido
+model Content {
+  id          String        @id @default(uuid())
+  title       String
+  description String        @default("")
+  // el url va ser opcional por si se quiere subir un archivo
+  url         String?
+  exp         Int
+  // tipo de contenido
+  type        LearningStyle
+  category    Category      @relation(fields: [categoryId], references: [id])
+  categoryId  String
+}
+
+// Requerimientos de empresa
+model RequirementCompany {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  // empresa
+  company     Company  @relation(fields: [companyId], references: [id])
+  companyId   String
+  // aqui ira la categoria que querra la empresa
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  String
+}
+
+// Logros
+model Achievement {
+  id          String            @id @default(uuid())
+  name        String
+  description String
+  exp         Int
+  // usuarios
+  users       UserArchivement[]
+}
+
+model UserArchivement {
+  id            String      @id @default(uuid())
+  // usuario
+  user          User        @relation(fields: [userId], references: [id])
+  userId        String
+  // logro
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+  achievementId String
+  // fecha de obtencion
+  date          DateTime
+}
+
+// Cursos
+model Course {
+  id           String         @id @default(uuid())
+  title        String
+  description  String
+  // el url va ser opcional por si se quiere subir un archivo
+  url          String?
+  exp          Int
+  // categoria
+  category     Category       @relation(fields: [categoryId], references: [id])
+  // lecciones
+  lessons      Lesson[]
+  categoryId   String
+  UserProgress UserProgress[]
+}
+
+// lecciones
+model Lesson {
+  id                 String               @id @default(uuid())
+  title              String
+  description        String
+  // el url va ser opcional por si se quiere subir un archivo
+  url                String?
+  exp                Int
+  // curso
+  course             Course               @relation(fields: [courseId], references: [id])
+  courseId           String
+  UserProgress       UserProgress?        @relation(fields: [userProgressId], references: [id])
+  userProgressId     String?
+  UserLessonProgress UserLessonProgress[]
+}
+
+model UserLessonProgress {
+  id             String        @id @default(uuid())
+  user           User          @relation(fields: [userId], references: [id])
+  userId         String
+  lesson         Lesson        @relation(fields: [lessonId], references: [id])
+  lessonId       String
+  completed      Boolean       @default(false)
+  // Fecha de completación
+  completedAt    DateTime?
+  UserProgress   UserProgress? @relation(fields: [userProgressId], references: [id])
+  userProgressId String?
+}
+
+// progreso de usuario
+model UserProgress {
+  id               String               @id @default(uuid())
+  user             User                 @relation(fields: [userId], references: [id])
+  userId           String
+  course           Course               @relation(fields: [courseId], references: [id])
+  courseId         String
+  // Relación con la tabla intermedia
+  lessonsCompleted UserLessonProgress[]
+  progress         Int
+  Lesson           Lesson[]
+}

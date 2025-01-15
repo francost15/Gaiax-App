@@ -1,20 +1,22 @@
-"use client"
+"use client";
 
-import React from "react"
-import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { SessionProvider } from "next-auth/react"
+import { SessionProvider } from "next-auth/react";
 
 interface Props {
-  children: React.ReactNode
+    children:React.ReactNode;
 }
 
-export const ThemeProvider = ({
-  children,
-  ...props
-}: Props & React.ComponentProps<typeof NextThemesProvider>) => {
+export const Provider = ({children}:Props) => {
   return (
-    <NextThemesProvider {...props}>
-      <SessionProvider>{children}</SessionProvider>
-    </NextThemesProvider>
-  )
+    // <PayPalScriptProvider 
+    // options={{ 
+    //     clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? '',
+    //     intent: "capture",
+    //     currency: "MXN",
+    //     }}>
+    <SessionProvider>
+        {children}
+    </SessionProvider>    
+    // </PayPalScriptProvider>
+)
 }

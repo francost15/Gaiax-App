@@ -1,27 +1,25 @@
 import Link from 'next/link'
 import { Card, CardContent } from "@/components/ui/card"
 import { TrophyIcon as TrophyFilled } from 'lucide-react'
-import { EstiloAprendizaje, Usuario } from '@/interface'
+import { LearningStyle, User } from '@/interface'
+
 
 // Mock data for the top 3 in the leaderboard
-const topThree: Usuario[] = [
+const topThree: User[] = [
     {
-      id: 1,
-      nombre: 'Ana García',
-      apellido: 'García',
-      direccion: '',
-      telefono: '',
+      id: 'dfdffd',
+      name: 'Ana García',
+      lastname: 'García',
+      
+      phone: '',
       email: '',
       password: '',
-      puesto: '',
-      empresaId: 1,
-      estiloAprendizaje: EstiloAprendizaje.auditivo,
-      rachaDias: 15,
-      puntaje: 1200,
-      esAdministrador: false
+      position: '',
+      
+      learningStyle: LearningStyle.Visual,
     },
     {
-      id: 2,
+      id: 'ddfdf',
       nombre: 'Carlos Rodríguez',
       apellido: 'Rodríguez',
       direccion: '',
@@ -30,26 +28,12 @@ const topThree: Usuario[] = [
       password: '',
       puesto: '',
       empresaId: 1,
-      estiloAprendizaje: EstiloAprendizaje.visual,
+      estiloAprendizaje: LearningStyle.Kinestesico,
       rachaDias: 12,
       puntaje: 1150,
       esAdministrador: false
     },
-    {
-      id: 3,
-      nombre: 'María López',
-      apellido: 'López',
-      direccion: '',
-      telefono: '',
-      email: '',
-      password: '',
-      puesto: '',
-      empresaId: 1,
-      estiloAprendizaje: EstiloAprendizaje.kinestesico,
-      rachaDias: 10,
-      puntaje: 1100,
-      esAdministrador: false
-    }
+
   ]
 // ...existing code...
 export function RankingWidget() {

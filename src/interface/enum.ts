@@ -5,6 +5,15 @@ export enum LearningStyle {
 }
 
 export enum Role {
-  admin = "admin",
-  user = "user",
+  Manager = "Manager",
+  Supervisor = "Supervisor",
+  Employee = "Employee",
+  Intern = "Intern",
+  HR = "HR", // Recursos Humanos
+  IT = "IT", // Tecnología de la Información
+  Sales = "Sales", // Ventas
+  Marketing = "Marketing", // Marketing
+  Finance = "Finance", // Finanzas
+  Support = "Support", // Soporte
+  Other = "Other",
 }

@@ -55,8 +55,6 @@ model User {
   id                 String               @id @default(uuid())
   name               String
   lastname           String
-  direction          String?
-  phone              String
   email              String               @unique
   password           String
   // rachas de dias
@@ -70,7 +68,7 @@ model User {
   companyId          String
   // Estilo de aprendizaje
   learningStyle      LearningStyle
-  // Logros
+  // Logros que sea opcional o al inicio nullo 
   UserArchivement    UserArchivement[]
   // Progreso
   UserProgress       UserProgress[]

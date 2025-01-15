@@ -11,8 +11,6 @@ export interface User {
   id: string;
   name: string;
   lastname: string;
-  direction?: string | null;
-  phone: string;
   email: string;
   password: string;
   streaks: number;

@@ -16,6 +16,7 @@ export interface User {
   streaks: number;
   exp: number;
   isAdmin: boolean;
+  image?: string;
   role: Role;
   companyId: string;
   learningStyle: LearningStyle;

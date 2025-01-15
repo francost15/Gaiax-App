@@ -1,13 +1,7 @@
 "use server";
 import bcryptjs from "bcryptjs";
 import prisma from "@/lib/prisma";
-import {
-  LearningStyle,
-  Role,
-  UserArchivement,
-  UserLessonProgress,
-  UserProgress,
-} from "@/interface";
+import { LearningStyle, Role } from "@/interface";
 export const registerUser = async (
   name: string,
   lastname: string,
@@ -18,10 +12,7 @@ export const registerUser = async (
   isAdmin: boolean,
   role: Role,
   companyId: string,
-  learningStyle: LearningStyle,
-  UserArchivement: UserArchivement[],
-  UserProgress: UserProgress[],
-  UserLessonProgress: UserLessonProgress[]
+  learningStyle: LearningStyle
 ) => {
   try {
     const user = await prisma.user.create({
@@ -36,9 +27,15 @@ export const registerUser = async (
         role: role,
         companyId: companyId,
         learningStyle: learningStyle,
-        UserArchivement: UserArchivement,
-        UserProgress: UserProgress,
-        UserLessonProgress: UserLessonProgress,
+        UserArchivement: {
+          create: [],
+        },
+        UserProgress: {
+          create: [],
+        },
+        UserLessonProgress: {
+          create: [],
+        },
       },
       select: {
         id: true,

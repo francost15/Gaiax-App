@@ -1,15 +1,23 @@
-import { CoursesProgress, ProgressOverview, RecommendedCourses, WelcomeSection } from "@/components";
+"use client";
+import {
+  CoursesProgress,
+  ProgressOverview,
+  RecommendedCourses,
+  WelcomeSection,
+} from "@/components";
+import { useSession } from "next-auth/react";
 
-
-
-
-
-export default async function Dashboard() {
-
+export default function Dashboard() {
+  const { data: session } = useSession();
+  const user = session?.user;
   return (
     <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <WelcomeSection />
-      <ProgressOverview />
+      <WelcomeSection
+        name={user?.name ?? ""}
+        lastname={user?.lastname ?? ""}
+        streaks={user?.streaks ?? 0}
+      />
+      <ProgressOverview xp={user?.exp ?? 0} lesson={0} progress={0} />
       <CoursesProgress />
       <RecommendedCourses />
     </div>

@@ -1,29 +1,38 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { ChatbotButton } from './chatbot_button'
-import { ChatbotWindow } from './chatbot_window'
+import { useEffect } from "react";
+import { ChatbotButton } from "./chatbot_button";
+import { ChatbotWindow } from "./chatbot_window";
+import { useChatStore } from "@/store";
 
 export const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const isOpenChat = useChatStore((state) => state.isChatOpen);
+
+  const openChat = useChatStore((state) => state.openChat);
+  const closeChat = useChatStore((state) => state.closeChat);
+  const setIsMobile = useChatStore((state) => state.setIsMobile);
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, [setIsMobile]);
 
-  const toggleChatbot = () => setIsOpen(!isOpen)
+  const toggleChatbot = () => {
+    if (isOpenChat) {
+      closeChat();
+    } else {
+      openChat();
+    }
+  };
 
   return (
     <>
-      {!isOpen && <ChatbotButton onClick={toggleChatbot} />}
-      {isOpen && <ChatbotWindow onClose={toggleChatbot} isMobile={isMobile} />}
+      {!isOpenChat && <ChatbotButton onClick={toggleChatbot} />}
+      {isOpenChat && <ChatbotWindow />}
     </>
-  )
-}
-
+  );
+};

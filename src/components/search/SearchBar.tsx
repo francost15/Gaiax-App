@@ -3,20 +3,20 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Search, } from 'lucide-react'
 import { useId } from 'react'
-import { RecommendedCourse } from '@/interface'
 import { RECOMMENDED_COURSES } from '@/data'
 import { Input,  } from '@/components'
 import { SearchResults } from './SearchResults'
+import { Course } from '@/interface'
 
 
 interface SearchBarProps {
-  onSearch: (results: RecommendedCourse[]) => void
+  onSearch: (results: Course[]) => void
 }
 
 export function SearchBar({ onSearch }: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState('')
   const [isSearching, setIsSearching] = useState(false)
-  const [results, setResults] = useState<RecommendedCourse[]>([])
+  const [results, setResults] = useState<Course[]>([])
   const searchRef = useRef<HTMLDivElement>(null)
   const searchId = useId()
   const resultsId = useId()

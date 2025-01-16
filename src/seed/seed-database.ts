@@ -40,8 +40,6 @@ export interface User {
   id: string;
   name: string;
   lastname: string;
-  direction?: string | null;
-  phone: string;
   email: string;
   password: string;
   streaks: number;
@@ -178,8 +176,6 @@ const users: Omit<
   {
     name: "Franco",
     lastname: "Sanchez",
-    direction: "Calle 1, Ciudad",
-    phone: "5551234567",
     email: "franco@example.com",
     password: bcrypt.hashSync("rojito33"),
     streaks: 5,

@@ -22,14 +22,14 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 py-12 bg-gray-50 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center min-h-screen px-4 py-12 bg-gray-50 dark:bg-neutral-800 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div>
           <h2 className="mt-6 text-3xl font-extrabold text-center">
-            <span className="text-gray-900">Crear</span>{' '}
+            <span className="text-gray-900 dark:text-white">Crear</span>{' '}
             <span className="text-primaryper">una cuenta</span>
           </h2>
-          <p className="mt-2 text-sm text-center text-gray-600">
+          <p className="mt-2 text-sm text-center text-gray-600 dark:text-gray-300">
             Regístrate para comenzar tu viaje de aprendizaje
           </p>
         </div>
@@ -47,7 +47,7 @@ export default function RegisterPage() {
                   required
                   className={`block w-full px-3 py-2 border ${
                     errors.nombre ? 'border-red-500' : 'border-gray-300'
-                  } placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-primary-focus focus:border-primary-focus sm:text-sm`}
+                  } bg-white placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-primary-focus focus:border-primary-focus sm:text-sm`}
                   placeholder="Nombre"
                   value={nombre}
                   onChange={(e) => {
@@ -71,7 +71,7 @@ export default function RegisterPage() {
                   required
                   className={`block w-full px-3 py-2 border ${
                     errors.apellidos ? 'border-red-500' : 'border-gray-300'
-                  } placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-primary-focus focus:border-primary-focus sm:text-sm`}
+                  } bg-white placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-primary-focus focus:border-primary-focus sm:text-sm`}
                   placeholder="Apellidos"
                   value={apellidos}
                   onChange={(e) => {
@@ -97,7 +97,7 @@ export default function RegisterPage() {
                 required
                 className={`block w-full px-3 py-2 border ${
                   errors.email ? 'border-red-500' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary-focus focus:border-primary-focus sm:text-sm`}
+                } placeholder-gray-500 text-gray-900 bg-white focus:outline-none focus:ring-primary-focus focus:border-primary-focus sm:text-sm`}
                 placeholder="Correo electrónico"
                 value={email}
                 onChange={(e) => {
@@ -122,7 +122,7 @@ export default function RegisterPage() {
                 required
                 className={`block w-full px-3 py-2 border ${
                   errors.password ? 'border-red-500' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary-focus focus:border-primary-focus sm:text-sm`}
+                } placeholder-gray-500 bg-white text-gray-900 focus:outline-none focus:ring-primary-focus focus:border-primary-focus sm:text-sm`}
                 placeholder="Contraseña"
                 value={password}
                 onChange={(e) => {
@@ -183,16 +183,16 @@ export default function RegisterPage() {
                 <SelectTrigger
                   className={`w-full px-3 py-2 border ${
                     errors.empresa ? 'border-red-500' : 'border-gray-300'
-                  } placeholder-gray-500 text-gray-900 bg-white rounded-b-md focus:outline-none focus:ring-primary-focus focus:border-primary-focus sm:text-sm`}
+                  } placeholder-gray-500 text-gray-900 bg-white  rounded-b-md focus:outline-none focus:ring-primary-focus focus:border-primary-focus sm:text-sm`}
                 >
                   <SelectValue placeholder="Selecciona tu empresa" />
                 </SelectTrigger>
-                <SelectContent className="bg-white">
+                <SelectContent className="bg-white dark:bg-neutral-800 border-none">
                   {empresas.map((e) => (
                     <SelectItem
                       key={e}
                       value={e}
-                      className="data-[highlighted]:bg-primaryper data-[highlighted]:text-white"
+                      className="data-[highlighted]:bg-primaryper data-[highlighted]:text-white "
                     >
                       {e}
                     </SelectItem>
@@ -216,7 +216,7 @@ export default function RegisterPage() {
           </div>
         </form>
         <div className="text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
             ¿Ya tienes una cuenta?{' '}
             <Link href="/auth/login" className="font-medium text-primaryper hover:text-primary-hover">
               Inicia sesión aquí

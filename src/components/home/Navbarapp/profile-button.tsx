@@ -4,6 +4,8 @@ import {   DropdownMenu, DropdownMenuContent, DropdownMenuItem,DropdownMenuLabel
     DropdownMenuSubContent,DropdownMenuSubTrigger, Avatar, AvatarFallback } from "@/components"
 import { useTheme } from "next-themes"
 import Link from 'next/link'
+import { signOut } from 'next-auth/react'
+
 
 export const ProfileButton: React.FC = () => {
   const { setTheme } = useTheme()
@@ -78,12 +80,17 @@ export const ProfileButton: React.FC = () => {
             <span>Ayuda</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator className="my-2 bg-gray-200 dark:bg-neutral-700" />
-        <DropdownMenuItem className="text-red-600 rounded-md dark:text-red-400 focus:bg-red-50 dark:focus:bg-red-900/20">
-          <LogOut className="w-4 h-4 mr-2" />
-          <span>Cerrar sesión</span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
+       
+<DropdownMenuSeparator className="my-2 bg-gray-200 dark:bg-neutral-700" />
+<DropdownMenuItem
+  className="text-red-600 rounded-md dark:text-red-400 focus:bg-red-50 dark:focus:bg-red-900/20"
+  onSelect={() => signOut()}
+>
+  <LogOut className="w-4 h-4 mr-2" />
+  <span>Cerrar sesión</span>
+</DropdownMenuItem>
+</DropdownMenuContent>
+
     </DropdownMenu>
   )
 }

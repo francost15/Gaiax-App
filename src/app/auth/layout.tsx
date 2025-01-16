@@ -25,8 +25,9 @@ export default async function AuthLayout({
     if (session?.user){
       redirect('/app')
     }
-    return( <section>
+    return( 
+    <div>
         <NavbarAuth />
         {children}
-        </section>)
+    </div>)
   }

@@ -1,21 +1,20 @@
-'use client'
+"use client"
 
-import { useState, useEffect } from 'react'
+import { useEffect } from "react"
 import Link from "next/link"
-import { Button, Input, Label } from '@/components'
-import { useFormState, useFormStatus } from "react-dom"
-
+import { useActionState } from "react"
+import { Input, Label } from "@/components"
 import { IoInformationOutline } from "react-icons/io5"
-import { authenticate } from '@/actions'
-import clsx from 'clsx'
+import { authenticate } from "@/actions"
+import clsx from "clsx"
+import { useFormStatus } from "react-dom"
 
 export default function LoginPage() {
-
-  const [state, dispatch] = useFormState(authenticate, undefined)
+  const [state, dispatch] = useActionState(authenticate, undefined)
 
   useEffect(() => {
-    if (state === 'Success') {
-      window.location.replace('/')
+    if (state === "Success") {
+      window.location.replace("/app")
     }
   }, [state])
 
@@ -25,12 +24,14 @@ export default function LoginPage() {
         <div className="w-full max-w-md space-y-8">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold">
-              <span className="text-gray-900">Iniciar</span> <span className="text-primaryper">sesión</span>
+              <span className="text-gray-900">Iniciar</span>{" "}
+              <span className="text-primaryper">sesión</span>
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               Accede a tu cuenta para comenzar
             </p>
           </div>
+
           <form className="mt-8 space-y-6" action={dispatch}>
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -43,7 +44,7 @@ export default function LoginPage() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="px-5 py-2 border bg-gray-200 rounded mb-5"
+                  className="px-5 py-2 border bg-gray-200 text-black border-primaryper rounded mb-5"
                 />
               </div>
               <div>
@@ -56,12 +57,16 @@ export default function LoginPage() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="px-5 py-2 border bg-gray-200 rounded mb-5"
+                  className="px-5 py-2 border bg-gray-200 text-black border-primary rounded mb-5"
                 />
               </div>
             </div>
 
-            <div className="flex h-8 items-end space-x-1" aria-live="polite" aria-atomic="true">
+            <div
+              className="flex h-8 items-end space-x-1"
+              aria-live="polite"
+              aria-atomic="true"
+            >
               {state === "CredentialsSignin" && (
                 <div className="flex flex-row mb-2">
                   <IoInformationOutline className="h-5 w-5 text-red-500" />
@@ -96,9 +101,9 @@ function LoginButton() {
   return (
     <button
       type="submit"
-      className={clsx({
-        "btn-primary": !pending,
-        "btn-disabled": pending
+      className={ clsx({
+        " bg-primaryper hover:bg-primary-hover p-3 w-full rounded-xl": !pending,
+        "bg-neutral-400 hover:bg-neutral-500 p-3 w-full rounded-xl": pending,
       })}
       disabled={pending}
     >

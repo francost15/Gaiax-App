@@ -5,7 +5,10 @@ import { Provider, ThemeProvider } from "@/providers";
 
 
 export const metadata: Metadata = {
-  title: "Gaiax",
+  title: {
+    template: "%s - Gaiax | Learning Platform",
+    default: "Home - Gaiax | Learning Platform",
+  },
   description: "Plataforma de aprendizaje adaptativo basada en IA",
 };
 
@@ -17,16 +20,16 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body className="antialiased ">
+            <Provider>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
           >
-            <Provider>
           {children}
-            </Provider>
           </ThemeProvider>
+            </Provider>
       </body>
     </html>
   );

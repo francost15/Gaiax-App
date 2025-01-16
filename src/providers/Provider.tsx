@@ -3,20 +3,13 @@
 import { SessionProvider } from "next-auth/react";
 
 interface Props {
-    children:React.ReactNode;
+  children: React.ReactNode;
 }
 
-export const Provider = ({children}:Props) => {
+export const Provider = ({ children }: Props) => {
   return (
-    // <PayPalScriptProvider 
-    // options={{ 
-    //     clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? '',
-    //     intent: "capture",
-    //     currency: "MXN",
-    //     }}>
     <SessionProvider>
-        {children}
-    </SessionProvider>    
-    // </PayPalScriptProvider>
-)
-}
+      {children}
+    </SessionProvider>
+  );
+};

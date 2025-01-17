@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Menu, Search } from "lucide-react";
-import { Button, Logo, NotificationButton, ProfileButton } from "@/components";
+import { Button, Logo, ProfileButton } from "@/components";
 import { ThemeToggle } from "../../theme-toggle";
 import { SearchBar } from "../../search/SearchBar";
 
@@ -42,7 +42,6 @@ export function NavbarApp() {
           </div>
           <div className="items-center hidden gap-4 lg:flex">
             <ThemeToggle />
-            <NotificationButton />
             <ProfileButton />
           </div>
           <div className="flex items-center gap-2 lg:hidden">
@@ -56,7 +55,6 @@ export function NavbarApp() {
               <Search className="w-5 h-5 text-gray-600 dark:text-gray-300" />
             </Button>
             <ThemeToggle />
-            <NotificationButton />
             <ProfileButton />
           </div>
         </div>

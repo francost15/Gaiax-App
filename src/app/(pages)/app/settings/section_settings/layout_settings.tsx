@@ -1,22 +1,27 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { User, Bell } from 'lucide-react'
-import ProfileSettings from './profile_settings'
-import NotificationSettings from './notification_settings'
-
-
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Settings, User } from "lucide-react";
+import ProfileSettings from "./profile_settings";
+import PrivacitySettings from "./changepassword";
 
 const tabs = [
   { id: "profile", label: "Perfil", icon: User, component: ProfileSettings },
-  { id: "notifications", label: "Notificaciones", icon: Bell, component: NotificationSettings },
-]
+  {
+    id: "password",
+    label: "Privacidad",
+    //icono de config
+    icon: Settings,
+    component: PrivacitySettings,
+  },
+];
 
 export default function SettingsLayout() {
-  const [activeTab, setActiveTab] = useState("profile")
+  const [activeTab, setActiveTab] = useState("profile");
 
-  const ActiveComponent = tabs.find(tab => tab.id === activeTab)?.component || ProfileSettings
+  const ActiveComponent =
+    tabs.find((tab) => tab.id === activeTab)?.component || ProfileSettings;
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
@@ -29,8 +34,8 @@ export default function SettingsLayout() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`w-full text-left px-4 py-2 rounded-xl transition-all duration-200 flex items-center space-x-3 ${
                     activeTab === tab.id
-                      ? 'bg-primaryper text-white'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      ? "bg-primaryper text-white"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                   }`}
                 >
                   <tab.icon className="h-5 w-5" />
@@ -55,6 +60,5 @@ export default function SettingsLayout() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

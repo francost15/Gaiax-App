@@ -2,23 +2,8 @@
 
 import prisma from "@/lib/prisma";
 
-export const getUserProgress = async (userId: string) => {
-  try {
-    const address = await prisma.userProgress.findUnique({
-      where: { userId },
-    });
-
-    if (!address) return null;
-
-    const { countryId, address2, ...rest } = address;
-
-    return {
-      ...rest,
-      country: countryId,
-      address2: address2 ? address2 : "",
-    };
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-};
+export async function getUserProgress(userId: string) {
+  return await prisma.userProgress.findMany({
+    where: { userId },
+  });
+}

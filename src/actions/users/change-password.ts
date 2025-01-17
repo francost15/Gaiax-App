@@ -19,7 +19,7 @@ export const updateUserProfile = async (userId: string, password: string) => {
   } catch (error) {
     return {
       ok: false,
-      message: "Error al actualizar el perfil del usuario",
+      message: "Error al actualizar la contraseña del usuario",
     };
   }
 };

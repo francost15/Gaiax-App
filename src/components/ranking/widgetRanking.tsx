@@ -1,44 +1,35 @@
-import Link from 'next/link'
-import { Card, CardContent } from "@/components/ui/card"
-import { TrophyIcon as TrophyFilled } from 'lucide-react'
-import { LearningStyle, User } from '@/interface'
-
+import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
+import { TrophyIcon as TrophyFilled } from "lucide-react";
+import { LearningStyle, User } from "@/interface";
 
 // Mock data for the top 3 in the leaderboard
 const topThree: User[] = [
-    {
-      id: 'dfdffd',
-      name: 'Ana García',
-      lastname: 'García',
-      
-      phone: '',
-      email: '',
-      password: '',
-      position: '',
-      
-      learningStyle: LearningStyle.Visual,
-    },
-    {
-      id: 'ddfdf',
-      nombre: 'Carlos Rodríguez',
-      apellido: 'Rodríguez',
-      direccion: '',
-      telefono: '',
-      email: '',
-      password: '',
-      puesto: '',
-      empresaId: 1,
-      estiloAprendizaje: LearningStyle.Kinestesico,
-      rachaDias: 12,
-      puntaje: 1150,
-      esAdministrador: false
-    },
+  {
+    id: "dfdffd",
+    name: "Ana García",
+    lastname: "García",
 
-  ]
+    email: "",
+    password: "",
+    position: "",
+
+    learningStyle: LearningStyle.Visual,
+  },
+  {
+    id: "dfdffd",
+    name: "Ana García",
+    lastname: "García",
+
+    email: "",
+    password: "",
+    position: "",
+
+    learningStyle: LearningStyle.Visual,
+  },
+];
 // ...existing code...
 export function RankingWidget() {
-
-
   return (
     <Link href="/app/ranking">
       <Card className="border-none bg-gradient-to-br from-primaryper rounded-xl to-[#4F46E5] hover:from-[#5558DD] hover:to-[#4338CA] text-white transition-colors duration-300 cursor-pointer w-full h-full">
@@ -52,13 +43,16 @@ export function RankingWidget() {
               </div>
             </div>
             <div className="text-right">
-              <p className="text-xs hidden sm:block">de {topThree.length + 1}</p>
-              <p className="text-sm font-semibold hidden sm:block">Ver ranking</p>
+              <p className="text-xs hidden sm:block">
+                de {topThree.length + 1}
+              </p>
+              <p className="text-sm font-semibold hidden sm:block">
+                Ver ranking
+              </p>
             </div>
           </div>
         </CardContent>
       </Card>
     </Link>
-  )
+  );
 }
-

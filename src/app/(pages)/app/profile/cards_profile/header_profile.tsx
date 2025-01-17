@@ -1,11 +1,19 @@
-import { Avatar, AvatarFallback, AvatarImage,Card,CardContent,StreakBadge,Badge } from "@/components"
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Card,
+  CardContent,
+  Badge,
+  StreakDisplay,
+} from "@/components";
 interface ProfileData {
-  name: string
-  role: string
-  company: string
-  email: string
-  streak: number
-  avatarUrl?: string
+  name: string;
+  role: string;
+  company: string;
+  email: string;
+  streak: number;
+  avatarUrl?: string;
 }
 
 const PROFILE_DATA: ProfileData = {
@@ -14,7 +22,7 @@ const PROFILE_DATA: ProfileData = {
   company: "WimxMovil",
   email: "franco@gmail.com",
   streak: 7,
-}
+};
 
 export default function ProfileHeader() {
   return (
@@ -44,11 +52,17 @@ export default function ProfileHeader() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <StreakBadge count={PROFILE_DATA.streak} />
-              <Badge variant="outline" className="text-black dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-100 dark:text-white hover:bg-neutral-300 dark:border-none">
+              <StreakDisplay streak={PROFILE_DATA.streak} />
+              <Badge
+                variant="outline"
+                className="text-black dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-100 dark:text-white hover:bg-neutral-300 dark:border-none"
+              >
                 Nivel 5
               </Badge>
-              <Badge variant="outline" className="text-black dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-100 dark:text-white hover:bg-neutral-300 dark:border-none">
+              <Badge
+                variant="outline"
+                className="text-black dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-100 dark:text-white hover:bg-neutral-300 dark:border-none"
+              >
                 1.2k XP
               </Badge>
             </div>
@@ -56,5 +70,5 @@ export default function ProfileHeader() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

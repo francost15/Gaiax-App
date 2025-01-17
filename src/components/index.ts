@@ -29,7 +29,6 @@ export * from "./ranking/widgetRanking";
 export * from "./search/SearchBar";
 export * from "./search/SearchResults";
 export * from "./sidebar/sidebar";
-export * from "./streak/streak_badge";
 export * from "./streak/streak_display";
 export * from "./theme-toggle";
 export * from "./ui/alert-dialog";

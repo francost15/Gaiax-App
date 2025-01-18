@@ -13,6 +13,7 @@ export * from "./hero/herohome/HeroFeatures";
 export * from "./hero/herohome/HeroHome";
 export * from "./home/CoursesProgress/CourseProgress";
 export * from "./home/Daily_Progress/DailyProgress";
+export * from "./home/FloatingCard/FloatingCard";
 export * from "./home/LearningSummary/LearningSummary";
 export * from "./home/Navbarapp/index";
 export * from "./home/Navbarapp/profile-button";

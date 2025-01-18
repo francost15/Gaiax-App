@@ -18,6 +18,7 @@ enum LearningStyle {
   Visual
   Auditivo
   Kinestesico
+  Nulo
 }
 
 // Modelo que representa una empresa que utiliza la plataforma para capacitar a sus empleados

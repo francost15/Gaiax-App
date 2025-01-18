@@ -2,6 +2,7 @@
 import bcryptjs from "bcryptjs";
 import prisma from "@/lib/prisma";
 import { LearningStyle, Role } from "@/interface";
+
 export const registerUser = async (
   name: string,
   lastname: string,
@@ -49,6 +50,7 @@ export const registerUser = async (
       message: "Usuario creado",
     };
   } catch (error) {
+    console.log("Error al crear usuario:", error); // Agrega este console.log para depurar
     return {
       ok: false,
       message: "No se pudo crear al usuario",

@@ -2,6 +2,7 @@ export enum LearningStyle {
   Visual = "Visual",
   Auditivo = "Auditivo",
   Kinestesico = "Kinestesico",
+  Nulo = "Nulo",
 }
 
 export enum Role {

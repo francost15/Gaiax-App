@@ -1,27 +1,28 @@
 "use client";
-
-import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import { Card, CardContent } from "@/components";
 import VAKQuestion from "./vak-question";
 import VAKResult from "./vak-result";
 import { questions } from "@/data";
 import { Answer, Results, useVAKTestStore } from "@/store";
 
-export default function VAKTest() {
-  const {
-    currentQuestion,
-    answers,
-    results,
-    setCurrentQuestion,
-    setAnswers,
-    setResults,
-    resetTest,
-  } = useVAKTestStore();
+interface VAKTestProps {
+  userId: string;
+}
+
+export default function VAKTest({ userId }: VAKTestProps) {
+  const answers = useVAKTestStore((state) => state.answers);
+  const results = useVAKTestStore((state) => state.results);
+  const currentQuestion = useVAKTestStore((state) => state.currentQuestion);
+  const setAnswers = useVAKTestStore((state) => state.setAnswers);
+  const setResults = useVAKTestStore((state) => state.setResults);
+  const setCurrentQuestion = useVAKTestStore(
+    (state) => state.setCurrentQuestion
+  );
+  const resetTest = useVAKTestStore((state) => state.resetTest);
 
   const handleAnswer = (answer: Answer) => {
     const newAnswers = [...answers, answer];
     setAnswers(newAnswers);
-
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
@@ -30,23 +31,28 @@ export default function VAKTest() {
   };
 
   const calculateResults = (finalAnswers: Answer[]) => {
-    const results: Results = { V: 0, A: 0, K: 0 };
+    const final: Results = { V: 0, A: 0, K: 0 };
     finalAnswers.forEach((answer) => {
-      results[answer]++;
+      final[answer]++;
     });
-    setResults(results);
+    setResults(final);
   };
 
-  const progress = ((currentQuestion + 1) / questions.length) * 100;
+  const progress = (currentQuestion / questions.length) * 100;
 
   if (results) {
-    return <VAKResult results={results} onReset={resetTest} />;
+    return <VAKResult userId={userId} results={results} onReset={resetTest} />;
   }
 
   return (
-    <Card className="bg-white dark:bg-neutral-900 shadow-lg border-none">
+    <Card className="bg-white dark:bg-neutral-900 shadow-xl border-none">
       <CardContent className="p-6">
-        <Progress title="Progreso" value={progress} className="mb-6 h-2" />
+        <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+          <div
+            className="bg-primaryper h-2 rounded-full"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
         <VAKQuestion
           question={questions[currentQuestion]}
           onAnswer={handleAnswer}

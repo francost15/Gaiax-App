@@ -10,4 +10,5 @@ export * from "./membership/get-membership";
 export * from "./user-lesson-progress/get-user-lesson-progress";
 export * from "./user-progress/get-user-progress";
 export * from "./userArchievement/get-user-archievement";
-export * from "./users/change-password";
+export * from "./users/update-password";
+export * from "./users/update-styleLearning";

@@ -37,3 +37,17 @@ export const useVAKTestStore = create<VAKTestState>((set) => ({
       results: null,
     }),
 }));
+// vak-resulto.tsx
+interface VAKStoreState {
+  isDialogOpen: boolean;
+  setIsDialogOpen: (open: boolean) => void;
+  shouldShowToast: boolean;
+  setShouldShowToast: (val: boolean) => void;
+}
+
+export const useVAKStore = create<VAKStoreState>((set) => ({
+  isDialogOpen: false,
+  setIsDialogOpen: (open) => set({ isDialogOpen: open }),
+  shouldShowToast: false,
+  setShouldShowToast: (val) => set({ shouldShowToast: val }),
+}));

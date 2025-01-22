@@ -1,49 +1,41 @@
-import { Card, CardContent, Badge } from "@/components";
-import { Trophy, Calendar } from "lucide-react";
+import { Card, CardContent } from "@/components";
+import { Trophy } from "lucide-react";
+import { Badge } from "../ui/badge";
 
-interface Props {
+interface AchievementCardProps {
   title: string;
   description: string;
   date: string;
-  category: string;
   points: number;
 }
 
-export const AchievementCard = ({
+export default function AchievementCard({
   title,
   description,
   date,
-  category,
   points,
-}: Props) => {
+}: AchievementCardProps) {
   return (
-    <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg dark:bg-neutral-900 border-none group">
-      <CardContent className="p-6 group-hover:ring-2 group-hover:ring-primaryper rounded-lg transition-all duration-300">
-        <div className="flex items-center justify-between mb-4">
-          <Badge
-            variant="secondary"
-            className="bg-primaryper/20 text-primaryper dark:bg-primaryper/30 dark:text-[#A5B4FC]"
-          >
-            {category}
-          </Badge>
-          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-            <Calendar className="w-4 h-4 mr-1" />
-            {date}
-          </div>
+    <Card className="bg-white dark:bg-neutral-900 dark:hover:bg-neutral-800 transition-colors duration-200 dark:border-neutral-800 rounded-xl hover:border-primaryper dark:hover:border-primaryper rounded-t-none rounded-e-none">
+      <div className="flex justify-end">
+        <Badge className="bg-primaryper/90  hover:bg-primaryper rounded-t-none rounded-e-none">
+          <span className="text-sm text-white">{points} exp</span>
+        </Badge>
+      </div>
+      <CardContent className="p-4 flex items-start gap-4">
+        <div className="rounded-full bg-primaryper/20 p-3">
+          <Trophy className="h-5 w-5 text-primaryper" />
         </div>
-        <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">
-          {title}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">{description}</p>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <Trophy className="w-5 h-5 text-primaryper mr-2" />
-            <span className="font-semibold text-primaryper">
-              {points} puntos
-            </span>
+        <div className="flex-1">
+          <h3 className="font-semibold dark:text-white text-neutral-900 mb-1">
+            {title}
+          </h3>
+          <p className="text-sm text-gray-400 mb-1">{description}</p>
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-gray-500">{date}</span>
           </div>
         </div>
       </CardContent>
     </Card>
   );
-};
+}

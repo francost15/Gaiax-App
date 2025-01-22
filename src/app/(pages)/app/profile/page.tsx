@@ -58,7 +58,7 @@ export default async function ProfilePage() {
             <ProfileAchievements achievements={archievements} />
             <Link
               title="Ver más logros"
-              href="/logros"
+              href="/app/archievements"
               className="absolute top-6 right-6 text-primaryper hover:bg-primary-hover transition-colors px-3 py-1 rounded-full hover:bg-primary-hover/10"
             >
               Ver más

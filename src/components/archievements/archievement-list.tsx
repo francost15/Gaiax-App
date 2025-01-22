@@ -1,5 +1,6 @@
 "use client";
-import { AchievementCard } from "./archievement-card";
+
+import AchievementCard from "./archievement-card";
 
 // Datos de ejemplo para los logros
 const achievementsData = [
@@ -8,7 +9,6 @@ const achievementsData = [
     title: "Primer Curso Completado",
     description: "Completaste tu primer curso en la plataforma.",
     date: "15/05/2023",
-    category: "Educación",
     points: 100,
   },
   {
@@ -17,7 +17,6 @@ const achievementsData = [
     description:
       "Mantuviste una racha de aprendizaje durante 7 días consecutivos.",
     date: "22/06/2023",
-    category: "Constancia",
     points: 50,
   },
   {
@@ -25,7 +24,6 @@ const achievementsData = [
     title: "Maestro del Código",
     description: "Completaste todos los desafíos de programación del mes.",
     date: "10/07/2023",
-    category: "Programación",
     points: 200,
   },
   {
@@ -33,7 +31,6 @@ const achievementsData = [
     title: "Colaborador Estrella",
     description: "Ayudaste a 10 compañeros en el foro de la comunidad.",
     date: "05/08/2023",
-    category: "Comunidad",
     points: 150,
   },
   {
@@ -42,7 +39,6 @@ const achievementsData = [
     description:
       "Completaste la serie de cursos sobre Inteligencia Artificial.",
     date: "20/09/2023",
-    category: "Tecnología",
     points: 300,
   },
 ];

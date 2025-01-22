@@ -8,31 +8,28 @@ export const AchievementFilter = () => {
   const [filter, setFilter] = useState("all");
 
   return (
-    <Card className="bg-white dark:bg-neutral-800 hover:shadow-md transition-shadow duration-300 w-full">
+    <Card className="bg-white dark:bg-neutral-900 hover:shadow-md transition-shadow duration-300 w-full border-none rounded-xl">
       <CardHeader className="border-b border-gray-200 dark:border-gray-700">
         <CardTitle className="text-xl sm:text-2xl font-bold text-primaryper dark:text-[#A5B4FC]">
-          Filtros
+          Estado de Logros
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4 sm:p-6">
-        <div className="space-y-4">
+        <div className="space-y-4 ">
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">
-              Estado de Logros
-            </h3>
-            <div className="flex flex-col space-y-2 sm:space-y-3">
+            <div className="flex flex-col space-y-2 sm:space-y-3 ">
               {["all", "completed", "incomplete"].map((status) => (
                 <Button
                   key={status}
                   variant={filter === status ? "default" : "outline"}
-                  className={`justify-start h-auto py-3 px-4 w-full ${
+                  className={`justify-start h-auto py-3 px-4 w-full border-none ${
                     filter === status
-                      ? "bg-primaryper text-white"
-                      : "hover:bg-primaryper/10 hover:text-primaryper text-gray-700 dark:text-gray-300"
+                      ? "bg-primaryper text-white hover:bg-primary-hover"
+                      : "hover:bg-primaryper/20 hover:text-primaryper  text-gray-700 dark:text-gray-300"
                   }`}
                   onClick={() => setFilter(status)}
                 >
-                  <div className="flex items-center">
+                  <div className="flex items-center ">
                     {status === "all" && <Trophy className="mr-2 h-5 w-5" />}
                     {status === "completed" && (
                       <CheckCircle className="mr-2 h-5 w-5" />

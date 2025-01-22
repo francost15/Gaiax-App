@@ -1,8 +1,4 @@
 import { AchievementFilter, AchievementList } from "@/components";
-// export const metadata: Metadata = {
-//   title: "Mis Logros | gX Learning",
-//   description: "Explora y celebra todos tus logros en gX Learning.",
-// }
 
 export default function AchievementsPage() {
   return (

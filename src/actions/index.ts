@@ -1,5 +1,5 @@
-export * from "./archievement/get-archievements";
-export * from "./archievement/get-archievementsById";
+export * from "./user-archievement/get-archievements";
+export * from "./user-archievement/get-archievementsById";
 export * from "./auth/login";
 export * from "./auth/logout";
 export * from "./auth/register";

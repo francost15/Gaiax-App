@@ -7,7 +7,7 @@ export async function getUserAchievementsById(userId: string) {
     orderBy: {
       date: "desc",
     },
-    take: 4,
+    take: 4, // Asegúrate de que este valor sea 4
     include: {
       achievement: true,
     },

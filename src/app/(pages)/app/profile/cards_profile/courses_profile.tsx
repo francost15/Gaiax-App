@@ -30,38 +30,6 @@ const completedCourses: Contenido[] = [
     exp: 200,
     categoria: "Habilidades Blandas",
   },
-  {
-    id: 4,
-    tipo: "actividad",
-    descripcion: "Liderazgo Efectivo",
-    url: "/cursos/liderazgo",
-    exp: 200,
-    categoria: "Habilidades Blandas",
-  },
-  {
-    id: 5,
-    tipo: "actividad",
-    descripcion: "Liderazgo Efectivo",
-    url: "/cursos/liderazgo",
-    exp: 200,
-    categoria: "Habilidades Blandas",
-  },
-  {
-    id: 6,
-    tipo: "actividad",
-    descripcion: "Liderazgo Efectivo",
-    url: "/cursos/liderazgo",
-    exp: 200,
-    categoria: "Habilidades Blandas",
-  },
-  {
-    id: 7,
-    tipo: "actividad",
-    descripcion: "Liderazgo Efectivo",
-    url: "/cursos/liderazgo",
-    exp: 200,
-    categoria: "Habilidades Blandas",
-  },
 ];
 export default function ProfileCompletedCourses() {
   const [expandedCourse, setExpandedCourse] = useState<number | null>(null);

@@ -4,7 +4,11 @@ import ProfileCourses from "./cards_profile/courses_profile";
 import ProfileHeader from "./cards_profile/header_profile";
 import ProfileStats from "./cards_profile/stats_profile";
 import { auth } from "@/auth.config";
-import { getAllAchievements, getCompanyById } from "@/actions";
+import {
+  getAllAchievements,
+  getCompanyById,
+  getUserAchievementsById,
+} from "@/actions";
 
 export default async function ProfilePage() {
   // obtener sesion del usuario
@@ -12,7 +16,13 @@ export default async function ProfilePage() {
   const companyId = session?.user.companyId;
   const company = companyId ? await getCompanyById(companyId) : null;
   const userId = session?.user.id ?? "";
-  const archievements = await getAllAchievements(userId);
+  const archievements = (await getUserAchievementsById(userId)).map(
+    (achievement) => ({
+      ...achievement,
+      date: achievement.date.toISOString(),
+    })
+  );
+  const allArchievements = await getAllAchievements(userId);
   return (
     <div className=" bg-gray-50 dark:bg-neutral-800 min-h-screen transition-colors duration-300">
       <h1 className="sr-only">Mi Perfil</h1>
@@ -28,7 +38,7 @@ export default async function ProfilePage() {
           xp={session?.user.exp ?? 0}
         />
         <ProfileStats
-          achievements={archievements.length}
+          achievements={allArchievements.length}
           hours={0}
           coursescompleted={0}
           coursesinprogress={0}
@@ -45,7 +55,7 @@ export default async function ProfilePage() {
             </Link>
           </div>
           <div className="relative">
-            <ProfileAchievements />
+            <ProfileAchievements achievements={archievements} />
             <Link
               title="Ver más logros"
               href="/logros"

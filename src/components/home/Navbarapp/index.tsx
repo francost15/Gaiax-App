@@ -7,9 +7,13 @@ import { ThemeToggle } from "../../theme-toggle";
 import { SearchBar } from "../../search/SearchBar";
 
 import { useUIStore } from "@/store";
-import { Course } from "@/interface";
-
-export function NavbarApp() {
+import { Course, Role } from "@/interface";
+interface Props {
+  name: string;
+  email: string;
+  role: string;
+}
+export function NavbarApp({ name, email, role }: Props) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const toggleSearch = () => setIsSearchVisible(!isSearchVisible);
 
@@ -42,7 +46,7 @@ export function NavbarApp() {
           </div>
           <div className="items-center hidden gap-4 lg:flex">
             <ThemeToggle />
-            <ProfileButton />
+            <ProfileButton name={name} email={email} role={role} />
           </div>
           <div className="flex items-center gap-2 lg:hidden">
             <Button
@@ -55,7 +59,7 @@ export function NavbarApp() {
               <Search className="w-5 h-5 text-gray-600 dark:text-gray-300" />
             </Button>
             <ThemeToggle />
-            <ProfileButton />
+            <ProfileButton name={name} email={email} role={role} />
           </div>
         </div>
       </div>

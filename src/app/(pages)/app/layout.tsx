@@ -20,7 +20,11 @@ export default async function LayoutClient({
     <div className="text-gray-900 bg-gray-50 dark:bg-neutral-800 dark:text-gray-100">
       <Sidebar />
       <div>
-        <NavbarApp />
+        <NavbarApp
+          name={session.user.name + " " + session.user.lastname}
+          email={session.user.email}
+          role={session.user.role}
+        />
         <main className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
           {showFloatingCard && <FloatingCard />}
           {children}

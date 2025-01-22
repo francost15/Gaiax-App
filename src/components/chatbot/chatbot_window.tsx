@@ -43,13 +43,13 @@ export const ChatbotWindow = () => {
         isMobile ? "inset-0" : "bottom-4 right-4 w-96 h-[32rem]"
       } bg-white dark:bg-neutral-800 rounded-xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300 ease-in-out z-50`}
     >
-      <div className="p-4 bg-[#6366F1] text-white flex justify-between items-center">
+      <div className="p-4 bg-primaryper text-white flex justify-between items-center">
         <h3 className="font-semibold text-lg">Asistente gX</h3>
         <Button
           variant="ghost"
           size="icon"
           onClick={onClose}
-          className="text-white hover:bg-[#5558DD]"
+          className="text-white hover:bg-primary-hover"
         >
           <X className="h-5 w-5" />
         </Button>
@@ -70,7 +70,7 @@ export const ChatbotWindow = () => {
         />
         <Button
           onClick={handleSend}
-          className="bg-[#6366F1] hover:bg-[#5558DD] text-white"
+          className="bg-primaryper hover:bg-primary-hover text-white"
         >
           <Send className="h-4 w-4" />
         </Button>

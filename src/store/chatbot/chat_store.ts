@@ -21,7 +21,7 @@ interface State {
 export const useChatStore = create<State>((set) => ({
   isChatOpen: false,
   isMobile: false,
-  messages: [{ text: "¡Hola! ¿En qué puedo ayudarte hoy?", isUser: false }],
+  messages: [{ text: `¡Hola! ¿En qué puedo ayudarte hoy?`, isUser: false }],
   input: "",
   openChat: () => set({ isChatOpen: true }),
   closeChat: () => set({ isChatOpen: false }),

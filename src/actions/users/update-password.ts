@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
 
-export const updateUserProfile = async (userId: string, password: string) => {
+export const updatePassword = async (userId: string, password: string) => {
   try {
     await prisma.user.update({
       where: {

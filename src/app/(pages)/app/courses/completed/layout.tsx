@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Cursos recomendados",
-  description: "Cursos recomendados de la plataforma Gaiax",
+  title: "Cursos completados",
+  description: "Cursos completados de la plataforma Gaiax",
 };
 
-export default function LayoutCoursesRecomended({
+export default function LayoutCoursesCompleted({
   children,
 }: {
   children: React.ReactNode;

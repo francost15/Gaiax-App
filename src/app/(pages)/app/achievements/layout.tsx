@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "Personaliza tu perfil en gX Learning.",
 };
 
-export default function LayoutProfile({
+export default function LayoutAchievements({
   children,
 }: {
   children: React.ReactNode;

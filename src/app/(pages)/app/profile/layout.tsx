@@ -1,23 +1,18 @@
-import { Metadata } from "next"
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Perfil | gX Learning',
-  description: 'Personaliza tu perfil en gX Learning.',
-}
+  title: "Perfil",
+  description: "Personaliza tu perfil en gX Learning.",
+};
 
 export default function LayoutProfile({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  
-
   return (
     <div className="text-gray-900 bg-gray-50 dark:bg-neutral-800 dark:text-gray-100 ">
-        <main  className="min-h-screen " >
-          {children}
-        </main>
+      <main className="min-h-screen ">{children}</main>
     </div>
-  )
+  );
 }
-

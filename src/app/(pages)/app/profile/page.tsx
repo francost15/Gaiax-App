@@ -7,6 +7,7 @@ import { auth } from "@/auth.config";
 import {
   getAllAchievements,
   getCompanyById,
+  getCompletedCoursesByUser,
   getUserAchievementsById,
 } from "@/actions";
 
@@ -23,6 +24,7 @@ export default async function ProfilePage() {
     })
   );
   const allArchievements = await getAllAchievements(userId);
+  const completedCourses = await getCompletedCoursesByUser(userId);
   return (
     <div className=" bg-gray-50 dark:bg-neutral-800 min-h-screen transition-colors duration-300">
       <h1 className="sr-only">Mi Perfil</h1>
@@ -45,7 +47,7 @@ export default async function ProfilePage() {
         />
         <div className="grid gap-8 lg:grid-cols-2 bg-gray-200 dark:bg-neutral-800 rounded-lg p-6">
           <div className="relative">
-            <ProfileCourses />
+            <ProfileCourses completedCourses={completedCourses} />
             <Link
               title="Ver más cursos"
               href="/cursos"

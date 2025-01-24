@@ -2,9 +2,18 @@
 
 import Link from "next/link";
 import { Button, ScrollArea } from "@/components"; // Ajusta si llamas distinto a estos componentes
-import { Home, BookOpen, Award, Settings, HelpCircle, X } from "lucide-react";
+import {
+  Home,
+  BookOpen,
+  Award,
+  Settings,
+  HelpCircle,
+  X,
+  Shield,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useUIStore } from "@/store";
+import { useSession } from "next-auth/react";
 
 const menuItems = [
   { icon: Home, label: "Inicio", href: "/app" },
@@ -17,14 +26,22 @@ const menuItems = [
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
   const closeMenu = useUIStore((state) => state.closeSideMenu);
+  const { data: session } = useSession();
+  const isAdmin = session?.user.role === "admin";
 
   return (
-    <>
+    <div>
       {isSideMenuOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black bg-opacity-50"
-          onClick={closeMenu}
-        />
+        <>
+          <div
+            className="fixed inset-0 z-50 bg-black bg-opacity-50"
+            onClick={closeMenu}
+          />
+          <div
+            onClick={closeMenu}
+            className="fade-in fixed top-0 left-0 h-screen w-screen z-10 backdrop-filter backdrop-blur-sm"
+          />
+        </>
       )}
 
       <aside
@@ -62,9 +79,23 @@ export const Sidebar = () => {
                 </span>
               </Link>
             ))}
+            {isAdmin && (
+              <>
+                <Link
+                  href="/admin"
+                  className="flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-neutral-800"
+                  onClick={closeMenu}
+                >
+                  <Shield className="w-4 h-4 text-primaryper" />
+                  <span className="text-gray-700 dark:text-gray-200">
+                    Admin
+                  </span>
+                </Link>
+              </>
+            )}
           </nav>
         </ScrollArea>
       </aside>
-    </>
+    </div>
   );
 };

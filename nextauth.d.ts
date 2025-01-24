@@ -12,7 +12,6 @@ declare module "next-auth" {
       image?: string;
       streaks: number;
       exp: number;
-      isAdmin: boolean;
       companyId: string;
       learningStyle: string;
     } & DefaultSession["user"];
@@ -28,7 +27,7 @@ declare module "next-auth" {
     image?: string;
     streaks: number;
     exp: number;
-    isAdmin: boolean;
+
     companyId: string;
     learningStyle: string;
   }

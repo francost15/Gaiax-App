@@ -21,6 +21,21 @@ enum LearningStyle {
   Nulo
 }
 
+enum Role {
+  admin
+  manager
+  supervisor
+  employee
+  intern
+  hr // Recursos Humanos
+  it // Tecnología de la Información
+  sales // Ventas
+  marketing // Marketing
+  finance // Finanzas
+  support // Soporte
+  other
+}
+
 // Modelo que representa una empresa que utiliza la plataforma para capacitar a sus empleados
 model Company {
   id           String               @id @default(uuid())
@@ -54,7 +69,6 @@ model User {
   password           String
   streaks            Int
   exp                Int
-  isAdmin            Boolean              @default(false)
   role               String
   image              String?
   company            Company              @relation(fields: [companyId], references: [id])

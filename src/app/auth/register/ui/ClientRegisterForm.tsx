@@ -18,7 +18,6 @@ import {
 } from "@/components";
 import { LearningStyle, Role } from "@/interface";
 
-// Define los tipos según los campos de tu formulario
 type FormInputs = {
   name: string;
   lastname: string;
@@ -27,7 +26,6 @@ type FormInputs = {
   role: Role;
   company: string;
   LearningStyle: LearningStyle;
-  // Si quieres capturar streaks, exp, isAdmin, learningStyle, agrégalos aquí
 };
 
 type Company = {
@@ -44,17 +42,13 @@ export default function ClientRegisterForm(props: { companies: Company[] }) {
     setValue,
     formState: { errors },
   } = useForm<FormInputs>();
-  const roles = Object.values(Role); // ← Obtiene los valores del enum Role
-
-  // Ajusta la firma de “registerUser” a los parámetros correctos,
-  // usando valores por defecto para los que no vengan del formulario
+  const roles = Object.values(Role);
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     setErrorMessage("");
 
     const { name, lastname, email, password, role, company } = data;
     const streaks = 0; // Valor por defecto o ajusta según tu lógica
     const exp = 0; // Valor por defecto
-    const isAdmin = false;
     const learningStyle = LearningStyle.Nulo; // Valor por defecto
 
     // Llamada a tu acción asíncrona con los parámetros requeridos
@@ -65,7 +59,6 @@ export default function ClientRegisterForm(props: { companies: Company[] }) {
       password,
       streaks,
       exp,
-      isAdmin,
       role,
       company,
       learningStyle

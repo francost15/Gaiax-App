@@ -10,7 +10,6 @@ export const registerUser = async (
   password: string,
   streaks: number,
   exp: number,
-  isAdmin: boolean,
   role: Role,
   companyId: string,
   learningStyle: LearningStyle
@@ -24,7 +23,6 @@ export const registerUser = async (
         password: bcryptjs.hashSync(password),
         streaks: streaks || 0,
         exp: exp || 0,
-        isAdmin: isAdmin || false,
         role: role,
         companyId: companyId,
         learningStyle: learningStyle,

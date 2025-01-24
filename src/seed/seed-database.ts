@@ -7,145 +7,26 @@ export enum LearningStyle {
   Visual = "Visual",
   Auditivo = "Auditivo",
   Kinestesico = "Kinestesico",
+  Nulo = "Nulo",
 }
 
 export enum Role {
   admin = "admin",
-  user = "user",
-}
-
-// Company
-export interface Company {
-  id: string;
-  name: string;
-  address: string;
-  phone: string;
-  membershipId: string;
-  users: User[];
-  requirements: RequirementCompany[];
-}
-
-// Membership
-export interface Membership {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  limitUsers: number;
-  companies: Company[];
-}
-
-// User
-export interface User {
-  id: string;
-  name: string;
-  lastname: string;
-  email: string;
-  password: string;
-  streaks: number;
-  exp: number;
-  isAdmin: boolean;
-  role: Role;
-  companyId: string;
-  learningStyle: LearningStyle;
-  UserArchivement: UserArchivement[];
-  UserProgress: UserProgress[];
-  UserLessonProgress: UserLessonProgress[];
-}
-
-// Category
-export interface Category {
-  id: string;
-  name: string;
-  description: string;
-  contents: Content[];
-  courses: Course[];
-  requirements: RequirementCompany[];
-}
-
-// Content
-export interface Content {
-  id: string;
-  title: string;
-  description: string;
-  url?: string | null;
-  exp: number;
-  type: LearningStyle;
-  categoryId: string;
-}
-
-// RequirementCompany
-export interface RequirementCompany {
-  id: string;
-  name: string;
-  description: string;
-  companyId: string;
-  categoryId: string;
-}
-
-// Achievement
-export interface Achievement {
-  id: string;
-  name: string;
-  description: string;
-  exp: number;
-  users: UserArchivement[];
-}
-
-// UserArchivement
-export interface UserArchivement {
-  id: string;
-  userId: string;
-  achievementId: string;
-  date: Date;
-}
-
-// Course
-export interface Course {
-  id: string;
-  title: string;
-  description: string;
-  url?: string | null;
-  exp: number;
-  categoryId: string;
-  lessons: Lesson[];
-  UserProgress: UserProgress[];
-}
-
-// Lesson
-export interface Lesson {
-  id: string;
-  title: string;
-  description: string;
-  url?: string | null;
-  exp: number;
-  courseId: string;
-  userProgressId?: string | null;
-  UserLessonProgress: UserLessonProgress[];
-}
-
-// UserLessonProgress
-export interface UserLessonProgress {
-  id: string;
-  userId: string;
-  lessonId: string;
-  completed: boolean;
-  completedAt?: Date | null;
-  userProgressId?: string | null;
-}
-
-// UserProgress
-export interface UserProgress {
-  id: string;
-  userId: string;
-  courseId: string;
-  lessonsCompleted: UserLessonProgress[];
-  progress: number;
-  Lesson: Lesson[];
+  manager = "manager",
+  supervisor = "supervisor",
+  employee = "employee",
+  intern = "intern",
+  hr = "hr", // Recursos Humanos
+  it = "it", // Tecnología de la Información
+  sales = "sales", // Ventas
+  marketing = "marketing", // Marketing
+  finance = "finance", // Finanzas
+  support = "support", // Soporte
+  other = "other",
 }
 
 // Datos iniciales
-const memberships: Omit<Membership, "id" | "companies">[] = [
+const memberships = [
   {
     name: "Basic",
     description: "Acceso limitado a recursos y cursos.",
@@ -160,7 +41,7 @@ const memberships: Omit<Membership, "id" | "companies">[] = [
   },
 ];
 
-const companies: Omit<Company, "id" | "users" | "requirements">[] = [
+const companies = [
   {
     name: "TechCorp",
     address: "123 Silicon Valley",
@@ -169,10 +50,7 @@ const companies: Omit<Company, "id" | "users" | "requirements">[] = [
   },
 ];
 
-const users: Omit<
-  User,
-  "id" | "UserArchivement" | "UserProgress" | "UserLessonProgress"
->[] = [
+const users = [
   {
     name: "Franco",
     lastname: "Sanchez",
@@ -180,17 +58,13 @@ const users: Omit<
     password: bcrypt.hashSync("rojito33"),
     streaks: 5,
     exp: 100,
-    isAdmin: false,
-    role: Role.user,
+    role: Role.admin,
     companyId: "", // Se asignará dinámicamente
     learningStyle: LearningStyle.Visual,
   },
 ];
 
-const categories: Omit<
-  Category,
-  "id" | "contents" | "courses" | "requirements"
->[] = [
+const categories = [
   {
     name: "Programación",
     description: "Cursos y contenido de desarrollo de software",
@@ -198,7 +72,7 @@ const categories: Omit<
   { name: "Diseño", description: "Material para diseño gráfico y UX/UI" },
 ];
 
-const contents: Omit<Content, "id">[] = [
+const contents = [
   {
     title: "Introducción a JavaScript",
     description: "Curso básico de JavaScript para principiantes.",

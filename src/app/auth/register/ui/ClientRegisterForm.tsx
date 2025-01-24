@@ -310,7 +310,7 @@ export default function ClientRegisterForm(props: { companies: Company[] }) {
         </div>
 
         <Link href="/auth/login">
-          <div className="p-2 mt-4 text-center border-2 border-primaryper hover:bg-primary-hover rounded-xl">
+          <div className="p-2 mt-4 text-center border-2 border-primaryper hover:bg-primary-hover rounded-xl hover:text-white">
             Ingresar con tu cuenta
           </div>
         </Link>

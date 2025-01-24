@@ -19,21 +19,21 @@ export default function LoginPage() {
   }, [state]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-neutral-800">
-      <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-neutral-800">
+      <div className="flex items-center justify-center flex-1 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold">
+            <h2 className="mt-6 text-3xl font-extrabold text-center">
               <span className="text-gray-900 dark:text-white">Iniciar</span>{" "}
               <span className="text-primaryper">sesión</span>
             </h2>
-            <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-300">
+            <p className="mt-2 text-sm text-center text-gray-600 dark:text-gray-300">
               Accede a tu cuenta para comenzar
             </p>
           </div>
 
           <form className="mt-8 space-y-6" action={dispatch}>
-            <div className="rounded-md shadow-sm -space-y-px">
+            <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <Label htmlFor="email" className="text-gray-500">
                   Correo electrónico
@@ -45,7 +45,7 @@ export default function LoginPage() {
                   autoComplete="email"
                   required
                   placeholder="prueba@google.com"
-                  className="px-5 py-2 border-2 bg-gray-200 border-gray-200 text-black focus:border-primaryper rounded mb-5"
+                  className="px-5 py-2 mb-5 text-black bg-gray-200 border-2 border-gray-200 rounded focus:border-primaryper"
                 />
               </div>
               <div>
@@ -59,19 +59,19 @@ export default function LoginPage() {
                   autoComplete="password"
                   required
                   placeholder="Ingrese su contraseña"
-                  className="px-5 py-2 border-2 border-gray-200 bg-gray-200 text-black focus:border-primaryper rounded mb-5"
+                  className="px-5 py-2 mb-5 text-black bg-gray-200 border-2 border-gray-200 rounded focus:border-primaryper"
                 />
               </div>
             </div>
 
             <div
-              className="flex h-8 items-end space-x-1"
+              className="flex items-end h-8 space-x-1"
               aria-live="polite"
               aria-atomic="true"
             >
               {state === "CredentialsSignin" && (
                 <div className="flex flex-row mb-2">
-                  <IoInformationOutline className="h-5 w-5 text-red-500" />
+                  <IoInformationOutline className="w-5 h-5 text-red-500" />
                   <p className="text-sm text-red-500">
                     Credenciales no son correctas
                   </p>
@@ -87,8 +87,8 @@ export default function LoginPage() {
               <div className="flex-1 border-t border-gray-500"></div>
             </div>
             <Link href="/auth/register">
-              <div className="border-primaryper border-2 mt-4 hover:bg-primary-hover text-center p-2 rounded-xl hover:text-white">
-                Crear una nueva cuenta
+              <div className="border-primaryper border-2 mt-4 hover:bg-primary-hover text-center p-2 rounded-xl">
+                <span className="text-white">Crear una nueva cuenta</span>
               </div>
             </Link>
           </form>

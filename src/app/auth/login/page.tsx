@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import Link from "next/link"
-import { useActionState } from "react"
-import { Input, Label } from "@/components"
-import { IoInformationOutline } from "react-icons/io5"
-import { authenticate } from "@/actions"
-import clsx from "clsx"
-import { useFormStatus } from "react-dom"
+import { useEffect } from "react";
+import Link from "next/link";
+import { useActionState } from "react";
+import { Input, Label } from "@/components";
+import { IoInformationOutline } from "react-icons/io5";
+import { authenticate } from "@/actions";
+import clsx from "clsx";
+import { useFormStatus } from "react-dom";
 
 export default function LoginPage() {
-  const [state, dispatch] = useActionState(authenticate, undefined)
+  const [state, dispatch] = useActionState(authenticate, undefined);
 
   useEffect(() => {
     if (state === "Success") {
-      window.location.replace("/app")
+      window.location.replace("/app");
     }
-  }, [state])
+  }, [state]);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-neutral-800">
@@ -87,30 +87,31 @@ export default function LoginPage() {
               <div className="flex-1 border-t border-gray-500"></div>
             </div>
             <Link href="/auth/register">
-              <div className="border-primaryper border-2 mt-4 hover:bg-primary-hover text-center p-2 rounded-xl">
-              Crear una nueva cuenta
+              <div className="border-primaryper border-2 mt-4 hover:bg-primary-hover text-center p-2 rounded-xl hover:text-white">
+                Crear una nueva cuenta
               </div>
             </Link>
           </form>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function LoginButton() {
-  const { pending } = useFormStatus()
+  const { pending } = useFormStatus();
 
   return (
     <button
       type="submit"
-      className={ clsx({
-        " bg-primaryper hover:bg-primary-hover dark:text-white p-3 w-full rounded-xl": !pending,
+      className={clsx({
+        " bg-primaryper hover:bg-primary-hover dark:text-white p-3 w-full rounded-xl":
+          !pending,
         "bg-neutral-300 hover:bg-neutral-400 p-3 w-full rounded-xl": pending,
       })}
       disabled={pending}
     >
-      Ingresar
+      <span className="text-white">Ingresar</span>
     </button>
-  )
+  );
 }

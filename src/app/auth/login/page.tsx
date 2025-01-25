@@ -87,8 +87,10 @@ export default function LoginPage() {
               <div className="flex-1 border-t border-gray-500"></div>
             </div>
             <Link href="/auth/register">
-              <div className="border-primaryper border-2 mt-4 hover:bg-primary-hover text-center p-2 rounded-xl">
-                <span className="text-white">Crear una nueva cuenta</span>
+              <div className="border-primaryper hover:text-white border-2 mt-4 hover:bg-primary-hover text-center p-2 rounded-xl">
+                <span className="text-black dark:text-white">
+                  Crear una nueva cuenta
+                </span>
               </div>
             </Link>
           </form>

@@ -17,7 +17,7 @@ export default async function LayoutClient({
   const showFloatingCard = session.user.learningStyle === LearningStyle.Nulo;
 
   return (
-    <div className="text-gray-900 bg-gray-50 dark:bg-neutral-800 dark:text-gray-100">
+    <div className="flex min-h-screen text-gray-900 bg-gray-50 dark:bg-neutral-900 dark:text-gray-100">
       <Sidebar />
       <div>
         <NavbarApp
@@ -25,7 +25,7 @@ export default async function LayoutClient({
           email={session.user.email}
           role={session.user.role}
         />
-        <main className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
+        <main className="px-4 py-8 sm:px-6 lg:px-8">
           {showFloatingCard && <FloatingCard />}
           {children}
         </main>

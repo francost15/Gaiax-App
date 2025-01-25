@@ -1,24 +1,24 @@
 "use client";
-
-import Link from "next/link";
-import { Button, ScrollArea } from "@/components"; // Ajusta si llamas distinto a estos componentes
+import React, { useEffect, useState } from "react";
 import {
-  Home,
   BookOpen,
-  Award,
+  ChartLine,
   Settings,
   HelpCircle,
-  X,
   Shield,
 } from "lucide-react";
+import { MdHome } from "react-icons/md";
 import { cn } from "@/lib/utils";
 import { useUIStore } from "@/store";
 import { useSession } from "next-auth/react";
+import { Logo } from "../ui/logo";
+import Link from "next/link";
+import { usePathname } from "next/navigation"; // Solo para Next.js 13
 
 const menuItems = [
-  { icon: Home, label: "Inicio", href: "/app" },
+  { icon: MdHome, label: "Inicio", href: "/app" },
   { icon: BookOpen, label: "Mis Cursos", href: "/app/courses/recommended" },
-  { icon: Award, label: "Logros", href: "/achievements" },
+  { icon: ChartLine, label: "Mi progreso", href: "/app/profile" },
   { icon: Settings, label: "Configuración", href: "/app/settings" },
   { icon: HelpCircle, label: "Ayuda", href: "/help" },
 ];
@@ -28,18 +28,32 @@ export const Sidebar = () => {
   const closeMenu = useUIStore((state) => state.closeSideMenu);
   const { data: session } = useSession();
   const isAdmin = session?.user.role === "admin";
+  const pathname = usePathname(); // Next.js 13
+
+  // Detectar el tamaño de la ventana para forzar la apertura en pantallas grandes
+  const [isLargeDevice, setIsLargeDevice] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeDevice(window.innerWidth >= 1024); // 1024px => lg
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Determinar si mostramos el sidebar (abierto en pantallas grandes o si el usuario lo abrió)
+  const showSidebar = isLargeDevice || isSideMenuOpen;
 
   return (
     <div>
-      {isSideMenuOpen && (
+      {/* Overlay en pantallas pequeñas */}
+      {!isLargeDevice && isSideMenuOpen && (
         <>
-          <div
-            className="fixed inset-0 z-50 bg-black bg-opacity-50"
-            onClick={closeMenu}
-          />
+          <div className="fixed inset-0" onClick={closeMenu} />
           <div
             onClick={closeMenu}
-            className="fade-in fixed top-0 left-0 h-screen w-screen z-10 backdrop-filter backdrop-blur-sm"
+            className="fixed top-0 left-0 z-10 w-screen h-screen fade-in"
           />
         </>
       )}
@@ -47,54 +61,45 @@ export const Sidebar = () => {
       <aside
         data-sidebar
         className={cn(
-          "fixed left-0 top-0 z-50 flex h-full w-64 flex-col bg-white dark:bg-neutral-900 shadow-lg transition-transform",
-          isSideMenuOpen ? "translate-x-0" : "-translate-x-full"
+          "z-50 w-64 flex flex-col bg-white dark:bg-neutral-900",
+          // En pantallas grandes usamos `sticky top-0`; en pantallas pequeñas, `fixed top-0 left-0`
+          isLargeDevice
+            ? "sticky top-0 h-screen"
+            : "fixed top-0 left-0 h-screen",
+          showSidebar ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className="flex items-center justify-between p-4 border-b border-neutral-300 dark:border-neutral-700">
-          <span className="font-bold text-gray-800 dark:text-white">Menú</span>
-
-          <Button
-            title="Cerrar menú"
-            variant="ghost"
-            size="icon"
-            onClick={closeMenu}
-          >
-            <X className="w-5 h-5 dark:text-white" />
-          </Button>
+        <div className="p-2">
+          <Logo />
         </div>
 
-        <ScrollArea className="flex-1 p-2">
-          <nav className="space-y-1">
-            {menuItems.map((item) => (
+        <nav className="flex flex-col space-y-2">
+          {menuItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
               <Link
                 key={item.label}
                 href={item.href}
-                className="flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-neutral-800"
-                onClick={closeMenu}
+                className={cn(
+                  "flex items-center p-3 space-x-2  text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-neutral-800",
+                  isActive && " border-primaryper border-l-4"
+                )}
               >
-                <item.icon className="w-4 h-4 text-primaryper" />
-                <span className="text-gray-700 dark:text-gray-200">
-                  {item.label}
-                </span>
+                <item.icon className="w-5 h-5" />
+                <span>{item.label}</span>
               </Link>
-            ))}
-            {isAdmin && (
-              <>
-                <Link
-                  href="/admin"
-                  className="flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-neutral-800"
-                  onClick={closeMenu}
-                >
-                  <Shield className="w-4 h-4 text-primaryper" />
-                  <span className="text-gray-700 dark:text-gray-200">
-                    Admin
-                  </span>
-                </Link>
-              </>
-            )}
-          </nav>
-        </ScrollArea>
+            );
+          })}
+          {isAdmin && (
+            <Link
+              href="/admin"
+              className="flex items-center p-2 space-x-2 text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-neutral-700"
+            >
+              <Shield className="w-5 h-5" />
+              <span>Admin</span>
+            </Link>
+          )}
+        </nav>
       </aside>
     </div>
   );

@@ -1,10 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Search } from "lucide-react";
-import { Course } from "@/interface";
 import { ProfileButton } from "./profile-button";
-import { Button, SearchBar, StreakDisplay } from "@/components";
+import { Logo, StreakDisplay } from "@/components";
 
 interface Props {
   name: string;
@@ -14,53 +11,25 @@ interface Props {
 }
 
 export function NavbarMobileApp({ name, email, role, streaks }: Props) {
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
-
-  // Función para alternar la visibilidad de la barra de búsqueda
-  const toggleSearch = () => setIsSearchVisible(!isSearchVisible);
-
   return (
-    // "block sm:hidden" asegura que se muestre solo en pantallas pequeñas (<640px)
     <nav className="sticky top-0 z-10 block sm:hidden bg-white dark:bg-neutral-900 dark:border-neutral-800">
-      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex-1 ml-36 hidden lg:block">
-            <SearchBar
-              onSearch={(results: Course[]) => {
-                // Manejar resultados de búsqueda aquí
-                console.log(results);
-              }}
-            />
+      <div className="max-w-7xl mx-auto px-4 py-2">
+        {/* Contenedor principal: espacio a la izquierda para el logo,
+            y botones alineados a la derecha */}
+        <div className="flex items-center h-16">
+          {/* Espacio para el logo */}
+          <div className="w-20 mr-4">
+            <Logo />
+            {/* Agrega tu componente de logo aquí */}
           </div>
-          <div className="items-center hidden gap-4 lg:flex">
+
+          {/* Sección de controles alineados a la derecha */}
+          <div className="flex items-center gap-2 ml-auto">
             <StreakDisplay streak={streaks ?? 0} bestStreak={0} />
-            <ProfileButton name={name} email={email} role={role} />
-          </div>
-          <div className="flex items-center gap-2 lg:hidden">
-            <Button
-              title="buscar"
-              variant="ghost"
-              size="icon"
-              aria-label="Buscar"
-              onClick={toggleSearch}
-            >
-              <Search className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-            </Button>
             <ProfileButton name={name} email={email} role={role} />
           </div>
         </div>
       </div>
-
-      {isSearchVisible && (
-        <div className="absolute left-0 right-0 p-4 bg-white top-full dark:bg-neutral-900 lg:hidden">
-          <SearchBar
-            onSearch={(results: Course[]) => {
-              // Manejar resultados de búsqueda aquí
-              console.log(results);
-            }}
-          />
-        </div>
-      )}
     </nav>
   );
 }

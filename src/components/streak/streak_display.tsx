@@ -10,7 +10,6 @@ interface Props {
 
 export const StreakDisplay = ({ streak, bestStreak }: Props) => {
   const [isStreakHovered, setIsStreakHovered] = useState(false);
-
   const progressPercentage =
     bestStreak === 0 ? 0 : Math.min((streak / bestStreak) * 100, 100);
 
@@ -20,15 +19,14 @@ export const StreakDisplay = ({ streak, bestStreak }: Props) => {
       onMouseEnter={() => setIsStreakHovered(true)}
       onMouseLeave={() => setIsStreakHovered(false)}
     >
-      {/* Ícono y racha actual (visible en >= sm) */}
-      <div className="hidden sm:flex items-center justify-center bg-white dark:bg-neutral-800 text-white px-3 h-8 rounded-full cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg">
+      {/* Ícono y racha actual (ahora visible en mobile) */}
+      <div className="flex items-center justify-center bg-white dark:bg-neutral-800 text-white px-3 h-8 rounded-full cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg">
         <Flame className="h-4 w-4 mr-1.5 text-yellow-300" />
-        <span className="text-sm font-semibold text-black dark:text-white ">
+        <span className="text-sm font-semibold text-black dark:text-white">
           {streak}
         </span>
       </div>
 
-      {/* Card con detalles: aparece solo si el mouse está dentro del contenedor */}
       {isStreakHovered && (
         <div
           className="absolute top-full right-0 mt-2 w-72 p-6 bg-gradient-to-r dark:bg-neutral-800 dark:to-neutral-600 bg-slate-50 to-slate-200

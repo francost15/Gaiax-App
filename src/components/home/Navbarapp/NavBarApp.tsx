@@ -1,3 +1,4 @@
+"use client";
 import { Search } from "lucide-react";
 import { Course } from "@/interface";
 import { ProfileButton } from "./profile-button";

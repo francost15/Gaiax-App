@@ -6,36 +6,44 @@ import Link from "next/link";
 import { Logo } from "../ui/logo";
 import { usePathname } from "next/navigation"; // Solo para Next.js 13
 
-const menuItems = [
-  { icon: MdHome, label: "Inicio", href: "/app" },
-  { icon: BookOpen, label: "Mis Cursos", href: "/app/courses/recommended" },
-  { icon: ChartLine, label: "Mi progreso", href: "/app/profile" },
-];
-
 export function Sidebar() {
   const pathname = usePathname(); // Hook de Next.js 13 para obtener la ruta actual
 
   return (
-    <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:h-screen bg-white dark:bg-neutral-900  sticky top-0">
-      <div className="p-2 ">
+    <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:h-screen bg-white dark:bg-neutral-900 sticky top-0">
+      <div className="p-2">
         <Logo />
       </div>
-      <nav className="flex-1  space-y-2">
-        {menuItems.map((item) => {
-          const isActive = pathname === item.href;
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={`flex items-center space-x-6 p-4 rounded-xl rounded-l-none hover:bg-gray-200 dark:hover:bg-neutral-800 ${
-                isActive ? "border-primaryper border-l-4" : ""
-              }`}
-            >
-              <item.icon className="w-5 h-5" />
-              <span>{item.label}</span>
-            </Link>
-          );
-        })}
+      <nav className="flex-1 space-y-2">
+        <Link
+          href="/app"
+          className={`flex items-center space-x-6 p-4 rounded-xl rounded-l-none hover:bg-gray-200 dark:hover:bg-neutral-800 ${
+            pathname === "/app" ? "border-primaryper border-l-4" : ""
+          }`}
+        >
+          <MdHome className="w-5 h-5" />
+          <span>Inicio</span>
+        </Link>
+        <Link
+          href="/app/courses/recommended"
+          className={`flex items-center space-x-6 p-4 rounded-xl rounded-l-none hover:bg-gray-200 dark:hover:bg-neutral-800 ${
+            pathname === "/app/courses/recommended"
+              ? "border-primaryper border-l-4"
+              : ""
+          }`}
+        >
+          <BookOpen className="w-5 h-5" />
+          <span>Mis Cursos</span>
+        </Link>
+        <Link
+          href="/app/profile"
+          className={`flex items-center space-x-6 p-4 rounded-xl rounded-l-none hover:bg-gray-200 dark:hover:bg-neutral-800 ${
+            pathname === "/app/profile" ? "border-primaryper border-l-4" : ""
+          }`}
+        >
+          <ChartLine className="w-5 h-5" />
+          <span>Mi progreso</span>
+        </Link>
       </nav>
     </aside>
   );

@@ -16,7 +16,7 @@ export function Sidebar() {
   const pathname = usePathname(); // Hook de Next.js 13 para obtener la ruta actual
 
   return (
-    <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:h-screen bg-white dark:bg-neutral-900 shadow-lg sticky top-0">
+    <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:h-screen bg-white dark:bg-neutral-900  sticky top-0">
       <div className="p-2 ">
         <Logo />
       </div>

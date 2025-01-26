@@ -16,7 +16,6 @@ import {
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import { Role } from "@/interface";
 
 interface Props {
   name: string;
@@ -34,7 +33,7 @@ export const ProfileButton = ({ name, email, role }: Props) => {
           role="button"
           tabIndex={0}
           aria-label="Abrir menu del perfil"
-          className="transition-opacity cursor-pointer hover:opacity-80"
+          className="transition-opacity cursor-pointer hover:opacity-80 border-none"
         >
           <AvatarFallback className="text-white bg-primaryper">
             FA
@@ -58,56 +57,56 @@ export const ProfileButton = ({ name, email, role }: Props) => {
         </DropdownMenuLabel>
         <DropdownMenuGroup>
           <Link href="/app/profile">
-            <DropdownMenuItem className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-700">
+            <DropdownMenuItem className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800">
               <User className="w-4 h-4 mr-2 text-primaryper" />
               <span>Perfil</span>
             </DropdownMenuItem>
           </Link>
           <Link href="/app/settings">
-            <DropdownMenuItem className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-700">
+            <DropdownMenuItem className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800">
               <Settings className="w-4 h-4 mr-2 text-primaryper" />
               <span>Configuración</span>
             </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator className="my-2 bg-gray-200 dark:bg-neutral-700" />
+        <DropdownMenuSeparator className="my-2 bg-gray-200 dark:bg-neutral-800" />
         <DropdownMenuGroup>
           <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-700">
+            <DropdownMenuSubTrigger className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800">
               <Sun className="w-4 h-4 mr-2 text-primaryper" />
               <span>Tema</span>
             </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent className="bg-white border border-gray-200 dark:bg-neutral-900 dark:border-neutral-700">
+            <DropdownMenuSubContent className="bg-white border border-gray-200 dark:bg-neutral-900 dark:border-neutral-800">
               <DropdownMenuItem
                 onClick={() => setTheme("light")}
-                className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-700"
+                className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800"
               >
                 <Sun className="w-4 h-4 mr-2 text-primaryper" />
                 <span>Claro</span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setTheme("dark")}
-                className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-700"
+                className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800"
               >
                 <Moon className="w-4 h-4 mr-2 text-primaryper" />
                 <span>Oscuro</span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setTheme("system")}
-                className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-700"
+                className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800"
               >
                 <Settings className="w-4 h-4 mr-2 text-primaryper" />
                 <span>Sistema</span>
               </DropdownMenuItem>
             </DropdownMenuSubContent>
           </DropdownMenuSub>
-          <DropdownMenuItem className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-700">
+          <DropdownMenuItem className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800">
             <HelpCircle className="w-4 h-4 mr-2 text-primaryper" />
             <span>Ayuda</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
 
-        <DropdownMenuSeparator className="my-2 bg-gray-200 dark:bg-neutral-700" />
+        <DropdownMenuSeparator className="my-2 bg-gray-200 dark:bg-neutral-800" />
         <DropdownMenuItem
           className="text-red-600 rounded-md dark:text-red-400 focus:bg-red-50 dark:focus:bg-red-900/20"
           onSelect={() => signOut()}

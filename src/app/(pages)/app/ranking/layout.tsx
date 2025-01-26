@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Configuración",
-  description: "Personaliza tu experiencia de aprendizaje en gX Learning.",
+  title: "Ranking",
+  description: "Ranking de la app",
 };
 
-export default function LayoutSettings({
+export default function LayoutRanking({
   children,
 }: {
   children: React.ReactNode;

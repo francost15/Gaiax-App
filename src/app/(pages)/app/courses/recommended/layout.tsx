@@ -11,8 +11,8 @@ export default function LayoutCoursesRecomended({
   children: React.ReactNode;
 }) {
   return (
-    <div className="text-gray-900 bg-gray-50 dark:bg-neutral-800 dark:text-gray-100 ">
-      <main className="min-h-screen ">{children}</main>
+    <div>
+      <main>{children}</main>
     </div>
   );
 }

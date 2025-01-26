@@ -16,7 +16,7 @@ interface Props {
 
 export function DailyProgress({ xp, lesson, progress }: Props) {
   return (
-    <Card className="h-full p-8 text-white border-none rounded-xl bg-primaryper">
+    <Card className="h-full p-8 text-white border-none rounded-xl bg-primaryper/80">
       <CardHeader className="p-0 mb-2">
         <CardTitle className="flex items-center gap-2 text-xl font-semibold">
           <Zap className="w-5 h-5" />

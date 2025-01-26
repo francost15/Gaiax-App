@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { Search } from "lucide-react";
-
 import { Course } from "@/interface";
-
 import { ProfileButton } from "./profile-button";
 import { Button, SearchBar, StreakDisplay } from "@/components";
 
@@ -15,17 +13,18 @@ interface Props {
   streaks?: number;
 }
 
-export function NavbarApp({ name, email, role, streaks }: Props) {
+export function NavbarMobileApp({ name, email, role, streaks }: Props) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   // Función para alternar la visibilidad de la barra de búsqueda
   const toggleSearch = () => setIsSearchVisible(!isSearchVisible);
 
   return (
-    <nav className="sticky top-0 z-10 bg-white dark:bg-neutral-900 dark:border-neutral-800">
+    // "block sm:hidden" asegura que se muestre solo en pantallas pequeñas (<640px)
+    <nav className="sticky top-0 z-10 block sm:hidden bg-white dark:bg-neutral-900 dark:border-neutral-800">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex-1 hidden mx-4 lg:block">
+          <div className="flex-1 ml-36 hidden lg:block">
             <SearchBar
               onSearch={(results: Course[]) => {
                 // Manejar resultados de búsqueda aquí
@@ -34,7 +33,7 @@ export function NavbarApp({ name, email, role, streaks }: Props) {
             />
           </div>
           <div className="items-center hidden gap-4 lg:flex">
-            <StreakDisplay streak={streaks ?? 0} />
+            <StreakDisplay streak={streaks ?? 0} bestStreak={0} />
             <ProfileButton name={name} email={email} role={role} />
           </div>
           <div className="flex items-center gap-2 lg:hidden">

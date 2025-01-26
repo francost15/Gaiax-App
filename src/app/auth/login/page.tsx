@@ -19,7 +19,7 @@ export default function LoginPage() {
   }, [state]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-neutral-800">
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-neutral-900">
       <div className="flex items-center justify-center flex-1 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>

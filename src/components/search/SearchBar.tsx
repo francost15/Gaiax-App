@@ -56,7 +56,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
   }, []);
 
   return (
-    <div ref={searchRef} className="relative w-96">
+    <div ref={searchRef} className="relative w-4/6">
       <div role="search" aria-label="Buscar cursos" className="relative">
         <label htmlFor={searchId} className="sr-only">
           ¿Qué quieres aprender hoy?
@@ -70,7 +70,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
           id={searchId}
           type="search"
           placeholder="¿Qué quieres aprender hoy?"
-          className="w-full rounded-xl py-2 pl-10 pr-10 bg-gray-100 dark:text-neutral-400 text-black border-gray-200 dark:bg-neutral-800 dark:border-neutral-700 focus:border-[#6366F1] dark:focus:border-[#7375F3] focus:ring-1 focus:ring-[#6366F1] dark:focus:ring-[#7375F3]"
+          className="w-full border-2 rounded-full py-2 pl-10 pr-10 bg-gray-100 dark:text-neutral-400 text-black border-gray-200 dark:bg-neutral-950 dark:border-neutral-700 focus:border-[#6366F1] dark:focus:border-[#7375F3] focus:ring-1 focus:ring-[#6366F1] dark:focus:ring-[#7375F3]"
           value={searchTerm}
           onChange={handleInputChange}
           onFocus={() => setIsSearching(true)}
@@ -84,7 +84,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
           id={resultsId}
           role="region"
           aria-label="Resultados de búsqueda"
-          className="absolute left-0 right-0 z-10 mt-1 overflow-y-auto bg-white border border-gray-200 rounded-md shadow-lg max-h-80 dark:bg-neutral-800 dark:border-neutral-700 top-full"
+          className="absolute left-0 right-0 z-10 mt-1 overflow-y-auto bg-white border border-gray-200 rounded-md shadow-lg max-h-80 dark:bg-neutral-900 dark:border-neutral-700 top-full"
         >
           <SearchResults searchTerm={searchTerm} results={results} />
         </div>

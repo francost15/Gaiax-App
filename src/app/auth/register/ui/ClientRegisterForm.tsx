@@ -75,7 +75,7 @@ export default function ClientRegisterForm(props: { companies: Company[] }) {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 py-12 bg-gray-50 dark:bg-neutral-800 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center min-h-screen px-4 py-12 bg-gray-50 dark:bg-neutral-900 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div>
           <h2 className="mt-6 text-3xl font-extrabold text-center">
@@ -304,7 +304,9 @@ export default function ClientRegisterForm(props: { companies: Company[] }) {
 
         <Link href="/auth/login">
           <div className="p-2 mt-4 text-center border-2 border-primaryper hover:bg-primary-hover rounded-xl dark:hover:text-white ">
-            <span className="text-black">Ingresar con tu cuenta</span>
+            <span className="text-black dark:text-white">
+              Ingresar con tu cuenta
+            </span>
           </div>
         </Link>
       </div>

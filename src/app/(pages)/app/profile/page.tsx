@@ -26,15 +26,13 @@ export default async function ProfilePage() {
   const allArchievements = await getAllAchievements(userId);
   const completedCourses = await getCompletedCoursesByUser(userId);
   return (
-    <div className="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-neutral-800">
-      <h1 className="sr-only">Mi Perfil</h1>
-      <div className="grid gap-8 [&>*]:bg-white [&>*]:dark:bg-neutral-900 [&>*]:p-6 [&>*]:rounded-lg [&>*]:shadow-md [&>*]:transition-all [&>*]:duration-300">
+    <div className="min-h-screen transition-colors duration-300 ">
+      <div className="grid gap-8 [&>*]:bg-white [&>*]:dark:bg-neutral-900 [&>*]:p-6 [&>*]:transition-all [&>*]:duration-300">
         <ProfileHeader
           name={session ? `${session.user.name} ${session.user.lastname}` : ""}
           role={session?.user.role ?? ""}
           email={session?.user.email ?? ""}
           company={company ? company.name : ""}
-          streak={session?.user.streaks ?? 0}
           image={session?.user.image ?? ""}
           level={session?.user.exp ?? 0}
           xp={session?.user.exp ?? 0}
@@ -45,7 +43,7 @@ export default async function ProfilePage() {
           coursescompleted={0}
           coursesinprogress={0}
         />
-        <div className="grid gap-8 p-6 bg-gray-200 rounded-lg lg:grid-cols-2 dark:bg-neutral-800">
+        <div className="grid gap-8 p-6  lg:grid-cols-2 ">
           <div className="relative">
             <ProfileCourses completedCourses={completedCourses} />
             <Link

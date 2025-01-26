@@ -9,42 +9,22 @@ export const StreakDisplay = ({
   streak,
   status = "maintained",
 }: StreakDisplayProps) => {
-  const getStreakInfo = () => {
-    if (streak === 0) {
-      status = "lost";
-    }
+  const isLost = streak === 0 || status === "lost";
 
-    switch (status) {
-      case "lost":
-        return {
-          icon: TrendingDown,
-          bgColor: "bg-red-100 dark:bg-red-900/20",
-          textColor: "text-red-600 dark:text-red-400",
-          borderColor: "border-red-200 dark:border-red-800",
-          message: "¡Vuelve a la carga!",
-          hoverBg: "hover:bg-red-200 dark:hover:bg-red-800/30",
-        };
-      case "maintained":
-      default:
-        return {
-          icon: Flame,
-          bgColor: "bg-primaryper/10 dark:bg-primaryper/20",
-          textColor: "text-primaryper dark:text-[#A5B4FC]",
-          borderColor: "border-primaryper/20 dark:border-primaryper/30",
-          message: "¡Sigue así!",
-          hoverBg: "hover:bg-primaryper/20 dark:hover:bg-primaryper/30",
-        };
-    }
-  };
-
-  const {
-    icon: StreakIcon,
-    bgColor,
-    textColor,
-    borderColor,
-    message,
-    hoverBg,
-  } = getStreakInfo();
+  const StreakIcon = isLost ? TrendingDown : Flame;
+  const bgColor = isLost
+    ? "bg-red-100 dark:bg-red-900/20"
+    : "bg-primaryper/10 dark:bg-primaryper/20";
+  const textColor = isLost
+    ? "text-red-600 dark:text-red-400"
+    : "text-primaryper dark:text-[#A5B4FC]";
+  const borderColor = isLost
+    ? "border-red-200 dark:border-red-800"
+    : "border-primaryper/20 dark:border-primaryper/30";
+  const message = isLost ? "¡Vuelve a la carga!" : "¡Sigue así!";
+  const hoverBg = isLost
+    ? "hover:bg-red-200 dark:hover:bg-red-800/30"
+    : "hover:bg-primaryper/20 dark:hover:bg-primaryper/30";
 
   return (
     <div

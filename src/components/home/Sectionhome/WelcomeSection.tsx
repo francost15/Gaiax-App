@@ -17,7 +17,6 @@ export const WelcomeSection = ({ name, lastname, streaks }: Props) => {
             Continúa tu aprendizaje diario para PyMEs
           </p>
         </div>
-        <StreakDisplay streak={streaks ?? 0} />
       </div>
     </div>
   );

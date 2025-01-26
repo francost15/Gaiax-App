@@ -1,7 +1,14 @@
-import { Chatbot, NavbarApp, Sidebar, FloatingCard } from "@/components";
-import { redirect } from "next/navigation";
 import { auth } from "@/auth.config";
+import {
+  Chatbot,
+  FloatingCard,
+  MobileFooter,
+  NavbarApp,
+  Sidebar,
+} from "@/components";
 import { LearningStyle } from "@/interface";
+
+import { redirect } from "next/navigation";
 
 export default async function LayoutClient({
   children,
@@ -19,16 +26,17 @@ export default async function LayoutClient({
   return (
     <div className="flex min-h-screen text-gray-900 bg-gray-50 dark:bg-neutral-900 dark:text-gray-100">
       <Sidebar />
-      <div>
+      <div className="flex-1 flex flex-col min-w-screen mx-auto">
         <NavbarApp
           name={session.user.name + " " + session.user.lastname}
           email={session.user.email}
           role={session.user.role}
         />
-        <main className="px-4 py-8 sm:px-6 lg:px-8">
+        <main className="flex-1">
           {showFloatingCard && <FloatingCard />}
           {children}
         </main>
+        <MobileFooter />
       </div>
       <Chatbot />
     </div>

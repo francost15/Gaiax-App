@@ -6,7 +6,7 @@ import { Input, Button } from "@/components";
 import { ChatMessage } from "./chat_message";
 import { useChatStore } from "@/store";
 
-export const ChatbotWindow = () => {
+export const ChatbotWindow = ({ className }: { className?: string }) => {
   const messages = useChatStore((state) => state.messages);
   const input = useChatStore((state) => state.input);
   const setMessages = useChatStore((state) => state.setMessages);

@@ -34,6 +34,7 @@ export * from "./ranking/SectionRanking";
 export * from "./ranking/widgetRanking";
 export * from "./search/SearchBar";
 export * from "./search/SearchResults";
+export * from "./sidebar/MobileFooter";
 export * from "./sidebar/sidebar";
 export * from "./streak/streak_display";
 export * from "./theme-toggle";

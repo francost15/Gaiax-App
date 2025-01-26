@@ -43,31 +43,17 @@ export const ProfileButton = ({ name, email, role }: Props) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="w-64 p-2 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-neutral-800 dark:border-neutral-700"
+        className="w-64 p-2 bg-white  dark:bg-neutral-900 dark:border-neutral-800 border-gray-200 "
       >
         <DropdownMenuLabel className="p-4 mb-2 rounded-md bg-gray-50 dark:bg-neutral-900">
-          <div className="flex items-center space-x-3">
-            <Avatar
-              role="button"
-              tabIndex={0}
-              aria-label="Abrir menu del perfil"
-              className="w-10 h-10"
-            >
-              <AvatarFallback className="text-white bg-primaryper">
-                FA
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col">
-              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                {name}
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                {email}
-              </p>
-              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                {role}
-              </p>
-            </div>
+          <div className="flex flex-col">
+            <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+              {name}
+            </p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{email}</p>
+            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              {role}
+            </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuGroup>
@@ -91,7 +77,7 @@ export const ProfileButton = ({ name, email, role }: Props) => {
               <Sun className="w-4 h-4 mr-2 text-primaryper" />
               <span>Tema</span>
             </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent className="bg-white border border-gray-200 dark:bg-neutral-800 dark:border-neutral-700">
+            <DropdownMenuSubContent className="bg-white border border-gray-200 dark:bg-neutral-900 dark:border-neutral-700">
               <DropdownMenuItem
                 onClick={() => setTheme("light")}
                 className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-700"

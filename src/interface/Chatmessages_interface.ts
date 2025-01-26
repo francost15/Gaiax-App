@@ -7,6 +7,7 @@ export interface ChatMessageProps {
 
 export interface ChatbotButtonProps {
   onClick: () => void;
+  className: string;
 }
 
 export interface ChatbotWindowProps {

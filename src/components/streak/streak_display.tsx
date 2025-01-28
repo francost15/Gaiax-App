@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Flame } from "lucide-react";
+import { TbFlameFilled } from "react-icons/tb";
 
 interface Props {
   streak: number;
@@ -19,9 +20,9 @@ export const StreakDisplay = ({ streak, bestStreak }: Props) => {
       onMouseEnter={() => setIsStreakHovered(true)}
       onMouseLeave={() => setIsStreakHovered(false)}
     >
-      {/* Ícono y racha actual (ahora visible en mobile) */}
+      {/* Ícono y racha actual */}
       <div className="flex items-center justify-center bg-white dark:bg-neutral-800 text-white px-3 h-8 rounded-full cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg">
-        <Flame className="h-4 w-4 mr-1.5 text-yellow-300" />
+        <TbFlameFilled className="h-5 w-4 mr-1.5 text-yellow-500" />
         <span className="text-sm font-semibold text-black dark:text-white">
           {streak}
         </span>
@@ -30,12 +31,12 @@ export const StreakDisplay = ({ streak, bestStreak }: Props) => {
       {isStreakHovered && (
         <div
           className="absolute top-full right-0 mt-2 w-72 p-6 bg-gradient-to-r dark:bg-neutral-800 dark:to-neutral-600 bg-slate-50 to-slate-200
-                    rounded-xl border dark:border-neutral-700 border-neutral-200 z-10
-                    transition-all duration-300 ease-out"
+                     rounded-xl border dark:border-neutral-700 border-neutral-200 z-10
+                     transition-all duration-300 ease-out"
         >
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <Flame className="h-8 w-8 text-yellow-300 mr-3 animate-pulse" />
+              <TbFlameFilled className="h-8 w-8 text-yellow-500 mr-3 animate-pulse" />
               <div>
                 <span className="text-2xl font-bold dark:text-white text-black">
                   {streak} días

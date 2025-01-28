@@ -29,6 +29,7 @@ export * from "./home/RecommendeCourse/RecomendedCourse";
 export * from "./home/Sectionhome/WelcomeSection";
 export * from "./navbar/NavBarAuth";
 export * from "./navbar/NavbarDemo";
+export * from "./notification/NotificationPanel";
 export * from "./progress/ProgressOverview";
 export * from "./progress/Progress_testVAK";
 export * from "./ranking/SectionRanking";

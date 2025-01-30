@@ -84,6 +84,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
           id={resultsId}
           role="region"
           aria-label="Resultados de búsqueda"
+          aria-live="polite"
           className="absolute left-0 right-0 z-10 mt-1 overflow-y-auto bg-white border border-gray-200 rounded-md shadow-lg max-h-80 dark:bg-neutral-900 dark:border-neutral-700 top-full"
         >
           <SearchResults searchTerm={searchTerm} results={results} />

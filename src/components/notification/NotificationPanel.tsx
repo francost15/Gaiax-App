@@ -17,7 +17,7 @@ export const NotificationPanel = ({
     <>
       <button
         onClick={togglePanel}
-        className="relative w-full flex rounded-xl  hover:bg-gray-200 dark:hover:bg-neutral-800"
+        className="relative w-full flex rounded-xl   hover:bg-gray-200 dark:hover:bg-neutral-800"
       >
         <Bell className="w-5 h-5" />
         {notifications.length > 0 && (

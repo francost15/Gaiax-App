@@ -50,18 +50,42 @@ export default {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
-        // Colores personalizados
-        primaryper: "#6366F1", // Asegúrate de que este color tenga suficiente contraste
-        "primary-hover": "#8082ec", // Asegúrate de que este color tenga suficiente contraste
-        "primary-focus": "#0407ab", // Asegúrate de que este color tenga suficiente contraste
+        primaryper: "#6366F1",
+        "primary-hover": "#8082ec",
+        "primary-focus": "#0407ab",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      keyframes: {
+        "fade-in-up": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(1rem)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        "fade-in-left": {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(1rem)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateX(0)",
+          },
+        },
+      },
+      animation: {
+        "fade-in-up": "fade-in-up 0.5s ease-out forwards",
+        "fade-in-left": "fade-in-left 0.5s ease-out forwards",
+      },
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

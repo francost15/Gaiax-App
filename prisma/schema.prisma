@@ -13,14 +13,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// un enum de estilos de aprndizaje
-enum LearningStyle {
-  Visual
-  Auditivo
-  Kinestesico
-  Nulo
-}
-
 enum Role {
   admin
   manager
@@ -36,7 +28,7 @@ enum Role {
   other
 }
 
-// Modelo que representa una empresa que utiliza la plataforma para capacitar a sus empleados
+// Modelo que representa a las empresas que utilizan la plataforma para capacitar a sus empleados.
 model Company {
   id           String               @id @default(uuid())
   name         String
@@ -45,7 +37,9 @@ model Company {
   // membresia
   membership   Membership           @relation(fields: [membershipId], references: [id])
   membershipId String
+  // lista de usuarios
   users        User[]
+  // los requerimientos de la empresa
   requirements RequirementCompany[]
 }
 
@@ -62,21 +56,85 @@ model Membership {
 
 // Modelo que representa a un usuario de la plataforma
 model User {
-  id                 String               @id @default(uuid())
-  name               String
-  lastname           String
-  email              String               @unique
-  password           String
-  streaks            Int
-  exp                Int
-  role               String
-  image              String?
-  company            Company              @relation(fields: [companyId], references: [id])
-  companyId          String
-  learningStyle      LearningStyle
-  UserArchivement    UserArchivement[]
-  UserProgress       UserProgress[]
-  UserLessonProgress UserLessonProgress[]
+  id                  String               @id @default(uuid())
+  name                String
+  lastname            String
+  email               String               @unique
+  password            String
+  streaks             Int
+  exp                 Int
+  role                String
+  image               String?
+  // Relación con la empresa
+  company             Company              @relation(fields: [companyId], references: [id])
+  companyId           String
+  // Preferencias de aprendizaje del usuario (nueva tabla)
+  learningPreferences LearningPreferences?
+  // Resultados de los tests realizados por el usuario
+  testResults         TestResult[]
+  // Feedback proporcionado por el usuario
+  feedbacks           Feedback[]
+  // Relación con logros obtenidos
+  UserArchivement     UserArchivement[]
+  // Progreso en cursos
+  UserProgress        UserProgress[]
+  // Progreso en lecciones
+  UserLessonProgress  UserLessonProgress[]
+  Notification        Notification[]
+}
+
+// Modelo que almacena las preferencias y estilos de aprendizaje del usuario
+model LearningPreferences {
+  id                String   @id @default(uuid())
+  // Relación uno a uno con el usuario
+  user              User     @relation(fields: [userId], references: [id])
+  userId            String   @unique
+  // Formatos preferidos (texto, audio, video, etc.)
+  formats           String[]
+  // Estilo de aprendizaje según Kolb
+  learningStyleKolb String
+  // Tiempo disponible diario para capacitación (en minutos)
+  availableTime     Int
+  // Metas personales y laborales
+  goals             String[]
+  // Áreas de fortaleza del usuario
+  strengths         String[]
+  // Áreas que el usuario desea mejorar
+  improvementAreas  String[]
+}
+
+// Modelo que almacena los resultados de los tests realizados por el usuario
+model TestResult {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  // Tipo de test (Inicial, Progreso, Evaluación)
+  testType  String
+  // Respuestas del usuario (almacenadas en formato JSON)
+  responses Json
+  // Puntuación obtenida (si aplica)
+  score     Int?
+  // Fecha en que se completó el test
+  date      DateTime @default(now())
+}
+
+// Modelo que almacena el feedback generado durante el uso de la aplicación
+model Feedback {
+  id           String   @id @default(uuid())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+  // Relación opcional con una lección específica
+  lesson       Lesson?  @relation(fields: [lessonId], references: [id])
+  lessonId     String?
+  // Relación opcional con un curso específico
+  course       Course?  @relation(fields: [courseId], references: [id])
+  courseId     String?
+  // Tipo de feedback (QuizResult, UserComment, SystemGenerated)
+  feedbackType String
+  // Contenido del feedback (texto, puntuación, etc.)
+  content      String
+  // Fecha en que se generó el feedback
+  date         DateTime @default(now())
 }
 
 // Categoria
@@ -92,31 +150,34 @@ model Category {
   requirements RequirementCompany[]
 }
 
-// Contenido
+// Modelo que representa un contenido (puede ser utilizado en lecciones)
 model Content {
-  id          String        @id @default(uuid())
+  id          String   @id @default(uuid())
   title       String
-  description String        @default("")
-  // el url va ser opcional por si se quiere subir un archivo
+  description String   @default("")
+  // URL del contenido (opcional)
   url         String?
   exp         Int
-  // tipo de contenido
-  type        LearningStyle
-  category    Category      @relation(fields: [categoryId], references: [id])
+  // Tipo de contenido (puede ser un campo para indicar el formato)
+  type        String
+  // Categoría a la que pertenece el contenido
+  category    Category @relation(fields: [categoryId], references: [id])
   categoryId  String
 }
 
-// Requerimientos de empresa
+// Modelo que representa los requerimientos específicos de una empresa
 model RequirementCompany {
-  id          String   @id @default(uuid())
-  name        String
-  description String
-  // empresa
-  company     Company  @relation(fields: [companyId], references: [id])
-  companyId   String
-  // aqui ira la categoria que querra la empresa
-  category    Category @relation(fields: [categoryId], references: [id])
-  categoryId  String
+  id            String   @id @default(uuid())
+  name          String
+  description   String
+  // Empresa que tiene este requerimiento
+  company       Company  @relation(fields: [companyId], references: [id])
+  companyId     String
+  // Categoría relacionada con el requerimiento
+  category      Category @relation(fields: [categoryId], references: [id])
+  categoryId    String
+  // Habilidades o competencias que la empresa desea que sus empleados desarrollen
+  skillsDesired String[]
 }
 
 // Logros
@@ -141,60 +202,91 @@ model UserArchivement {
   date          DateTime
 }
 
-// Cursos
+// Modelo que representa un curso en la plataforma
 model Course {
-  id           String         @id @default(uuid())
-  title        String
-  description  String
-  // el url va ser opcional por si se quiere subir un archivo
-  url          String?
-  exp          Int
-  // categoria
-  category     Category       @relation(fields: [categoryId], references: [id])
-  // lecciones
-  lessons      Lesson[]
-  categoryId   String
-  UserProgress UserProgress[]
+  id                 String         @id @default(uuid())
+  title              String
+  description        String
+  // URL del curso (opcional)
+  url                String?
+  exp                Int
+  // Categoría a la que pertenece el curso
+  category           Category       @relation(fields: [categoryId], references: [id])
+  categoryId         String
+  // Lecciones que componen el curso
+  lessons            Lesson[]
+  // Progresos de los usuarios en este curso
+  UserProgress       UserProgress[]
+  // Objetivos de aprendizaje del curso
+  learningObjectives String[]
+  Feedback           Feedback[]
+  Notification       Notification[]
 }
 
-// lecciones
 model Lesson {
   id                 String               @id @default(uuid())
   title              String
   description        String
-  // el url va ser opcional por si se quiere subir un archivo
+  // URL de la lección (opcional)
   url                String?
   exp                Int
-  // curso
+  // Curso al que pertenece la lección
   course             Course               @relation(fields: [courseId], references: [id])
   courseId           String
-  UserProgress       UserProgress?        @relation(fields: [userProgressId], references: [id])
-  userProgressId     String?
+  // Progresos de los usuarios en esta lección
   UserLessonProgress UserLessonProgress[]
+  // Objetivos de aprendizaje de la lección
+  learningObjectives String[]
+  Feedback           Feedback[]
+  Notification       Notification[]
 }
 
+// Modelo que representa el progreso del usuario en una lección
 model UserLessonProgress {
   id             String        @id @default(uuid())
+  // Usuario que está realizando la lección
   user           User          @relation(fields: [userId], references: [id])
   userId         String
+  // Lección en la que está progresando
   lesson         Lesson        @relation(fields: [lessonId], references: [id])
   lessonId       String
+  // Indica si la lección ha sido completada
   completed      Boolean       @default(false)
-  // Fecha de completación
+  // Fecha de completación (si aplica)
   completedAt    DateTime?
+  // Relación opcional con el progreso del curso
   UserProgress   UserProgress? @relation(fields: [userProgressId], references: [id])
   userProgressId String?
 }
 
-// progreso de usuario en un curso
+// Modelo que representa el progreso del usuario en un curso
 model UserProgress {
   id               String               @id @default(uuid())
+  // Usuario que está realizando el curso
   user             User                 @relation(fields: [userId], references: [id])
   userId           String
+  // Curso en el que está progresando
   course           Course               @relation(fields: [courseId], references: [id])
   courseId         String
-  // Relación con la tabla intermedia
-  lessonsCompleted UserLessonProgress[]
+  // Porcentaje de progreso en el curso
   progress         Int
-  Lesson           Lesson[]
+  // Lecciones completadas por el usuario en este curso
+  lessonsCompleted UserLessonProgress[]
+}
+
+// Modelo que representa las notificaciones en la plataforma
+model Notification {
+  id               String   @id @default(uuid())
+  user             User     @relation(fields: [userId], references: [id])
+  userId           String
+  title            String
+  message          String
+  notificationType String // Tipo de notificación (Recordatorio, Logro, Actualización, etc.)
+  isRead           Boolean  @default(false) // Indica si el usuario ya vio la notificación
+  createdAt        DateTime @default(now())
+  // Opcionalmente, puedes relacionar la notificación con otros modelos
+  course           Course?  @relation(fields: [courseId], references: [id])
+  courseId         String?
+  lesson           Lesson?  @relation(fields: [lessonId], references: [id])
+  lessonId         String?
 }

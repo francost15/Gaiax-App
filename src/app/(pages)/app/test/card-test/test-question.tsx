@@ -258,7 +258,7 @@ export default function LearningProfileQuestion({
         <Button
           title="Enviar respuesta"
           onClick={handleSubmit}
-          className="w-full bg-primaryper hover:bg-primary-hover text-white transition-all duration-300 transform hover:scale-105 py-7 sm:py-3"
+          className="w-full bg-primaryper hover:bg-primary-hover text-white transition-all duration-300 transform hover:scale-105 py-4 sm:py-3"
         >
           Siguiente
         </Button>

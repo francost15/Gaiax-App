@@ -7,13 +7,20 @@ declare module "next-auth" {
       name: string;
       lastname: string;
       email: string;
-
       role: string;
       image?: string;
       streaks: number;
       exp: number;
       companyId: string;
-      learningStyle: string;
+      learningPreferences?: {
+        formats: string[];
+        learningStyleKolb: string;
+        availableTime: number;
+        goals: string[];
+        strengths: string[];
+        skillLevel?: number;
+        improvementAreas: string[];
+      };
     } & DefaultSession["user"];
   }
 
@@ -22,13 +29,19 @@ declare module "next-auth" {
     name: string;
     lastname: string;
     email: string;
-
     role: string;
     image?: string;
     streaks: number;
     exp: number;
-
     companyId: string;
-    learningStyle: string;
+    learningPreferences?: {
+      formats: string[];
+      learningStyleKolb: string;
+      availableTime: number;
+      goals: string[];
+      strengths: string[];
+      skillLevel?: number;
+      improvementAreas: string[];
+    };
   }
 }

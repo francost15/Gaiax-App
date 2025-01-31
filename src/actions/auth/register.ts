@@ -12,7 +12,15 @@ export const registerUser = async (
   exp: number,
   role: Role,
   companyId: string,
-  learningStyle: LearningStyle
+  learningPreferences: {
+    formats: string[];
+    learningStyleKolb: string;
+    availableTime: number;
+    goals: string[];
+    strengths: string[];
+    skillLevel?: number;
+    improvementAreas: string[];
+  }
 ) => {
   try {
     const user = await prisma.user.create({
@@ -25,7 +33,17 @@ export const registerUser = async (
         exp: exp || 0,
         role: role,
         companyId: companyId,
-        learningStyle: learningStyle,
+        learningPreferences: {
+          create: {
+            formats: learningPreferences.formats || [],
+            learningStyleKolb: learningPreferences.learningStyleKolb || "",
+            availableTime: learningPreferences.availableTime || 0,
+            goals: learningPreferences.goals || [],
+            strengths: learningPreferences.strengths || [],
+            skillLevel: learningPreferences.skillLevel || 0,
+            improvementAreas: learningPreferences.improvementAreas || [],
+          },
+        },
         UserArchivement: {
           create: [],
         },
@@ -48,7 +66,10 @@ export const registerUser = async (
       message: "Usuario creado",
     };
   } catch (error) {
-    console.log("Error al crear usuario:", error); // Agrega este console.log para depurar
+    console.log(
+      "Error al crear usuario:",
+      error instanceof Error ? error.message : String(error)
+    ); // Manejo de error mejorado
     return {
       ok: false,
       message: "No se pudo crear al usuario",

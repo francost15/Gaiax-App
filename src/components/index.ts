@@ -2,7 +2,6 @@ export * from "./archievements/archievement-card";
 export * from "./archievements/archievement-filter";
 export * from "./archievements/archievement-list";
 export * from "./buttons/UpButton";
-export * from "./buttons/test_vak_alert";
 export * from "./cards/democards/CardDemo";
 export * from "./chatbot/chat_message";
 export * from "./chatbot/chatbot";

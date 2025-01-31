@@ -105,8 +105,8 @@ export default function LearningProfileQuestion({
   };
 
   return (
-    <div className="space-y-6">
-      <h3 className="text-lg font-semibold text-gray-800 dark:text-white flex items-center">
+    <div className="space-y-0 sm:space-y-6">
+      <h3 className="hidden sm:flex text-lg font-semibold text-gray-800 dark:text-white items-center">
         {getIcon(question.type)}
         <span className="ml-2">{question.text}</span>
       </h3>
@@ -254,11 +254,11 @@ export default function LearningProfileQuestion({
         </div>
       )}
 
-      <div className="transition-all duration-300 transform opacity-0 translate-y-4 animate-fade-in-up">
+      <div className="fixed bottom-0 left-0 w-full p-4 bg-white dark:bg-neutral-900 sm:relative sm:p-0 sm:bg-transparent sm:dark:bg-transparent transition-all duration-300 transform opacity-0 translate-y-4 animate-fade-in-up">
         <Button
           title="Enviar respuesta"
           onClick={handleSubmit}
-          className="w-full bg-primaryper hover:bg-primary-hover text-white transition-all duration-300 transform hover:scale-105"
+          className="w-full bg-primaryper hover:bg-primary-hover text-white transition-all duration-300 transform hover:scale-105 py-7 sm:py-3"
         >
           Siguiente
         </Button>

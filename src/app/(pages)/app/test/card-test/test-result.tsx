@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle, Button } from "@/components";
 import { CheckCircle, Book, Zap, RefreshCw } from "lucide-react";
+import { IoSaveOutline } from "react-icons/io5";
 
 interface LearningProfileResultProps {
   results: {
@@ -18,7 +19,7 @@ export default function LearningProfileResult({
       className="border-none overflow-hidden transition-all duration-300 transform
                  opacity-0 scale-95 animate-fade-in-up"
     >
-      <Card className="relative overflow-hidden">
+      <Card className="relative overflow-hidden border-none">
         <div className="absolute inset-0" />
         <CardHeader className="relative z-10">
           <CardTitle className="text-3xl font-bold text-center text-gray-800 dark:text-white">
@@ -69,11 +70,20 @@ export default function LearningProfileResult({
           >
             <Button
               onClick={onReset}
-              className="w-full bg-primaryper hover:bg-[#5558DD] text-white transition-all 
-                         duration-300 transform hover:scale-105 flex items-center justify-center"
+              className="w-full text-white transition-all 
+                flex items-center justify-center"
             >
               <RefreshCw className="mr-2 h-5 w-5" />
               Realizar el cuestionario nuevamente
+            </Button>
+            {/* boton de guardar */}
+            <Button
+              onClick={onReset}
+              className="w-full mt-2 bg-primaryper hover:bg-[#5558DD] text-white transition-all 
+                         duration-300 transform hover:scale-105 flex items-center justify-center"
+            >
+              <IoSaveOutline className="mr-2 h-5 w-5" />
+              Guardar el perfil de aprendizaje
             </Button>
           </div>
         </CardContent>

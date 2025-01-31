@@ -99,6 +99,8 @@ model LearningPreferences {
   goals             String[]
   // Áreas de fortaleza del usuario
   strengths         String[]
+  // Nivel de habilidad técnica autocalificado (1 a 5)
+  skillLevel        Int? // Añadido
   // Áreas que el usuario desea mejorar
   improvementAreas  String[]
 }

@@ -26,7 +26,7 @@ export default function ProfileAchievements({ achievements }: Props) {
       <CardContent className="p-6">
         <div className="grid gap-4 sm:grid-cols-2">
           {achievements.length === 0 ? (
-            <div className="flex flex-col items-center justify-center text-center text-gray-500 dark:text-gray-400 h-full lg:mt-14">
+            <div className="flex flex-col items-center justify-center text-center sm:ml-24 ml-0 text-gray-500 dark:text-gray-400 h-full w-full lg:mt-14">
               <ImSad size={40} className="mb-2" />
               No tienes logros completados
             </div>

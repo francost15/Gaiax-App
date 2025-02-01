@@ -72,7 +72,7 @@ export const questions = [
       {
         text: "¿Qué habilidades te gustaría desarrollar o mejorar? (Selecciona hasta 3 opciones)",
         type: "multipleChoice",
-        maxSelections: 4,
+        maxSelections: 3,
         answers: [
           "Habilidades técnicas específicas",
           "Comunicación efectiva.",

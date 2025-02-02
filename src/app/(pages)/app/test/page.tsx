@@ -1,6 +1,7 @@
 import { Toaster } from "sonner";
 import { auth } from "@/auth.config";
-import TestApp from "./card-test/test-app";
+// Asegúrate de importar el componente de test, no el de la pregunta.
+import LearningProfileTest from "./card-test/test-app";
 
 export default async function TestPage() {
   const session = await auth();
@@ -8,7 +9,7 @@ export default async function TestPage() {
 
   return (
     <div>
-      <TestApp />
+      <LearningProfileTest userId={userId} />
       <Toaster position="top-right" richColors />
     </div>
   );

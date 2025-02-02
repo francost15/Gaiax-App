@@ -1,15 +1,21 @@
-import { Checkbox, Label } from "@/components";
+import { Button, Checkbox, Label } from "@/components";
 
 interface MultipleChoiceQuestionProps {
-  answers: string[];
-  selectedAnswers: string[];
-  handleMultipleChoice: (answer: string) => void;
+  answers: (string | number)[]; // Permitir respuestas que sean cadenas o números
+  selectedAnswers: (string | number)[]; // Permitir respuestas seleccionadas que sean cadenas o números
+  handleMultipleChoice: (answer: string | number) => void; // Permitir respuestas que sean cadenas o números
+  title?: string;
+  classname?: string;
+  handleSubmit?: () => void;
 }
 
 export const MultipleChoiceQuestion = ({
   answers,
   selectedAnswers,
   handleMultipleChoice,
+  title = "Siguiente",
+  classname = "w-full bg-primaryper hover:bg-primary-hover text-white transition-all duration-300 transform hover:scale-105 py-4 sm:py-3",
+  handleSubmit,
 }: MultipleChoiceQuestionProps) => {
   return (
     <div className="space-y-3">
@@ -40,6 +46,11 @@ export const MultipleChoiceQuestion = ({
           </Label>
         </div>
       ))}
+      {handleSubmit && (
+        <Button title={title} onClick={handleSubmit} className={classname}>
+          {title}
+        </Button>
+      )}
     </div>
   );
 };

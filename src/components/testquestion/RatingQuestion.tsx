@@ -5,6 +5,9 @@ interface RatingQuestionProps {
   max: number;
   ratingValue: number;
   setRatingValue: (value: number) => void;
+  title?: string;
+  classname?: string;
+  handleSubmit?: () => void;
 }
 
 export const RatingQuestion = ({
@@ -12,6 +15,9 @@ export const RatingQuestion = ({
   max,
   ratingValue,
   setRatingValue,
+  title = "Siguiente",
+  classname = "w-full bg-primaryper hover:bg-primary-hover text-white transition-all duration-300 transform hover:scale-105 py-4 sm:py-3",
+  handleSubmit,
 }: RatingQuestionProps) => {
   return (
     <div className="space-y-4">
@@ -31,6 +37,11 @@ export const RatingQuestion = ({
           </Button>
         ))}
       </div>
+      {handleSubmit && (
+        <Button title={title} onClick={handleSubmit} className={classname}>
+          {title}
+        </Button>
+      )}
     </div>
   );
 };

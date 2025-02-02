@@ -14,6 +14,7 @@ export const questions = [
           "Fortalecer habilidades de comunicación y trabajo en equipo.",
           "Innovar y fomentar la creatividad.",
         ],
+        fieldName: "improvementAreas",
       },
     ],
   },
@@ -21,14 +22,10 @@ export const questions = [
     section: "Estilo y Preferencias de Aprendizaje",
     questions: [
       {
-        text: "Tiempo disponible diario para capacitación:",
+        text: "Minutos disponibles diarios para capacitación:",
         type: "singleChoice",
-        answers: [
-          "5 minutos.",
-          "10 minutos.",
-          "15 minutos.",
-          "Más de 15 minutos.",
-        ],
+        answers: [5, 10, 15, 20], // Cambiado a valores numéricos
+        fieldName: "availableTime",
       },
       {
         text: "Formato(s) preferido(s) para aprender: (Puedes elegir más de uno)",
@@ -42,6 +39,7 @@ export const questions = [
           "Juegos y desafíos.",
           "Lecturas profundas.",
         ],
+        fieldName: "formats",
       },
       {
         text: "¿Cómo te describirías en situaciones de aprendizaje?",
@@ -52,6 +50,7 @@ export const questions = [
           "Analizo teorías y conceptos a fondo. (Teórico)",
           "Busco aplicar soluciones prácticas y efectivas. (Pragmático)",
         ],
+        fieldName: "learningStyleKolb",
       },
     ],
   },
@@ -63,6 +62,7 @@ export const questions = [
         type: "rating",
         min: 1,
         max: 5,
+        fieldName: "skillLevel",
       },
     ],
   },
@@ -83,6 +83,7 @@ export const questions = [
           "Inteligencia emocional y manejo del estrés.",
           "Conocimiento del mercado y tendencias del sector.",
         ],
+        fieldName: "improvementAreas", // Cambiado a un valor permitido
       },
     ],
   },

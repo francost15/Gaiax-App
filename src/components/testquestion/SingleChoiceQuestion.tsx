@@ -1,15 +1,21 @@
-import { Label } from "@/components";
+import { Button, Label } from "@/components";
 
 interface SingleChoiceQuestionProps {
-  answers: string[];
-  selectedAnswers: string[];
-  setSelectedAnswers: (answers: string[]) => void;
+  answers: (string | number)[]; // Permitir respuestas que sean cadenas o números
+  selectedAnswers: (string | number)[]; // Permitir respuestas seleccionadas que sean cadenas o números
+  setSelectedAnswers: (answers: (string | number)[]) => void; // Permitir respuestas seleccionadas que sean cadenas o números
+  title?: string;
+  classname?: string;
+  handleSubmit?: () => void;
 }
 
 export const SingleChoiceQuestion = ({
   answers,
   selectedAnswers,
   setSelectedAnswers,
+  title = "Siguiente",
+  classname = "w-full bg-primaryper hover:bg-primary-hover text-white transition-all duration-300 transform hover:scale-105 py-4 sm:py-3",
+  handleSubmit,
 }: SingleChoiceQuestionProps) => {
   return (
     <div className="space-y-3">
@@ -40,6 +46,11 @@ export const SingleChoiceQuestion = ({
           </Label>
         </div>
       ))}
+      {handleSubmit && (
+        <Button title={title} onClick={handleSubmit} className={classname}>
+          {title}
+        </Button>
+      )}
     </div>
   );
 };

@@ -8,11 +8,13 @@ interface LearningProfileResultProps {
     recommendations: string[];
   };
   onReset: () => void;
+  onSave: () => Promise<void>;
 }
 
 export default function LearningProfileResult({
   results,
   onReset,
+  onSave,
 }: LearningProfileResultProps) {
   return (
     <div
@@ -36,7 +38,6 @@ export default function LearningProfileResult({
               Estilo de Aprendizaje: {results.learningStyle}
             </h2>
           </div>
-
           <div
             className="space-y-4 mb-6 transition-all duration-300 transform opacity-0 
                        translate-y-3 animate-fade-in-up delay-200"
@@ -63,24 +64,20 @@ export default function LearningProfileResult({
               ))}
             </ul>
           </div>
-
           <div
             className="transition-all duration-300 transform opacity-0 translate-y-3 
                        animate-fade-in-up delay-300"
           >
             <Button
               onClick={onReset}
-              className="w-full text-white transition-all 
-                flex items-center justify-center"
+              className="w-full text-white transition-all flex items-center justify-center"
             >
               <RefreshCw className="mr-2 h-5 w-5" />
               Realizar el cuestionario nuevamente
             </Button>
-            {/* boton de guardar */}
             <Button
-              onClick={onReset}
-              className="w-full mt-2 bg-primaryper hover:bg-[#5558DD] text-white transition-all 
-                         duration-300 transform hover:scale-105 flex items-center justify-center"
+              onClick={onSave}
+              className="w-full mt-2 bg-primaryper hover:bg-[#5558DD] text-white transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
             >
               <IoSaveOutline className="mr-2 h-5 w-5" />
               Guardar el perfil de aprendizaje

@@ -2,7 +2,7 @@
 
 import CompletedCoursesCard from "./completed-card";
 
-// Datos de ejemplo para los logros
+// Datos de ejemplo para los cursos completados
 const coursesData = [
   {
     id: 1,
@@ -49,11 +49,8 @@ export const CompletedCoursesList = () => {
   return (
     <div className="space-y-6">
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {completedcourses.map((completedcourses) => (
-          <CompletedCoursesCard
-            key={completedcourses.id}
-            {...completedcourses}
-          />
+        {completedcourses.map((course) => (
+          <CompletedCoursesCard key={course.id} {...course} />
         ))}
       </div>
     </div>

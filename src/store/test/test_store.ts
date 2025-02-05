@@ -23,6 +23,8 @@ export interface TestStoreState {
   improvementAreas: string[];
   userId: string;
 
+  selectedGoals: string[];
+
   // Setters
   setSelectedAnswers: (answers: string[]) => void;
   setRatingValue: (val: number) => void;
@@ -32,6 +34,7 @@ export interface TestStoreState {
   setAvailableTime: (time: number) => void;
   setCurrentSection: (section: number) => void;
   setCurrentQuestion: (question: number) => void;
+  setSelectedGoals: (goals: string[]) => void;
   setAnswers: (answers: Answer[]) => void;
   setResults: (results: any | null) => void;
   setSelectedFormats: (formats: string[]) => void;
@@ -46,6 +49,7 @@ export interface TestStoreState {
 
 export const useTestStore = create<TestStoreState>((set) => ({
   // Inicialización
+  selectedGoals: [],
   selectedAnswers: [],
   ratingValue: 3,
   rankingValues: {},
@@ -62,6 +66,7 @@ export const useTestStore = create<TestStoreState>((set) => ({
   userId: "",
 
   // Setters
+  setSelectedGoals: (goals) => set({ selectedGoals: goals }),
   setSelectedAnswers: (answers) => set({ selectedAnswers: answers }),
   setRatingValue: (val) => set({ ratingValue: val }),
   setRankingValues: (ranking) => set({ rankingValues: ranking }),

@@ -46,23 +46,39 @@ export default async function ProfilePage() {
         <div className="grid gap-8 p-6  lg:grid-cols-2 ">
           <div className="relative">
             <ProfileCourses completedCourses={completedCourses} />
-            <Link
-              title="Ver más cursos"
-              href="/app/courses/completed"
-              className="absolute px-3 py-1 mt-6 transition-colors rounded-full sm:mt-1 top-6 right-6 text-primaryper hover:bg-primary-hover hover:bg-primary-hover/10"
-            >
-              Ver más
-            </Link>
+            {completedCourses.length === 0 ? (
+              <div className="flex flex-col items-center justify-center h-auto">
+                <h2 className="text-lg font-semibold text-neutral-700 dark:text-neutral-300">
+                  No tienes cursos completados
+                </h2>
+              </div>
+            ) : (
+              <Link
+                title="Ver más cursos"
+                href="/app/courses/completed"
+                className="absolute px-3 py-1 mt-6 transition-colors rounded-full sm:mt-1 top-6 right-6 text-primaryper hover:bg-primary-hover hover:bg-primary-hover/10"
+              >
+                Ver más
+              </Link>
+            )}
           </div>
           <div className="relative">
             <ProfileAchievements achievements={archievements} />
-            <Link
-              title="Ver más logros"
-              href="/app/achievements"
-              className="absolute px-3 py-1 mt-6 transition-colors rounded-full sm:mt-1 top-6 right-6 text-primaryper hover:bg-primary-hover hover:bg-primary-hover/10"
-            >
-              Ver más
-            </Link>
+            {archievements.length === 0 ? (
+              <div className="flex flex-col items-center justify-center h-auto">
+                <h2 className="text-lg font-semibold text-neutral-700 dark:text-neutral-300">
+                  No tienes logros
+                </h2>
+              </div>
+            ) : (
+              <Link
+                title="Ver más logros"
+                href="/app/achievements"
+                className="absolute px-3 py-1 mt-6 transition-colors rounded-full sm:mt-1 top-6 right-6 text-primaryper hover:bg-primary-hover hover:bg-primary-hover/10"
+              >
+                Ver más
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ export * from "./company/get-companyById";
 export * from "./course/get-course";
 export * from "./lesson/get-lesson";
 export * from "./membership/get-membership";
+export * from "./test/get-test";
 export * from "./test/update-test";
 export * from "./user-archievement/get-archievements";
 export * from "./user-archievement/get-archievementsById";

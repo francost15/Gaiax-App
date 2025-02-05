@@ -5,6 +5,8 @@ import {
   RatingQuestion,
   SingleChoiceQuestion,
   AvailableTimeQuestion,
+  GoalsQuestion,
+  StrengthsQuestion,
 } from "@/components";
 import { useTestStore } from "@/store";
 
@@ -36,6 +38,9 @@ export default function LearningProfileQuestion({
   availableTimeProp,
   setAvailableTimeProp,
 }: LearningProfileQuestionProps) {
+  // Agregar guardia para asegurar que question no sea undefined
+  if (!question) return null;
+
   const {
     selectedAnswers,
     setSelectedAnswers,
@@ -49,14 +54,32 @@ export default function LearningProfileQuestion({
     setSelectedLearningStyle,
   } = useTestStore();
 
+  // Si la pregunta es de tipo goals o strengths, delegamos en el componente correspondiente
+  if (question.fieldName === "goals") {
+    return (
+      <GoalsQuestion
+        handleSubmit={() => onAnswer && onAnswer({ done: true })}
+        answers={question.answers as string[]}
+      />
+    );
+  }
+  if (question.fieldName === "strengths") {
+    return (
+      <StrengthsQuestion
+        handleSubmit={() => onAnswer && onAnswer({ done: true })}
+        answers={question.answers as string[]}
+      />
+    );
+  }
+
   const toggleValue = (
     value: string | number,
     arr: string[],
     setter: (s: string[]) => void
   ) => {
-    const newArr = arr.includes(value as string)
-      ? arr.filter((item) => item !== value)
-      : [...arr, value as string];
+    const newArr = arr.includes(String(value))
+      ? arr.filter((item) => item !== String(value))
+      : [...arr, String(value)];
     if (question.maxSelections && newArr.length > question.maxSelections)
       return;
     setter(newArr);
@@ -70,7 +93,6 @@ export default function LearningProfileQuestion({
     } else if (question.fieldName === "learningStyleKolb") {
       setSelectedLearningStyle(answer as string);
     } else if (question.fieldName === "availableTime") {
-      // Usar exclusivamente la prop para manejar availableTime
       if (typeof setAvailableTimeProp === "function") {
         setAvailableTimeProp(answer as number);
       } else {
@@ -87,7 +109,7 @@ export default function LearningProfileQuestion({
 
   return (
     <div>
-      <h3>{question.text}</h3>
+      <span className="text-xl font-bold">{question.text}</span>
       <div>
         {question.type === "multipleChoice" && (
           <MultipleChoiceQuestion
@@ -114,7 +136,6 @@ export default function LearningProfileQuestion({
                   if (typeof setAvailableTimeProp === "function") {
                     setAvailableTimeProp(time);
                   }
-                  // Si no está definida, no se realiza acción (o se puede definir un fallback aquí)
                 }}
                 title="Enviar respuesta"
                 handleSubmit={handleSubmit}

@@ -1,7 +1,6 @@
 import { auth } from "@/auth.config";
 import {
-  Chatbot,
-  FloatingCard,
+  FloatingCardChecker,
   Footer,
   MobileFooter,
   NavbarApp,
@@ -20,8 +19,6 @@ export default async function LayoutClient({
   if (!session) {
     redirect("/auth/login");
   }
-
-  // const showFloatingCard = session.user.learningStyle === LearningStyle.Nulo;
 
   return (
     <div className="flex min-h-screen text-gray-900 bg-white dark:bg-neutral-900 dark:text-gray-100">
@@ -44,6 +41,9 @@ export default async function LayoutClient({
           role={session.user.role}
         />
 
+        {/* Verificar y mostrar FloatingCard si es necesario */}
+        <FloatingCardChecker />
+
         {/* Contenido principal */}
         <main className="flex-1">{children}</main>
 
@@ -53,9 +53,6 @@ export default async function LayoutClient({
         {/* Footer principal */}
         <Footer />
       </div>
-
-      {/* Chatbot flotante u otro componente */}
-      <Chatbot />
     </div>
   );
 }

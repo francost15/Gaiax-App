@@ -14,10 +14,27 @@ export const questions = [
           "Fortalecer habilidades de comunicación y trabajo en equipo.",
           "Innovar y fomentar la creatividad.",
         ],
-        fieldName: "improvementAreas",
+        fieldName: "goals",
       },
     ],
   },
+  // {
+  //   text: "¿En qué áreas consideras que tienes fortalezas o habilidades destacadas? (Selecciona hasta 3 opciones)",
+  //   type: "multipleChoice",
+  //   maxSelections: 3,
+  //   answers: [
+  //     "Habilidades técnicas específicas",
+  //     "Comunicación efectiva",
+  //     "Resolución de problemas y pensamiento crítico",
+  //     "Liderazgo y gestión de equipos",
+  //     "Creatividad e innovación",
+  //     "Gestión del tiempo y productividad",
+  //     "Inteligencia emocional y manejo del estrés",
+  //     "Conocimiento del mercado y tendencias del sector",
+  //   ],
+  //   fieldName: "strengths", // Correspondiente al campo en tu modelo
+  // },
+
   {
     section: "Estilo y Preferencias de Aprendizaje",
     questions: [

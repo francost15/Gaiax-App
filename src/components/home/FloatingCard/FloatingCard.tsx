@@ -9,26 +9,26 @@ export const FloatingCard = () => {
 
   const handleButtonClick = () => {
     setIsVisible(false);
-    router.push("/app/test-vak");
+    router.push("/app/test");
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90">
-      <Card className="dark:bg-neutral-900 bg-white dark:text-white text-gray-900  border-none shadow-lg rounded-lg w-96">
-        <CardHeader>
-          <CardTitle className="text-center">Atención</CardTitle>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+      <Card className="dark:bg-neutral-900 bg-white dark:text-white text-gray-900 border-none shadow-2xl rounded-lg w-full max-w-3xl">
+        <CardHeader className="text-center">
+          <CardTitle className="text-3xl font-bold">Atención</CardTitle>
         </CardHeader>
-        <CardContent>
-          <p className="mb-4">
-            Es necesario que completes el test VAK. Este test nos ayudará a
-            determinar tu estilo de aprendizaje y personalizar tu experiencia de
-            la mejor manera
+        <CardContent className="p-8">
+          <p className="mb-8 text-center text-xl">
+            Te invitamos a completar este cuestionario. Nos ayudará a
+            identificar tus preferencias de aprendizaje y a personalizar tu
+            experiencia en GaiaX de manera óptima.
           </p>
           <Button
             onClick={handleButtonClick}
-            className="w-full bg-primaryper text-white hover:bg-primary-hover rounded-xl p-4"
+            className="w-full bg-primaryper text-white hover:bg-primary-hover rounded-xl py-4 text-xl font-semibold transition-transform transform hover:scale-105"
           >
             Ir al Test VAK
           </Button>

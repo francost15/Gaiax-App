@@ -18,7 +18,7 @@ export const MultipleChoiceQuestion = ({
   handleSubmit,
 }: MultipleChoiceQuestionProps) => {
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 p-2 ">
       {answers.map((answer, i) => (
         <div
           key={i}

@@ -35,46 +35,36 @@ export default function ProfileCourses({ completedCourses }: Props) {
       </CardHeader>
       <CardContent className="p-6">
         <div className="space-y-4">
-          {completedCourses.length === 0 ? (
-            <div className="flex flex-col items-center justify-center text-center text-gray-500 dark:text-gray-400 h-full lg:mt-14">
-              <ImSad size={40} className="mb-2" />
-              No tienes cursos completados
-            </div>
-          ) : (
-            completedCourses.map(({ course }) => (
-              <div
-                key={course.id}
-                className="flex items-center justify-between"
-              >
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
-                    {course.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {course.description}
-                  </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Categoría: {course.category.name}
-                  </p>
-                </div>
-                <Button
-                  variant="outline"
-                  className="ml-4"
-                  onClick={() =>
-                    setExpandedCourse(
-                      expandedCourse === course.id ? null : course.id
-                    )
-                  }
-                >
-                  <ChevronRight
-                    className={`h-5 w-5 transition-transform ${
-                      expandedCourse === course.id ? "rotate-90" : ""
-                    }`}
-                  />
-                </Button>
+          {completedCourses.map(({ course }) => (
+            <div key={course.id} className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                  {course.title}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {course.description}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Categoría: {course.category.name}
+                </p>
               </div>
-            ))
-          )}
+              <Button
+                variant="outline"
+                className="ml-4"
+                onClick={() =>
+                  setExpandedCourse(
+                    expandedCourse === course.id ? null : course.id
+                  )
+                }
+              >
+                <ChevronRight
+                  className={`h-5 w-5 transition-transform ${
+                    expandedCourse === course.id ? "rotate-90" : ""
+                  }`}
+                />
+              </Button>
+            </div>
+          ))}
         </div>
       </CardContent>
     </Card>

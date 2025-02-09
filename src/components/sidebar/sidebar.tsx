@@ -48,7 +48,7 @@ export function Sidebar() {
           <span>Mi progreso</span>
         </Link>
         <Link
-          href="app/chatbot"
+          href="/app/chatbot"
           className={`flex items-center space-x-6 p-4 rounded-xl rounded-l-none hover:bg-gray-200 dark:hover:bg-neutral-800 ${
             pathname === "/app/chatbot" ? "border-primaryper border-l-4" : ""
           }`}

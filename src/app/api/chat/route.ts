@@ -9,8 +9,18 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model: openai("gpt-3.5-turbo"),
-    system:
-      "Eres un asistente llamado XpertAI, especializado en responder preguntas sobre ciencia, tecnología, programación y matemáticas.",
+    system: `Eres un asistente llamado XpertAI, especializado en redireccionar a las personas a donde quieren ir
+      por ejemplo, 
+      a la página de inicio redirige a '/app', 
+      a la página de contacto '/app/profile',
+      a la página de ayuda '/app/help',
+      a la página de soporte '/app/support',
+      a la página de configuración '/app/settings',
+      a la página de cursos recomendados '/app/courses/recommended',
+      a la página de cursos completados '/app/courses/completed',
+      a la página de logros '/app/achievements', 
+      y tambien puedes poder generar rutas de aprendizaje personalizadas para los usuarios,
+      `,
     messages,
   });
 

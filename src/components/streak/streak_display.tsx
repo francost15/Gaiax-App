@@ -21,7 +21,7 @@ export const StreakDisplay = ({ streak, bestStreak }: Props) => {
       onMouseLeave={() => setIsStreakHovered(false)}
     >
       {/* Ícono y racha actual */}
-      <div className="flex items-center justify-center bg-white dark:bg-neutral-800 text-white px-3 h-8 rounded-full cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg">
+      <div className="flex items-center justify-center h-10 px-3 text-white transition-all duration-200 rounded-full cursor-pointer bg-neutral-100 border-neutral-200 dark:bg-neutral-800 hover:shadow-lg">
         <TbFlameFilled className="h-5 w-4 mr-1.5 text-yellow-500" />
         <span className="text-sm font-semibold text-black dark:text-white">
           {streak}
@@ -29,16 +29,12 @@ export const StreakDisplay = ({ streak, bestStreak }: Props) => {
       </div>
 
       {isStreakHovered && (
-        <div
-          className="absolute top-full right-0 mt-2 w-72 p-6 bg-gradient-to-r dark:bg-neutral-800 dark:to-neutral-600 bg-slate-50 to-slate-200
-                     rounded-xl border dark:border-neutral-700 border-neutral-200 z-10
-                     transition-all duration-300 ease-out"
-        >
+        <div className="absolute right-0 z-10 p-6 mt-2 transition-all duration-300 ease-out bg-white border border-white shadow-md top-full w-72 bg-gradient-to-r dark:bg-neutral-800 dark:to-neutral-600 rounded-xl dark:border-neutral-700">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <TbFlameFilled className="h-8 w-8 text-yellow-500 mr-3 animate-pulse" />
+              <TbFlameFilled className="w-8 h-8 mr-3 text-yellow-500 animate-pulse" />
               <div>
-                <span className="text-2xl font-bold dark:text-white text-black">
+                <span className="text-2xl font-bold text-black dark:text-white">
                   {streak} días
                 </span>
                 <p className="text-xs dark:text-neutral-200 text-neutral-900">
@@ -55,13 +51,13 @@ export const StreakDisplay = ({ streak, bestStreak }: Props) => {
               </p>
             </div>
           </div>
-          <div className="dark:bg-white/20 bg-neutral-400 rounded-full h-2 mb-4 overflow-hidden">
+          <div className="h-2 mb-4 overflow-hidden rounded-full dark:bg-white/20 bg-neutral-400">
             <div
-              className="bg-yellow-300 h-full rounded-full transition-all duration-500 ease-out"
+              className="h-full transition-all duration-500 ease-out bg-yellow-300 rounded-full"
               style={{ width: `${progressPercentage}%` }}
             />
           </div>
-          <p className="text-sm text-center dark:text-neutral-100 text-neutral-900 font-medium">
+          <p className="text-sm font-medium text-center dark:text-neutral-100 text-neutral-900">
             ¡{bestStreak - streak} días más para tu próximo logro!
           </p>
         </div>

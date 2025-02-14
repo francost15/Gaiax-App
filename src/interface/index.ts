@@ -4,6 +4,7 @@ export * from "./Contenido_interface";
 export * from "./Curso_interface";
 export * from "./Empresa_interface";
 export * from "./Faq_interface";
+export * from "./LearningPreferences";
 export * from "./Leccion_interface";
 export * from "./Logro_interface";
 export * from "./LogrosUsuario_interface";

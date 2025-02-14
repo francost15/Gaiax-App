@@ -1,5 +1,6 @@
 import { auth } from "@/auth.config";
 import { redirect } from "next/navigation";
+import { Toaster } from "sonner";
 
 export default async function AdminLayout({
   children,
@@ -10,5 +11,10 @@ export default async function AdminLayout({
   if (session?.user.role !== "admin") {
     redirect("/app");
   }
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <Toaster />
+    </>
+  );
 }

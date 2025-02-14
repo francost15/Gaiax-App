@@ -1,3 +1,3 @@
 export * from "./prisma";
-export * from "./types";
+export * from "../interface/LearningPreferences";
 export * from "./utils";

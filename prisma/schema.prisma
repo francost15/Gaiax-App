@@ -223,6 +223,8 @@ model Course {
   learningObjectives String[]
   Feedback           Feedback[]
   Notification       Notification[]
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
 }
 
 model Lesson {
@@ -274,6 +276,7 @@ model UserProgress {
   progress         Int
   // Lecciones completadas por el usuario en este curso
   lessonsCompleted UserLessonProgress[]
+  updatedAt        DateTime             @updatedAt
 }
 
 // Modelo que representa las notificaciones en la plataforma

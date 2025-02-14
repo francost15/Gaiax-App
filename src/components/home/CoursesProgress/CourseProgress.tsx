@@ -1,102 +1,117 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
 import { Card, CardContent, Progress } from "@/components";
-import { Course } from "@/interface";
-import { COURSES_IN_PROGRESS } from "@/data";
+import { useSession } from "next-auth/react";
+import { getCoursesInProgress } from "@/actions/course/get-courses";
+import { BookOpen } from "lucide-react";
+import Link from "next/link";
 
-interface Props {
-  courses?: Course[];
-}
+// Importar estilos de Swiper
+import "swiper/css";
+import "swiper/css/pagination";
 
-export const CoursesProgress = ({ courses = COURSES_IN_PROGRESS }: Props) => {
-  const [startIndex, setStartIndex] = useState(0);
-  const visibleCourses = courses.slice(startIndex, startIndex + 2);
+export const CoursesProgress = () => {
+  const [courses, setCourses] = useState<any[]>([]);
+  const { data: session } = useSession();
+  const [loading, setLoading] = useState(true);
 
-  const handlePrevious = useCallback(() => {
-    setStartIndex((prevIndex) => Math.max(0, prevIndex - 1));
-  }, []);
+  useEffect(() => {
+    const loadCourses = async () => {
+      if (session?.user?.id) {
+        const coursesData = await getCoursesInProgress(session.user.id);
+        setCourses(coursesData);
+        setLoading(false);
+      }
+    };
 
-  const handleNext = useCallback(() => {
-    setStartIndex((prevIndex) => Math.min(courses.length - 2, prevIndex + 1));
-  }, [courses.length]);
+    loadCourses();
+  }, [session]);
+
+  if (loading) {
+    return <div>Cargando cursos...</div>;
+  }
+
+  if (courses.length === 0) {
+    return (
+      <div className="text-center py-10">
+        <p>No tienes cursos en progreso</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="mb-12">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-          Mis Lecciones en Progreso
-        </h2>
-        <div
-          className="flex space-x-2"
-          role="navigation"
-          aria-label="Navegación de cursos"
-        >
-          <button
-            title="atras"
-            name="previous"
-            className="p-1 transition-colors bg-gray-200 rounded-full dark:bg-neutral-700 hover:bg-gray-300 dark:hover:bg-neutral-600 disabled:opacity-50"
-            onClick={handlePrevious}
-            disabled={startIndex === 0}
-            aria-label="Cursos anteriores"
-          >
-            <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-          </button>
-          <button
-            title="siguiente"
-            name="next"
-            className="p-1 transition-colors bg-gray-200 rounded-full dark:bg-neutral-700 hover:bg-gray-300 dark:hover:bg-neutral-600 disabled:opacity-50"
-            onClick={handleNext}
-            disabled={startIndex >= courses.length - 2}
-            aria-label="Cursos siguientes"
-          >
-            <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-          </button>
-        </div>
-      </div>
-      <div className="grid gap-6 md:grid-cols-2">
-        {visibleCourses.map((course, index) => (
-          <Card
-            key={index}
-            className="relative transition-all duration-200 bg-white border-gray-200 rounded-xl group hover:border-primaryper dark:bg-neutral-900 dark:border-neutral-700"
-          >
-            <CardContent className="pt-6">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="p-3 transition-colors rounded-xl bg-primaryper/10 group-hover:bg-primaryper/20">
-                  <course.icon className="w-6 h-6 text-primaryper" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-lg font-medium text-gray-800 dark:text-gray-100">
-                        {course.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {course.timeRemaining}
-                      </p>
-                    </div>
-                    <div className="absolute top-0 right-0 px-2 py-1 text-xs font-bold text-white rounded-tl-lg rounded-br-lg rounded-xl bg-primaryper">
-                      {course.progress}%
+    <div className="mb-12 px-4 sm:px-6 lg:px-8">
+      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
+        Mis Lecciones en Progreso
+      </h2>
+
+      <Swiper
+        modules={[Pagination, Autoplay]}
+        spaceBetween={24}
+        slidesPerView={1}
+        centeredSlides={true}
+        loop={courses.length > 1}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+          bulletActiveClass: "swiper-pagination-bullet-active bg-primaryper",
+        }}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            centeredSlides: false,
+          },
+        }}
+        className="pb-10"
+      >
+        {courses.map((courseProgress) => (
+          <SwiperSlide key={courseProgress.courseId}>
+            <Card className="relative h-full bg-white dark:bg-neutral-900 border-none shadow-sm hover:shadow-md transition-all duration-300 rounded-2xl overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="p-4 bg-violet-100 dark:bg-violet-900/20 rounded-xl">
+                    <BookOpen className="w-7 h-7 text-primaryper" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                          {courseProgress.course.title}
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          {courseProgress.course.lessons.length} lecciones
+                        </p>
+                      </div>
+                      <div className="px-3 py-1.5 text-sm font-bold text-white rounded-lg bg-primaryper">
+                        {courseProgress.progress}%
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <Progress
-                title="Progreso del curso"
-                value={course.progress}
-                className="h-2 mb-4 bg-gray-100 dark:bg-neutral-700"
-              />
-              <button
-                title="continuar"
-                className="rounded-xl w-full p-2 bg-primaryper hover:bg-primary-hover transition-colors text-white dark:bg-[#7375F3] dark:hover:bg-primaryper"
-              >
-                Continuar
-              </button>
-            </CardContent>
-          </Card>
+
+                <Progress
+                  title="Progreso del curso"
+                  value={courseProgress.progress}
+                  className="h-2.5 mb-6 bg-gray-100 dark:bg-neutral-700"
+                />
+
+                <Link
+                  href={`/app/courses/${courseProgress.courseId}`}
+                  className="block w-full py-3 px-4 bg-primaryper hover:bg-primary-hover text-white font-medium rounded-xl transition-colors duration-200 dark:bg-[#7375F3] dark:hover:bg-primaryper text-center"
+                >
+                  Continuar
+                </Link>
+              </CardContent>
+            </Card>
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </div>
   );
 };

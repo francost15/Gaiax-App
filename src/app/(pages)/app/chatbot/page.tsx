@@ -34,13 +34,7 @@ export default function Chat() {
       {
         id: "1",
         role: "assistant",
-        content: `¡Hola! 👋 Soy tu asistente virtual. ¿Cómo puedo ayudarte hoy?
-
-Puedo ayudarte con:
-• Desarrollo web y programación
-• Análisis de datos
-• Diseño UI/UX
-• Mejores prácticas de código`,
+        content: `¡Hola! 👋 Soy tu asistente virtual. ¿Cómo puedo ayudarte hoy?`
       },
     ],
   });

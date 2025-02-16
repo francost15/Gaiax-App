@@ -1,4 +1,6 @@
-import { LogOut, Settings, User, HelpCircle, Moon, Sun } from "lucide-react";
+"use client";
+
+import { LogOut, Settings, User, HelpCircle, Moon, Sun, Bell } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +14,7 @@ import {
   DropdownMenuSubTrigger,
   Avatar,
   AvatarFallback,
+  Badge,
 } from "@/components";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -22,97 +25,125 @@ interface Props {
   email: string;
   role: string;
 }
+
 export const ProfileButton = ({ name, email, role }: Props) => {
   const { setTheme } = useTheme();
+  const initial = name.charAt(0).toUpperCase();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar
-          title="perfil"
-          role="button"
-          tabIndex={0}
-          aria-label="Abrir menu del perfil"
-          className="transition-opacity cursor-pointer hover:opacity-80 border-none"
+        <button 
+          className="flex items-center gap-3 p-2 transition-all rounded-xl hover:bg-gray-100 dark:hover:bg-neutral-800 focus:outline-none" 
+          aria-label="Menú de perfil"
         >
-          <AvatarFallback className="text-white bg-primaryper">
-            FA
-          </AvatarFallback>
-        </Avatar>
+          <Avatar
+            className="w-9 h-9 transition-all border-2 border-transparent hover:border-primaryper focus:border-primaryper select-none"
+            aria-hidden="true"
+          >
+            <AvatarFallback 
+              className="text-sm font-medium text-white bg-gradient-to-br from-primaryper to-[#7375F3] select-none"
+            >
+              {initial}
+            </AvatarFallback>
+          </Avatar>
+        </button>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent
         align="end"
-        className="w-64 p-2 bg-white  dark:bg-neutral-900 dark:border-neutral-800 border-gray-200 "
+        className="w-[280px] p-2 bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-800 rounded-xl shadow-lg"
       >
-        <DropdownMenuLabel className="p-4 mb-2 rounded-md bg-gray-50 dark:bg-neutral-900">
-          <div className="flex flex-col">
-            <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
-              {name}
-            </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">{email}</p>
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-              {role}
-            </p>
+        <div className="p-4 mb-2 space-y-3 bg-gradient-to-br from-primaryper/10 to-[#7375F3]/10 rounded-lg dark:bg-neutral-800/50">
+          <div className="flex items-start gap-3">
+            <Avatar className="w-10 h-10 border-2 border-white dark:border-neutral-700">
+              <AvatarFallback className="text-sm font-medium text-white bg-gradient-to-br from-primaryper to-[#7375F3]">
+                {initial}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-gray-900 dark:text-white">
+                {name}
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">{email}</p>
+              <Badge 
+                variant="secondary" 
+                className="mt-2 text-xs bg-white/50 dark:bg-neutral-800/50"
+              >
+                {role}
+              </Badge>
+            </div>
           </div>
-        </DropdownMenuLabel>
+        </div>
+
         <DropdownMenuGroup>
           <Link href="/app/profile">
-            <DropdownMenuItem className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800">
-              <User className="w-4 h-4 mr-2 text-primaryper" />
-              <span>Perfil</span>
+            <DropdownMenuItem className="flex items-center p-3 text-sm rounded-lg cursor-pointer focus:bg-gray-100 dark:focus:bg-neutral-800">
+         
+              <div className="flex flex-col">
+                <span className="font-medium">Ver Mi Perfil</span>
+            
+              </div>
             </DropdownMenuItem>
           </Link>
+          
           <Link href="/app/settings">
-            <DropdownMenuItem className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800">
-              <Settings className="w-4 h-4 mr-2 text-primaryper" />
-              <span>Configuración</span>
+            <DropdownMenuItem className="flex items-center p-3 text-sm rounded-lg cursor-pointer focus:bg-gray-100 dark:focus:bg-neutral-800">
+        
+              <div className="flex flex-col">
+                <span className="font-medium">Configuración</span>
+             
+              </div>
             </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
+
         <DropdownMenuSeparator className="my-2 bg-gray-200 dark:bg-neutral-800" />
+
         <DropdownMenuGroup>
           <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800">
-              <Sun className="w-4 h-4 mr-2 text-primaryper" />
-              <span>Tema</span>
+            <DropdownMenuSubTrigger className="flex items-center p-3 text-sm rounded-lg cursor-pointer focus:bg-gray-100 dark:focus:bg-neutral-800">
+       
+              <div className="flex flex-col">
+                <span className="font-medium">Tema</span>
+              
+              </div>
             </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent className="bg-white border border-gray-200 dark:bg-neutral-900 dark:border-neutral-800">
+            <DropdownMenuSubContent className="p-2 bg-white border rounded-xl border-gray-200 dark:bg-neutral-900 dark:border-neutral-800">
               <DropdownMenuItem
                 onClick={() => setTheme("light")}
-                className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800"
+                className="flex items-center p-2 text-sm rounded-lg cursor-pointer focus:bg-gray-100 dark:focus:bg-neutral-800"
               >
-                <Sun className="w-4 h-4 mr-2 text-primaryper" />
+                <Sun className="w-4 h-4 text-primaryper" />
                 <span>Claro</span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setTheme("dark")}
-                className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800"
+                className="flex items-center p-2 text-sm rounded-lg cursor-pointer focus:bg-gray-100 dark:focus:bg-neutral-800"
               >
-                <Moon className="w-4 h-4 mr-2 text-primaryper" />
+                <Moon className="w-4 h-4 text-primaryper" />
                 <span>Oscuro</span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setTheme("system")}
-                className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800"
+                className="flex items-center p-2 text-sm rounded-lg cursor-pointer focus:bg-gray-100 dark:focus:bg-neutral-800"
               >
-                <Settings className="w-4 h-4 mr-2 text-primaryper" />
+                <Settings className="w-4 h-4 text-primaryper" />
                 <span>Sistema</span>
               </DropdownMenuItem>
             </DropdownMenuSubContent>
           </DropdownMenuSub>
-          <DropdownMenuItem className="rounded-md focus:bg-gray-100 dark:focus:bg-neutral-800">
-            <HelpCircle className="w-4 h-4 mr-2 text-primaryper" />
-            <span>Ayuda</span>
-          </DropdownMenuItem>
         </DropdownMenuGroup>
 
         <DropdownMenuSeparator className="my-2 bg-gray-200 dark:bg-neutral-800" />
+        
         <DropdownMenuItem
-          className="text-red-600 rounded-md dark:text-red-400 focus:bg-red-50 dark:focus:bg-red-900/20"
+          className="flex items-center p-3 text-sm rounded-lg cursor-pointer focus:bg-gray-100 dark:focus:bg-neutral-800 "
           onSelect={() => signOut()}
         >
-          <LogOut className="w-4 h-4 mr-2" />
-          <span>Cerrar sesión</span>
+          <div className="flex flex-col">
+            <span className="font-medium text-red-600 hover:text-red-500">Cerrar sesión</span>
+          </div>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

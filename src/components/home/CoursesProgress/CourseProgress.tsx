@@ -35,11 +35,8 @@ export const CoursesProgress = () => {
   }
 
   if (courses.length === 0) {
-    return (
-      <div className="text-center py-10">
-        <p>No tienes cursos en progreso</p>
-      </div>
-    );
+    // Si no hay cursos en progreso
+    return <></>;
   }
 
   return (

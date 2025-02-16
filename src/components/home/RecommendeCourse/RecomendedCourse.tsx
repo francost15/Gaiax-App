@@ -52,23 +52,20 @@ export const RecommendedCourses = () => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
         <h2
           id={sectionId}
-          className="text-xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-0"
+          className="text-xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-0"
         >
-          Cursos Recomendados
+          Cursos recomendados para ti
         </h2>
 
-        <Link
-          href="/app/courses/recommended"
-          className="text-sm font-semibold text-primaryper hover:text-[#5558DD] dark:text-[#7375F3] dark:hover:text-[#8385F5] transition-all"
-        >
-          Ver todos los cursos
-        </Link>
+        {courses.length > 3 && (
+          <Link
+            href="/app/courses/recommended"
+            className="text-sm font-semibold text-primaryper hover:text-[#5558DD] dark:text-[#7375F3] dark:hover:text-[#8385F5] transition-all"
+          >
+            Ver todos los cursos
+          </Link>
+        )}
       </div>
-
-      <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-6">
-        Lecciones cortas y efectivas para mejorar tus habilidades
-      </p>
-
       <Swiper
         modules={[Pagination, Autoplay]}
         spaceBetween={16}

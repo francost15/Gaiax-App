@@ -12,6 +12,20 @@ export interface Course {
   url?: string | null;
   exp: number;
   categoryId: string;
+  category: {
+    id: string;
+    name: string;
+    description: string;
+  };
   lessons: Lesson[];
-  UserProgress: UserProgress[];
+  UserProgress: {
+    id: string;
+    userId: string;
+    courseId: string;
+    progress: number;
+    updatedAt: Date;
+  }[];
+  learningObjectives: string[];
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -9,47 +9,42 @@ export const CourseSkeleton = () => {
         <div className="h-6 w-40 bg-gray-200 dark:bg-neutral-800 rounded-lg animate-pulse mt-4 sm:mt-0" />
       </div>
 
-      {/* Descripción Skeleton */}
-      <div className="h-6 w-full max-w-2xl bg-gray-200 dark:bg-neutral-800 rounded-lg animate-pulse mb-6" />
-
-      {/* Swiper Skeleton */}
+      {/* Grid de Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {[...Array(3)].map((_, index) => (
           <Card
             key={index}
-            className="h-[380px] transform transition-all duration-300 bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-800"
+            className="relative h-[220px] bg-white dark:bg-neutral-900 border-gray-200/50 dark:border-neutral-800"
           >
-            <CardContent className="relative flex flex-col h-full p-4 sm:p-6">
-              {/* Header con Categoría y EXP */}
-              <div className="flex justify-between items-center mb-6">
-                <div className="h-7 w-24 bg-gray-200 dark:bg-neutral-800 rounded-full animate-pulse" />
-                <div className="flex items-center gap-1.5 h-7 w-20 bg-gray-200 dark:bg-neutral-800 rounded-full animate-pulse" />
+            {/* Badge EXP Skeleton */}
+            <div className="absolute -top-0.5 -left-0.5">
+              <div className="flex items-center gap-1.5 px-3 py-1">
+                <div className="w-3.5 h-3.5 bg-amber-500/20 rounded animate-pulse" />
+                <div className="w-12 h-4 bg-amber-500/20 rounded animate-pulse" />
               </div>
+            </div>
 
+            {/* Badge Categoría Skeleton */}
+            <div className="absolute -top-0.5 -right-0.5">
+              <div className="w-24 h-7 bg-primaryper/20 rounded-s-xl animate-pulse" />
+            </div>
+
+            <CardContent className="relative h-full p-6 pt-12">
               {/* Contenido Principal */}
-              <div className="flex-1 overflow-hidden flex flex-col">
-                {/* Icono y Título */}
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-3 rounded-2xl bg-gray-200 dark:bg-neutral-800 animate-pulse shrink-0">
-                    <div className="w-6 h-6" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="h-6 w-3/4 bg-gray-200 dark:bg-neutral-800 rounded-lg animate-pulse" />
+              <div className="flex items-start gap-5">
+                {/* Icono */}
+                <div className="p-3.5 rounded-xl bg-primaryper/10 animate-pulse">
+                  <div className="w-6 h-6" />
+                </div>
+                
+                {/* Título y Descripción */}
+                <div className="flex-1 min-w-0 space-y-2">
+                  <div className="h-6 bg-gray-200 dark:bg-neutral-800 rounded animate-pulse w-3/4" />
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gray-200 dark:bg-neutral-800 rounded animate-pulse w-full" />
+                    <div className="h-4 bg-gray-200 dark:bg-neutral-800 rounded animate-pulse w-2/3" />
                   </div>
                 </div>
-
-                {/* Descripción */}
-                <div className="space-y-2">
-                  <div className="h-4 w-full bg-gray-200 dark:bg-neutral-800 rounded animate-pulse" />
-                  <div className="h-4 w-5/6 bg-gray-200 dark:bg-neutral-800 rounded animate-pulse" />
-                  <div className="h-4 w-4/6 bg-gray-200 dark:bg-neutral-800 rounded animate-pulse" />
-                </div>
-              </div>
-
-              {/* Footer */}
-              <div className="mt-4 pt-4 border-t border-gray-100 dark:border-neutral-800 space-y-3">
-                <div className="h-8 w-full bg-gray-200 dark:bg-neutral-800 rounded-lg animate-pulse" />
-                <div className="h-12 w-full bg-gray-200 dark:bg-neutral-800 rounded-xl animate-pulse" />
               </div>
             </CardContent>
           </Card>

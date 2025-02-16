@@ -65,3 +65,4 @@ export * from "./ui/select";
 export * from "./ui/slider";
 export * from "./ui/switch";
 export * from "./ui/textarea";
+export * from "./skeleton/CourseMenuSkeleton"

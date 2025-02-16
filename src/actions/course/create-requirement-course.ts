@@ -34,112 +34,87 @@ export async function createRequirementAndCourses(data: RequirementData) {
       data: {
         name: data.name,
         description: data.description,
-        category: {
-          connect: { id: data.categoryId },
-        },
-        company: {
-          connect: { id: data.companyId },
-        },
+        category: { connect: { id: data.categoryId } },
+        company: { connect: { id: data.companyId } },
         skillsDesired: data.skillsDesired,
       },
     });
 
-    console.log("Requerimiento creado:", requirement);
+    // 2. Generar contenido del curso
+    const generatedContent = await createCourseWithAI(
+      data.employeeIds[0],
+      data.categoryId
+    );
 
-    // 2. Crear cursos para cada empleado
-    let createdCourses = [];
+    if (!generatedContent?.lessons || generatedContent.lessons.length === 0) {
+      throw new Error("No se pudieron generar las lecciones del curso");
+    }
 
+    // 3. Crear un único curso
+    const course = await prisma.course.create({
+      data: {
+        title: data.name,
+        description: data.description,
+        category: { connect: { id: data.categoryId } },
+        exp: 100,
+        learningObjectives: generatedContent.learningObjectives || [],
+        url: null,
+      },
+    });
+
+    // 4. Crear las lecciones para el curso
+    for (const lessonData of generatedContent.lessons) {
+      await prisma.lesson.create({
+        data: {
+          title: lessonData.title,
+          description: lessonData.description,
+          exp: 50,
+          learningObjectives: lessonData.objectives || [],
+          url: null,
+          course: { connect: { id: course.id } },
+        },
+      });
+    }
+
+    // 5. Crear progreso inicial y notificaciones para cada empleado
     for (const employeeId of data.employeeIds) {
       try {
-        // Generar contenido del curso con IA
-        const generatedContent = await createCourseWithAI(
-          employeeId,
-          data.categoryId
-        );
+        // Crear progreso inicial
+        await prisma.userProgress.create({
+          data: {
+            user: { connect: { id: employeeId } },
+            course: { connect: { id: course.id } },
+            progress: 0,
+          },
+        });
 
-        if (generatedContent) {
-          // Crear el curso
-          const course = await prisma.course.create({
-            data: {
-              title: `${data.name} - Curso personalizado`,
-              description: data.description,
-              category: {
-                connect: { id: data.categoryId },
-              },
-              exp: 100,
-              learningObjectives: generatedContent.learningObjectives || [],
-              url: null,
-            },
-          });
-
-          // Crear las lecciones (si existen)
-          if (generatedContent.lessons && generatedContent.lessons.length > 0) {
-            for (const lessonData of generatedContent.lessons) {
-              await prisma.lesson.create({
-                data: {
-                  title: lessonData.title,
-                  description: lessonData.description,
-                  exp: 50,
-                  learningObjectives: lessonData.objectives || [],
-                  url: null,
-                  course: {
-                    connect: { id: course.id },
-                  },
-                },
-              });
-            }
-          }
-
-          // Crear progreso inicial para el usuario
-          await prisma.userProgress.create({
-            data: {
-              user: {
-                connect: { id: employeeId },
-              },
-              course: {
-                connect: { id: course.id },
-              },
-              progress: 0,
-            },
-          });
-
-          // Crear notificación
-          await prisma.notification.create({
-            data: {
-              user: {
-                connect: { id: employeeId },
-              },
-              title: "Nuevo curso asignado",
-              message: `Se te ha asignado un nuevo curso: ${data.name}`,
-              notificationType: "CourseAssigned",
-              course: {
-                connect: { id: course.id },
-              },
-              isRead: false,
-            },
-          });
-
-          createdCourses.push(course);
-        }
+        // Crear notificación
+        await prisma.notification.create({
+          data: {
+            user: { connect: { id: employeeId } },
+            title: "Nuevo curso asignado",
+            message: `Se te ha asignado un nuevo curso: ${data.name}`,
+            notificationType: "CourseAssigned",
+            course: { connect: { id: course.id } },
+            isRead: false,
+          },
+        });
       } catch (error) {
-        console.error(
-          `Error creando curso para empleado ${employeeId}:`,
-          error
-        );
+        console.error(`Error asignando curso al empleado ${employeeId}:`, error);
       }
     }
 
-    // Revalidar la página
     revalidatePath("/admin");
     revalidatePath("/app");
 
     return {
       success: true,
-      usersAffected: createdCourses.length,
+      usersAffected: data.employeeIds.length,
       requirementId: requirement.id,
+      courseId: course.id
     };
   } catch (error: any) {
     console.error("Error en createRequirementAndCourses:", error);
-    throw new Error(`Error al crear cursos: ${error.message}`);
+    throw new Error(`Error al crear curso: ${error.message}`);
   }
 }

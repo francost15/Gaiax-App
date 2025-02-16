@@ -7,26 +7,23 @@ const prisma = new PrismaClient();
 export async function getRecommendedCourses(userId: string) {
   try {
     const courses = await prisma.course.findMany({
-      where: {
-        UserProgress: {
-          none: {
-            userId: userId,
-          },
-        },
-      },
       include: {
         category: true,
+        UserProgress: {
+          where: {
+            userId: userId
+          }
+        }
       },
-      take: 5,
       orderBy: {
-        createdAt: "desc",
-      },
+        createdAt: 'desc'
+      }
     });
 
     return courses;
   } catch (error) {
-    console.error("Error al obtener cursos recomendados:", error);
-    return [];
+    console.error('Error fetching courses:', error);
+    throw new Error('No se pudieron cargar los cursos');
   }
 }
 

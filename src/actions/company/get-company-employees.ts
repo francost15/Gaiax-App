@@ -13,14 +13,35 @@ export async function getCompanyEmployees(companyId: string) {
           not: "admin",
         },
       },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-      },
+      include: {
+        UserProgress: {
+          include: {
+            course: true,
+            lessonsCompleted: true
+          }
+        },
+        UserLessonProgress: {
+          where: {
+            completed: true
+          }
+        },
+        learningPreferences: true
+      }
     });
 
-    return { employees };
+    const formattedEmployees = employees.map(emp => ({
+      id: emp.id,
+      name: emp.name,
+      lastname: emp.lastname,
+      email: emp.email,
+      role: emp.role || 'Sin rol',
+      exp: emp.exp,
+      joinedDate: new Date(),
+      completedCourses: emp.UserLessonProgress.length,
+      totalXP: emp.exp
+    }));
+
+    return { employees: formattedEmployees };
   } catch (error: any) {
     throw new Error(`Error al obtener empleados: ${error.message}`);
   }

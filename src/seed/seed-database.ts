@@ -6,7 +6,7 @@ import bcryptjs from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  // Eliminar datos existentes en el orden correcto para evitar conflictos de claves foráneas
+  // 1. Eliminar datos existentes en el orden correcto
   await prisma.userArchivement.deleteMany({});
   await prisma.userLessonProgress.deleteMany({});
   await prisma.userProgress.deleteMany({});
@@ -15,24 +15,16 @@ async function main() {
   await prisma.testResult.deleteMany({});
   await prisma.learningPreferences.deleteMany({});
   await prisma.user.deleteMany({});
+  await prisma.content.deleteMany({});
   await prisma.lesson.deleteMany({});
   await prisma.course.deleteMany({});
-  await prisma.content.deleteMany({});
   await prisma.requirementCompany.deleteMany({});
   await prisma.category.deleteMany({});
+  await prisma.achievement.deleteMany({});
   await prisma.membership.deleteMany({});
   await prisma.company.deleteMany({});
-  await prisma.achievement.deleteMany({});
 
-  // Ahora, insertamos datos de ejemplo
-
-  // Hashear contraseñas
-  const salt = await bcryptjs.genSalt(10);
-  const hashedPassword1 = await bcryptjs.hash("Francost15", salt);
-  const hashedPassword2 = await bcryptjs.hash("password123", salt);
-  const hashedPassword3 = await bcryptjs.hash("password123", salt);
-
-  // 1. Crear Membresías
+  // 2. Crear Membresías
   const basicMembership = await prisma.membership.create({
     data: {
       name: "Basic",
@@ -51,7 +43,7 @@ async function main() {
     },
   });
 
-  // 2. Crear Empresas
+  // 3. Crear Empresas
   const companyA = await prisma.company.create({
     data: {
       name: "Tech Solutions",
@@ -70,47 +62,7 @@ async function main() {
     },
   });
 
-  // 3. Crear Usuarios
-  const user1 = await prisma.user.create({
-    data: {
-      name: "Carlos",
-      lastname: "Gómez",
-      email: "ti43243@uvp.edu.mx",
-      password: hashedPassword1, // Contraseña hasheada
-      streaks: 5,
-      exp: 100,
-      role: "admin",
-      companyId: companyA.id,
-    },
-  });
-
-  const user2 = await prisma.user.create({
-    data: {
-      name: "María",
-      lastname: "López",
-      email: "maria.lopez@example.com",
-      password: hashedPassword2, // Contraseña hasheada
-      streaks: 3,
-      exp: 80,
-      role: "manager",
-      companyId: companyA.id,
-    },
-  });
-
-  const user3 = await prisma.user.create({
-    data: {
-      name: "Juan",
-      lastname: "Pérez",
-      email: "juan.perez@example.com",
-      password: hashedPassword3, // Contraseña hasheada
-      streaks: 7,
-      exp: 150,
-      role: "employee",
-      companyId: companyB.id,
-    },
-  });
-
-  // 5. Crear Categorías
+  // 4. Crear Categorías
   const categoryTech = await prisma.category.create({
     data: {
       name: "Tecnología",
@@ -125,7 +77,47 @@ async function main() {
     },
   });
 
-  // 10. Crear Logros y Asociarlos a Usuarios
+
+
+
+  // 8. Crear Usuarios
+  // Hashear contraseñas
+  const salt = await bcryptjs.genSalt(10);
+  const hashedPassword2 = await bcryptjs.hash("password123", salt);
+  const hashedPassword3 = await bcryptjs.hash("password123", salt);
+
+
+
+  const user2 = await prisma.user.create({
+    data: {
+      name: "María",
+      lastname: "López",
+      email: "maria.lopez@example.com",
+      password: hashedPassword2,
+      streaks: 3,
+      exp: 80,
+      role: "manager",
+      companyId: companyA.id,
+    },
+  });
+
+  const user3 = await prisma.user.create({
+    data: {
+      name: "Juan",
+      lastname: "Pérez",
+      email: "juan.perez@example.com",
+      password: hashedPassword3,
+      streaks: 7,
+      exp: 150,
+      role: "employee",
+      companyId: companyB.id,
+    },
+  });
+
+  // 9. Crear LearningPreferences para Usuarios
+  
+
+  // 10. Crear Achievements
   const achievement1 = await prisma.achievement.create({
     data: {
       name: "Primer Paso",
@@ -134,25 +126,31 @@ async function main() {
     },
   });
 
-  await prisma.userArchivement.create({
+  const achievement2 = await prisma.achievement.create({
     data: {
-      userId: user1.id,
-      achievementId: achievement1.id,
-      date: new Date(),
+      name: "Curso Completado",
+      description: "Has completado un curso completo.",
+      exp: 50,
     },
   });
 
-  // 13. Crear Requerimientos de Empresa
-  await prisma.requirementCompany.create({
-    data: {
-      name: "Capacitación en Programación",
-      description:
-        "Necesitamos que el equipo desarrolle habilidades básicas de programación.",
-      companyId: companyA.id,
-      categoryId: categoryTech.id,
-      skillsDesired: ["Lógica de programación", "Resolución de problemas"],
-    },
+  // 11. Asociar Achievements a Usuarios
+  await prisma.userArchivement.createMany({
+    data: [
+      {
+        userId: user2.id,
+        achievementId: achievement1.id,
+        date: new Date(),
+      },
+      {
+        userId: user3.id,
+        achievementId: achievement1.id,
+        date: new Date(),
+      },
+    ],
   });
+
+ 
 
   console.log("Base de datos inicializada con datos de ejemplo.");
 }

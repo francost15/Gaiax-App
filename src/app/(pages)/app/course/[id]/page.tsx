@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { Trophy, PlayCircle, Lock, CheckCircle, Clock, Users, Award, ArrowLeft } from "lucide-react";
-import { Progress, SkeletonCourseMenu } from "@/components";
-import { getCourseDetail } from "@/actions/course/get-course-detail";
-import { CourseNotFound } from '@/components/ui/CourseNotFound'
+import { Trophy, PlayCircle, Lock, CheckCircle, ArrowLeft } from "lucide-react";
+import { SkeletonCourseMenu,CourseNotFound } from "@/components";
+import { getCourseDetail } from "@/actions";
+
 
 export default function CoursePage() {
   const { data: session } = useSession();
@@ -71,7 +71,7 @@ export default function CoursePage() {
             <span className="text-xs sm:text-sm">{currentProgress}%</span>
           </div>
         </div>
-        
+
         {/* Title and Description */}
         <div className="space-y-3 sm:space-y-4">
           <h1 className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-tight">
@@ -96,11 +96,11 @@ export default function CoursePage() {
                   href={isLocked ? "#" : `/app/lesson/${lesson.id}`}
                   className={`
                     w-full p-4 sm:p-5 rounded-xl transition-all flex items-center justify-between
-                    ${isCompleted 
-                      ? "bg-green-100 dark:bg-green-900/20 hover:bg-green-200 dark:hover:bg-green-900/30 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-500/20" 
+                    ${isCompleted
+                      ? "bg-green-100 dark:bg-green-900/20 hover:bg-green-200 dark:hover:bg-green-900/30 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-500/20"
                       : isLocked
-                      ? "bg-gray-100 dark:bg-neutral-800/50 text-gray-400 dark:text-gray-500 cursor-not-allowed border border-gray-200 dark:border-neutral-700/50"
-                      : "bg-gray-50 dark:bg-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-700 text-gray-900 dark:text-white border border-gray-200 dark:border-neutral-700"}
+                        ? "bg-gray-100 dark:bg-neutral-800/50 text-gray-400 dark:text-gray-500 cursor-not-allowed border border-gray-200 dark:border-neutral-700/50"
+                        : "bg-gray-50 dark:bg-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-700 text-gray-900 dark:text-white border border-gray-200 dark:border-neutral-700"}
                   `}
                 >
                   <div className="flex items-center gap-4 flex-1 min-w-0">
@@ -115,7 +115,7 @@ export default function CoursePage() {
                         )}
                       </span>
                     </div>
-                    
+
                     <div className="flex-1 min-w-0 overflow-hidden">
                       <span className="font-medium text-sm sm:text-base block truncate">
                         {lesson.title}
@@ -147,7 +147,7 @@ export default function CoursePage() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <PlayCircle
                     className={`w-8 h-8 transition-transform group-hover:scale-110 
                       ${isLocked ? "opacity-50" : "group-hover:text-primaryper"}`}
@@ -188,7 +188,7 @@ export default function CoursePage() {
                           </h4>
                           <ul className="grid gap-3 pl-3 border-l-2 border-gray-200 dark:border-neutral-700">
                             {lesson.learningObjectives.map((objective: string, i: number) => (
-                              <li 
+                              <li
                                 key={i}
                                 className="flex items-start gap-3 text-gray-600 dark:text-gray-400"
                               >

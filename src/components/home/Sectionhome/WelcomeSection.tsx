@@ -1,17 +1,16 @@
 "use client";
 
 import { Card } from "@/components";
-import { BookOpen, Clock, Trophy, Target, ChevronRight, PlayCircle } from "lucide-react";
+import { BookOpen,ChevronRight, PlayCircle } from "lucide-react";
 import Link from "next/link";
 
 interface Props {
   name: string;
   lastname: string;
-  xp: number;
-  lesson: number;
+
 }
 
-export const WelcomeSection = ({ name, lastname, xp, lesson }: Props) => {
+export const WelcomeSection = ({ name, lastname}: Props) => {
   return (
     <div className="bg-white dark:bg-neutral-900 border-b border-gray-200/50 dark:border-neutral-800/50">
       <div className="max-w-7xl mx-auto px-4 py-4 sm:py-6">
@@ -26,28 +25,6 @@ export const WelcomeSection = ({ name, lastname, xp, lesson }: Props) => {
               Continúa donde lo dejaste
             </p>
           </div>
-          
-     
-             {/* 
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-primaryper/5 dark:bg-primaryper/10 rounded-lg border border-primaryper/10">
-              <Trophy className="w-4 h-4 text-primaryper" />
-              <span className="text-sm font-medium text-primaryper">
-                Nivel {Math.floor(xp / 100)}
-              </span>
-            </div>
-    
-          Stats minimalistas en línea 
-          
-                      <div className="flex items-center gap-2 px-3 py-1.5 bg-primaryper/5 dark:bg-primaryper/10 rounded-lg border border-primaryper/10">
-              <Clock className="w-4 h-4 text-primaryper" />
-              <span className="text-sm font-medium text-primaryper">
-                45 min hoy
-              </span>
-            </div>
-        
-          </div>
-            */}
         </div>
 
         {/* Continuar Aprendiendo - Diseño mejorado y responsive */}
@@ -61,8 +38,6 @@ export const WelcomeSection = ({ name, lastname, xp, lesson }: Props) => {
                   <BookOpen className="w-8 h-8 sm:w-10 sm:h-10 text-primaryper" />
                 </div>
               </div>
-              {/* Badge de duración - Reposicionado en móvil */}
-            
             </div>
 
             <div className="flex-1 min-w-0 space-y-3 sm:space-y-4">

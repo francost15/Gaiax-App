@@ -1,6 +1,7 @@
 import { auth } from "@/auth.config";
 import { redirect } from "next/navigation";
 import { Toaster } from "sonner";
+import { AdminSidebar } from "@/components";
 
 export default async function AdminLayout({
   children,
@@ -11,10 +12,14 @@ export default async function AdminLayout({
   if (session?.user.role !== "admin") {
     redirect("/app");
   }
+  
   return (
-    <>
-      {children}
-      <Toaster />
-    </>
+    <div className="flex min-h-screen">
+      <AdminSidebar />
+      <main className="flex-1">
+        {children}
+        <Toaster />
+      </main>
+    </div>
   );
 }

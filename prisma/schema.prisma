@@ -157,14 +157,22 @@ model Content {
   id          String   @id @default(uuid())
   title       String
   description String   @default("")
-  // URL del contenido (opcional)
   url         String?
   exp         Int
-  // Tipo de contenido (puede ser un campo para indicar el formato)
-  type        String
-  // Categoría a la que pertenece el contenido
+  type        ContentType
   category    Category @relation(fields: [categoryId], references: [id])
   categoryId  String
+  lesson      Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId    String
+}
+
+enum ContentType {
+  interactive_text
+  flashcards
+  quiz
+  video
+  podcast
+  practice
 }
 
 // Modelo que representa los requerimientos específicos de una empresa
@@ -237,9 +245,8 @@ model Lesson {
   // Curso al que pertenece la lección
   course             Course               @relation(fields: [courseId], references: [id])
   courseId           String
-  // Progresos de los usuarios en esta lección
+  content            Content[]            // Nueva relación con Content
   UserLessonProgress UserLessonProgress[]
-  // Objetivos de aprendizaje de la lección
   learningObjectives String[]
   Feedback           Feedback[]
   Notification       Notification[]

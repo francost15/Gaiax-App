@@ -48,8 +48,8 @@ export function NotificationPanel() {
   const handleMarkAsRead = async (notificationId: string) => {
     try {
       await markNotificationAsRead(notificationId);
-      setNotifications(prev => 
-        prev.map(n => 
+      setNotifications(prev =>
+        prev.map(n =>
           n.id === notificationId ? { ...n, isRead: true } : n
         )
       );
@@ -117,9 +117,8 @@ export function NotificationPanel() {
               notifications.map((notification) => (
                 <div
                   key={notification.id}
-                  className={`p-4 hover:bg-gray-50 dark:hover:bg-neutral-800/50 transition-colors ${
-                    !notification.isRead ? 'bg-blue-50 dark:bg-blue-900/10' : ''
-                  }`}
+                  className={`p-4 hover:bg-gray-50 dark:hover:bg-neutral-800/50 transition-colors ${!notification.isRead ? 'bg-blue-50 dark:bg-blue-900/10' : ''
+                    }`}
                 >
                   <div className="flex items-start gap-3">
                     {getNotificationIcon(notification.notificationType)}

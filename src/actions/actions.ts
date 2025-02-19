@@ -5,10 +5,42 @@ import { z } from "zod";
 import { generateObject } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { Result } from "@/interface";
+import { Lesson, LessonContent } from "@/interfaces/Lesson.interface";
 
 const prisma = new PrismaClient();
 
 const TABLE_NAME = `"LearningPreferences"`;
+
+// Schema para validar el contenido de la lección
+const lessonContentSchema = z.object({
+  content: z.array(z.object({
+    type: z.enum(['interactive_text', 'flashcards', 'quiz']),
+    data: z.object({
+      text: z.union([
+        z.string(),
+        z.object({
+          text: z.string(),
+          highlights: z.array(z.object({
+            word: z.string(),
+            explanation: z.string()
+          }))
+        })
+      ]).optional(),
+      cards: z.array(z.object({
+        id: z.string(),
+        front: z.string(),
+        back: z.string()
+      })).optional(),
+      questions: z.array(z.object({
+        id: z.string(),
+        question: z.string(),
+        options: z.array(z.string()),
+        correctAnswer: z.number(),
+        explanation: z.string()
+      })).optional()
+    })
+  }))
+});
 
 export const generateQuery = async (input: string) => {
   "use server";
@@ -139,57 +171,59 @@ export const runGeneratedSQLQuery = async (query: string) => {
  * Genera contenido de lecciones personalizadas utilizando AI.
  */
 export const generateLessonContent = async (
-  userData: any,
-  companyRequirements: any,
-  topic: string
+  lesson: Lesson,
+  userPreferences: any,
+  companyRequirements: any
 ) => {
   try {
-    const userGoals = userData.goals.join(", ");
-    const userStrengths = userData.strengths.join(", ");
-    const improvementAreas = userData.improvementAreas.join(", ");
-    const preferredFormats = userData.formats.join(", ");
-    const companyReqs = companyRequirements
-      .map((req: any) => req.name)
-      .join(", ");
+    const result = await generateObject({
+      model: openai("gpt-4o"),
+      system: "Eres un experto en educación que genera contenido adaptativo en formato JSON válido.",
+      prompt: `
+        Genera contenido educativo personalizado basado en:
 
-    const prompt = `
-      Eres un asistente educativo que ayuda a un usuario con el siguiente perfil:
-      - Estilo de aprendizaje: ${userData.learningStyleKolb}
-      - Fortalezas: ${userStrengths}
-      - Áreas de mejora: ${improvementAreas}
-      - Formatos preferidos: ${preferredFormats}
-      - Tiempo disponible diario para capacitación: ${userData.availableTime} minutos
-      - Metas personales y laborales: ${userGoals}
-      
-      Además, esta lección debe cumplir con los siguientes requerimientos de la empresa:
-      - ${companyReqs}
-      
-      Proporciona una lección sobre "${topic}" que sea dinámica, interactiva y altamente personalizada para este usuario.
-      
-      La respuesta debe estar en formato markdown y debe incluir:
-      1. Título de la lección
-      2. Objetivos de aprendizaje
-      3. Contenido principal
-      4. Ejercicios prácticos
-      5. Recursos adicionales
-    `;
+        DATOS DEL CURSO:
+        Título: ${lesson.course.title}
+        Descripción: ${lesson.course.description}
 
-    const response = await generateObject({
-      model: openai("gpt-4"),
-      prompt: prompt,
-      schema: z.object({
-        content: z.string(),
-      }),
+        DATOS DE LA LECCIÓN:
+        Título: ${lesson.title}
+        Descripción: ${lesson.description}
+        Objetivos: ${lesson.learningObjectives.join(", ")}
+
+        PERFIL DEL USUARIO:
+        - Estilo de aprendizaje: ${userPreferences.learningStyleKolb}
+        - Fortalezas: ${userPreferences.strengths.join(", ")}
+        - Áreas de mejora: ${userPreferences.improvementAreas.join(", ")}
+        - Formatos preferidos: ${userPreferences.formats.join(", ")}
+        - Tiempo disponible: ${userPreferences.availableTime} minutos
+        - Metas: ${userPreferences.goals.join(", ")}
+        
+        REQUERIMIENTOS DE LA EMPRESA:
+        ${companyRequirements.map((req: any) => req.name).join(", ")}
+
+        Genera el contenido siguiendo esta estructura exacta para LessonContent[]:
+        [
+          {
+            "type": "interactive_text",
+            "data": { ... }
+          },
+          {
+            "type": "flashcards",
+            "data": { ... }
+          },
+          {
+            "type": "quiz",
+            "data": { ... }
+          }
+        ]`,
+      schema: lessonContentSchema,
       temperature: 0.7,
     });
 
-    if (!response?.object?.content) {
-      throw new Error("No se pudo generar el contenido de la lección");
-    }
-
-    return response.object.content;
+    return result.object.content;
   } catch (error: any) {
-    console.error("Error en generateLessonContent:", error);
+    console.error("Error generando contenido:", error);
     throw new Error(`Error generando contenido: ${error.message}`);
   }
 };
@@ -243,40 +277,42 @@ export const createCourse = async (
 /**
  * Genera y crea lecciones.
  */
-export const generateAndCreateLessons = async (
-  courseId: string,
-  userData: any,
-  topic: string
-) => {
+export const generateAndCreateLessons = async (courseId: string, userData: any, topic: string) => {
   try {
-    if (!userData?.company?.requirements) {
-      throw new Error("No se encontraron los requerimientos de la empresa");
-    }
-
-    if (!userData?.learningPreferences) {
-      throw new Error("No se encontraron las preferencias de aprendizaje");
-    }
-
-    const companyRequirements = userData.company.requirements;
-
-    console.log("Generando contenido para:", topic);
-    const lessonContent = await generateLessonContent(
-      userData.learningPreferences,
-      companyRequirements,
-      topic
-    );
-
-    console.log("Contenido generado, creando lección...");
-    const lesson = await prisma.lesson.create({
+    // Primero crear la lección básica
+    const basicLesson = await prisma.lesson.create({
       data: {
         courseId,
         title: `Lección sobre ${topic}`,
-        description: lessonContent,
+        description: topic,
         exp: 0,
       },
+      include: {
+        course: true
+      }
     });
 
-    return lesson;
+    // Luego generar el contenido
+    const lessonContent = await generateLessonContent(
+      {
+        ...basicLesson,
+        content: [],
+        course: {
+          title: basicLesson.course.title,
+          description: basicLesson.course.description
+        }
+      },
+      userData.learningPreferences,
+      userData.company.requirements
+    );
+
+    // Actualizar la lección con el contenido
+    return await prisma.lesson.update({
+      where: { id: basicLesson.id },
+      data: {
+        description: JSON.stringify(lessonContent)
+      }
+    });
   } catch (error: any) {
     console.error("Error detallado:", error);
     throw new Error(error.message || "Error desconocido generando la lección");

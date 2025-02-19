@@ -15,6 +15,11 @@ interface RequirementData {
   companyId: string;
 }
 
+function getContentType() {
+  const types = ['interactive_text', 'flashcards', 'quiz', 'video', 'podcast', 'practice'] as const;
+  return types[Math.floor(Math.random() * types.length)];
+}
+
 export async function createRequirementAndCourses(data: RequirementData) {
   if (!data || !data.companyId) {
     throw new Error("Datos de requerimiento inválidos");
@@ -46,7 +51,11 @@ export async function createRequirementAndCourses(data: RequirementData) {
       data.categoryId
     );
 
-    if (!generatedContent?.lessons || generatedContent.lessons.length === 0) {
+    if (!generatedContent) {
+      throw new Error("No se pudo generar el contenido del curso");
+    }
+
+    if (!generatedContent.lessons || generatedContent.lessons.length === 0) {
       throw new Error("No se pudieron generar las lecciones del curso");
     }
 
@@ -64,7 +73,7 @@ export async function createRequirementAndCourses(data: RequirementData) {
 
     // 4. Crear las lecciones para el curso
     for (const lessonData of generatedContent.lessons) {
-      await prisma.lesson.create({
+      const lesson = await prisma.lesson.create({
         data: {
           title: lessonData.title,
           description: lessonData.description,
@@ -114,7 +123,8 @@ export async function createRequirementAndCourses(data: RequirementData) {
       courseId: course.id
     };
   } catch (error: any) {
-    console.error("Error en createRequirementAndCourses:", error);
-    throw new Error(`Error al crear curso: ${error.message}`);
+    const errorMessage = error?.message || 'Error desconocido al crear el curso';
+    console.error("Error en createRequirementAndCourses: " + errorMessage);
+    throw new Error(errorMessage);
   }
 }
